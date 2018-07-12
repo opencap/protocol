@@ -20,9 +20,9 @@ CCAP is a protocol that defines the standard by which cryptocurrency wallets can
 <p> CCAP is a simple protocol that does one thing: relate aliases to addresses. Servers can of course add more features to their servers (profile pictures, address re-use and validation, etc.) but these features are not a part of the base protocol. <p>
 
 <h2> Anatomy of an Alias </h2>
-<h3 >@{username}.{domain name} </h3>
-<h3> example: @lane.ogdolo.com </h3>
-<p> The @ symbol is out in front to not confuse aliases with email addresses. </p>
+<h3 >{username}${domain name} </h3>
+<h3> example: lane$ogdolo.com </h3>
+<p> The $ symbol is to not confuse aliases with email addresses. </p>
 <p> CCAP is a RESTful JSON protocol. The only information necessary in the alias is the domain where a user's address information is stored and a username.
 
 <h2> Security </h2>
@@ -50,7 +50,7 @@ Adds or updates the address for the authenticated user of the given coin type.
 * Alice recieves a payment from Bob and her wallet recognizes that a payment was recieved
 * Assuming Alice wants to update her address, her wallet will generate a new address and associated signature
 * Alice's wallet uses her alias to construct a URL and HTTP Method
-* @alice.ogdolo.com -> POST https://ogdolo.com:703/address
+* alice$ogdolo.com -> POST https://ogdolo.com:703/address
 * Alice's wallet authenticates with the CCAP server using her credentials to get a JWT that will securely allow her wallet to update her address
 * Alice's wallet constructs the JSON request to send to the server
 ```

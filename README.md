@@ -6,7 +6,7 @@ Sending cryptocurrency is not as easy as sending fiat currently. Centralized app
 </p>
 
 <p>
-Cryptocurrency addresses also change over time for a given user (wallets use new addresses for each transaction, or users create new wallets). With a permanent alias relates to an address that can be updates, this problem is solved.
+Cryptocurrency addresses also change over time for a given user (wallets use new addresses for each transaction, or users create new wallets). An alias relates to an address that can be updated, which solves this problem.
 </p>
 
 <h2> Solution </h2>

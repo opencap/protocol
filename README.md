@@ -76,7 +76,7 @@ Returns the address and signature of the related username and coin, if they exis
 
 * Bob's decides to send Alice 5 BTC via her alias @alice.ogdolo.com
 * Bob's wallet parses the alias into a URL destination and HTTP method
-* @alice.ogdolo.com -> GET https://ogdolo.com:703/address/alice/btc
+* alice$ogdolo.com -> GET https://ogdolo.com:703/address/alice/btc
 * If alice truly has a Bitcoin address hosted on the domain that her alias suggests, the address and signature will be sent back to Bob's wallet with an HTTP 200 Status OK.
 
 ```

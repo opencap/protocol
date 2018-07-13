@@ -128,6 +128,7 @@ Code: 200
 * Only allow address updates from verified IP addresses
 * Run a CCAP server yourself instead of using a third party (we anticipate the majority of users will prefer a third party service, like gmail for SMTP for example, but this is not required by the protocol)
 * Only allow address updates manually through a browser. Some currencies may not update addresses often, if ever. (Nano for example)
+* Use 2 way encryption like AES-256 to encrypt and store aliases with passwords. Only unencrypt when necessary.
 
 # Contribute
 CCAP is an open-source protocol please feel free to submit change proposals via the "issues" tab on github, or by submitting a pull request.

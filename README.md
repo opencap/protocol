@@ -2,11 +2,11 @@
 
 <h2> Problem </h2>
 <p>
-Sending cryptocurrency is not as easy as sending fiat currently. Centralized apps like Venmo, Swish, or Square Cash are more safe and secure in that they allow users to send money via usernames, emails, or phone numbers which are easy to remember and verify. Cryptocurrency addresses by nature are hard to remember, and when typed manually can easily contain errors. 
+Sending cryptocurrency is not as easy as sending fiat currently. Centralized apps like Venmo, Swish, or Square Cash are more convenient and have less room for error in that they allow users to send money via usernames, emails, or phone numbers which are easy to remember and verify. Cryptocurrency addresses by nature are hard to remember, and when typed manually can easily contain errors. 
 </p>
 
 <p>
-Cryptocurrency addresses also change over time for a given user (wallets use new addresses for each transaction, or users create new wallets). An alias relates to an address that can be updated, which solves this problem.
+Cryptocurrency addresses also change over time for a given user in some currencies (wallets use new addresses for each transaction, or users create new wallets). An alias relates to an address that can be updated, which solves this problem.
 </p>
 
 <h2> Solution </h2>
@@ -20,10 +20,10 @@ CCAP is a protocol that defines the standard by which cryptocurrency wallets can
 <p> CCAP is a simple protocol that does one thing: relate aliases to addresses. Servers can of course add more features to their servers (profile pictures, address re-use and validation, etc.) but these features are not a part of the base protocol. <p>
 
 <h2> Anatomy of an Alias </h2>
-<h3 >{username}${domain name} </h3>
-<h3> example: lane$ogdolo.com </h3>
-<p> The $ symbol is to not confuse aliases with email addresses. </p>
-<p> CCAP is a RESTful JSON protocol. The only information necessary in the alias is the domain where a user's address information is stored and a username.
+<h3 >@{username}.{domain name} </h3>
+<h3> example: @lane.ogdolo.com </h3>
+<p> The only information necessary in the alias is the domain where a user's address information is stored and a username. The @ symbol in front is to not confuse aliases with email addresses. Username's cannpt contain "." because this can cause ambiguity when subdomains are used. For example <b>@lane.crypto.ogdolo.com.</b> It is not clear if this means lane.crypto is the username, or if crypto.ogdolo.com is the domain name.
+</p>
 
 <h2> Security </h2>
 <p> CCAP does does not define the standard by which data should be stored and encrypted on either the client or server side. Those are details that depend upon the specific implementation. CCAP is only a communication protocol. Naturally, CCAP defines the security of communication (HTTPS) and the client->server authentication endpoints.
@@ -50,7 +50,7 @@ Adds or updates the address for the authenticated user of the given coin type.
 * Alice recieves a payment from Bob and her wallet recognizes that a payment was recieved
 * Assuming Alice wants to update her address, her wallet will generate a new address and associated signature
 * Alice's wallet uses her alias to construct a URL and HTTP Method
-* alice$ogdolo.com -> POST https://ogdolo.com:703/address
+* @alice.ogdolo.com -> POST https://ogdolo.com:703/address
 * Alice's wallet authenticates with the CCAP server using her credentials to get a JWT that will securely allow her wallet to update her address
 * Alice's wallet constructs the JSON request to send to the server
 ```
@@ -76,7 +76,7 @@ Returns the address and signature of the related username and coin, if they exis
 
 * Bob's decides to send Alice 5 BTC via her alias @alice.ogdolo.com
 * Bob's wallet parses the alias into a URL destination and HTTP method
-* alice$ogdolo.com -> GET https://ogdolo.com:703/address/alice/btc
+* @alice.ogdolo.com -> GET https://ogdolo.com:703/address/alice/btc
 * If alice truly has a Bitcoin address hosted on the domain that her alias suggests, the address and signature will be sent back to Bob's wallet with an HTTP 200 Status OK.
 
 ```
@@ -117,6 +117,20 @@ Code: 200
 <p> Of course servers are able to have other optional endpoints (user sign-ups, avatar pictures, password resets, etc) but those are not REQUIRED to adhere to CCAP, because most of those functions could also be handled by a webpage portal. CCAP simply facilitates alias -> address realtionships. </p>
 
 <p> Some cryptocurrencies may have additional requirements, and we encourage them to build their requirements on top of this protcol to ensure maximal plug-and-play in the crypto industry </p>
+
+# Attack Vectors
+<p> The most obvious way for a malicious party to use the alias system to steal funds would be to hack a CCAP server and secretly change out addresses so that their address is associated with someone else's alias. 
+</p>
+
+<p> We encourage anyone who has ideas for a way to help secure the CCAP system at the protocol level, however it may be that the best way is simply through secure practices on the server. Here is a list of ideas than can drastically help secure individual CCAP servers:</p>
+
+* Allow users to turn on 2FA for address updates
+* Only allow address updates from verified IP addresses
+* Run a CCAP server yourself instead of using a third party (we anticipate the majority of users will prefer a third party service, like gmail for SMTP for example, but this is not required by the protocol)
+* Only allow address updates manually through a browser. Some currencies may not update addresses often, if ever. (Nano for example)
+
+# Contribute
+CCAP is an open-source protocol please feel free to submit change proposals via the "issues" tab on github, or by submitting a pull request.
 
 # Special Thanks
 I worked with the Nano Canoe dev team on this idea, and I'm sure other will help with the protocol before it is finalized.

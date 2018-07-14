@@ -43,12 +43,11 @@ Adds or updates the address for the authenticated user of the given coin type.
 | ---------- | ----------- | -------- | ------------ |
 | coin | The ticker symbol of the coin for this address | Yes | "BTC"
 | address | The first valid recieving address for this wallet | Yes | bc1qvw0ytfntx6zs0lfsruem6xwj0mewng523ktatp
-| signature | The signature of the private key associated with this address. Proves validity. | Yes | "ADABIOB5234b35bol4b5QWEFSADFGARGAFGD"
 
 <h5>Example Usage</h5>
 
 * Alice recieves a payment from Bob and her wallet recognizes that a payment was recieved
-* Assuming Alice wants to update her address, her wallet will generate a new address and associated signature
+* Assuming Alice wants to update her address, her wallet will generate a new address
 * Alice's wallet uses her alias to construct a URL and HTTP Method
 * @alice.ogdolo.com -> POST https://ogdolo.com:703/address
 * Alice's wallet authenticates with the CCAP server using her credentials to get a JWT that will securely allow her wallet to update her address
@@ -58,7 +57,6 @@ Authorization: BEARER {jwt}
 {
     "coin": "BTC",
     "address": "bc1qvw0ytfntx6zs0lfsruem6xwj0mewng523ktatp",
-    "signature": "ADHIFDS54035fKIFDSI5904FAJPFNSFNS"
 }
 ```
 * Alice sends the request and her address is updated on the server
@@ -69,7 +67,7 @@ Authorization: BEARER {jwt}
 <p> No Authorization (Public method) </p>
 
 <p>
-Returns the address and signature of the related username and coin, if they exist.
+Returns the address of the related username and coin, if they exist.
 </p>
 
 <h5>Example Usage</h5>
@@ -77,13 +75,12 @@ Returns the address and signature of the related username and coin, if they exis
 * Bob's decides to send Alice 5 BTC via her alias @alice.ogdolo.com
 * Bob's wallet parses the alias into a URL destination and HTTP method
 * @alice.ogdolo.com -> GET https://ogdolo.com:703/address/alice/btc
-* If alice truly has a Bitcoin address hosted on the domain that her alias suggests, the address and signature will be sent back to Bob's wallet with an HTTP 200 Status OK.
+* If alice truly has a Bitcoin address hosted on the domain that her alias suggests, the address will be sent back to Bob's wallet with an HTTP 200 Status OK.
 
 ```
 Code: 200
 {
     "address": "bc1qvw0ytfntx6zs0lfsruem6xwj0mewng523ktatp",
-    "signature": "SDHAFIFSNADSIK54DSFIN76KNSDNF342AFPSDFSNDIF"
 }
 ```
 * Bob's wallet can notify Bob that a valid address was found, and the wallet can now route a payment to Alice through her address.

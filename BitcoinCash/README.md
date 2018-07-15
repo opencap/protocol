@@ -1,0 +1,1 @@
+# CCAP - Bitcoin Cash Specific Protocols

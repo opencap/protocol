@@ -42,6 +42,8 @@ CCAP is a simple protocol that does one thing: relate aliases to addresses. Serv
 
 The CCAP project is completely open source. This root README.md file describes the protocol in general as it applies to all coins. Each coin also has it's own specific folder that contains additional protocols. The subdirectories can have additional requirements or exceptions. The protocols in a coins subdirectory will take priority over the root protocol in case of a conflict.
 
+Subdirectory README files should follow the same general format as this root file.
+
 ## Anatomy of an Alias
 
 ### @{username}.{domain name}
@@ -60,7 +62,7 @@ While security isn't enforced explicitly, each README in this repo will have a s
 
 ## Required Endpoints
 
-### POST /address
+### POST /ccap/address
 
 Authorization: Bearer {jwt}
 
@@ -76,7 +78,7 @@ Adds or updates the address for the authenticated user of the given coin type.
 * Alice recieves a payment from Bob and her wallet recognizes that a payment was recieved
 * Assuming Alice wants to update her address, her wallet will generate a new address
 * Alice's wallet uses her alias to construct a URL and HTTP Method
-* @alice.ogdolo.com -> POST <https://ogdolo.com:703/address>
+* @alice.ogdolo.com -> POST <https://ogdolo.com/ccap/address>
 * Alice's wallet authenticates with the CCAP server using her credentials to get a JWT that will securely allow her wallet to update her address
 * Alice's wallet constructs the JSON request to send to the server
 
@@ -90,7 +92,7 @@ Authorization: BEARER {jwt}
 
 * Alice sends the request and her address is updated on the server
 
-### GET /address/{username}/{coin}
+### GET /ccap/address/{username}/{coin}
 
 No Authorization (Public method)
 
@@ -100,7 +102,7 @@ Returns the address of the related username and coin, if they exist.
 
 * Bob's decides to send Alice 5 BTC via her alias @alice.ogdolo.com
 * Bob's wallet parses the alias into a URL destination and HTTP method
-* @alice.ogdolo.com -> GET <https://ogdolo.com:703/address/alice/btc>
+* @alice.ogdolo.com -> GET <https://ogdolo.com/ccap/address/alice/btc>
 * If alice truly has a Bitcoin address hosted on the domain that her alias suggests, the address will be sent back to Bob's wallet with an HTTP 200 Status OK.
 
 ```javascript
@@ -112,7 +114,7 @@ Code: 200
 
 * Bob's wallet can notify Bob that a valid address was found, and the wallet can now route a payment to Alice through her address.
 
-### POST /auth
+### POST /ccap/auth
 
 No Authorization (Public method)
 
@@ -136,7 +138,7 @@ Code: 200
 
 The following endpoints are not REQUIRED to adhere to CCAP, because most of those functions could also be handled by a webpage portal, or simply on the server backend side if the user is running their own server. However, IF a server or wallet are going to implement the functionality of the following endpoints, they should do it in this manner. If for some reason this is impossible, please submit an issue/PR so we can fix the problem.
 
-### POST /user
+### POST /ccap/user
 
 No Authorization (Public method)
 
@@ -158,7 +160,7 @@ Code: 200
 }
 ```
 
-### DELETE /user
+### DELETE /ccap/user
 
 Authorization: BEARER {jwt}
 
@@ -173,7 +175,7 @@ Code: 200
 }
 ```
 
-### DELETE /address/{coin}
+### DELETE /ccap/address/{coin}
 
 Authorization: BEARER {jwt}
 

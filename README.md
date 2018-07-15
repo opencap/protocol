@@ -1,10 +1,34 @@
 # CCAP - CryptoCurrency Alias Protocol
 
+Inception: July 2018
+
+## Contents
+
+[Problem](#problem)
+
+[Solution](#solution)
+
+[Format of this Repository](#format-of-this-repository)
+
+[Anatomy of an Alias](#anatomy-of-an-alias)
+
+[Security](#security)
+
+[Required Endpoints](#required-endpoints)
+
+[Optional Endpoints](#optional-endpoints)
+
+[Attack Vectors](#attack-vectors)
+
+[Contribute](#contribute)
+
+[CCAP Compliant Software](#ccap-compliant-software)
+
 ## Problem
 
 Sending cryptocurrency is not as easy as sending fiat currently. Centralized apps like Venmo, Swish, or Square Cash are more convenient and have less room for error in that they allow users to send money via usernames, emails, or phone numbers which are easy to remember and verify. Cryptocurrency addresses by nature are hard to remember, and when typed manually can easily contain errors.
 
-Cryptocurrency addresses also change over time for a given user in some currencies (wallets use new addresses for each transaction, or users create new wallets). An alias relates to an address that can be updated, which solves this problem.
+Cryptocurrency addresses also change over time for a given user in some currencies (wallets use new addresses for each transaction, or users create new wallets). When posting addresses online, future payments will use the same address which defeats the purpose of the non-reuse feature. An alias relates to an address that can be updated, which solves this problem.
 
 ## Solution
 
@@ -14,17 +38,25 @@ CCAP is adhered to by both client (wallet) software and server (address storage)
 
 CCAP is a simple protocol that does one thing: relate aliases to addresses. Servers can of course add more features to their servers (profile pictures, address re-use and validation, etc.) but these features are not a part of the base protocol.
 
+## Format of this Repository
+
+The CCAP project is completely open source. This root README.md file describes the protocol in general as it applies to all coins. Each coin also has it's own specific folder that contains additional protocols. The subdirectories can have additional requirements or exceptions. The protocols in a coins subdirectory will take priority over the root protocol in case of a conflict.
+
 ## Anatomy of an Alias
 
 ### @{username}.{domain name}
 
 ### example: @lane.ogdolo.com
 
-The only information necessary in the alias is the domain where a user's address information is stored and a username. The @ symbol in front is to not confuse aliases with email addresses. Username's cannpt contain a "." because this can cause ambiguity when subdomains are used. For example @lane.crypto.ogdolo.com. It is not clear if this means lane.crypto is the username, or if crypto.ogdolo.com is the domain name.
+The only information necessary in the alias is the domain where a user's address information is stored and a username. The @ symbol in front is to not confuse aliases with email addresses. Username's cannot contain a "." because this can cause ambiguity when subdomains are used. For example @lane.crypto.ogdolo.com. It is not clear if this means lane.crypto is the username, or if crypto.ogdolo.com is the domain name.
+
+Note: There is current discussion/debate around the format of the alias. If you have an opionion please express it in the appropriate issue that has been raised.
 
 ## Security
 
-CCAP does does not define the standard by which data should be stored and encrypted on either the client or server side. Those are details that depend upon the specific implementation. CCAP is only a communication protocol. Naturally, CCAP defines the security of communication (HTTPS) and the client->server authentication endpoints.
+CCAP does does not define the standard by which data should be stored and encrypted on either the client or server side. Those are details that depend upon the specific implementation. CCAP is only a communication protocol. Naturally, CCAP defines the security of communication (HTTPS) and the client-->server authentication endpoints.
+
+While security isn't enforced explicitly, each README in this repo will have a section marked "Attack Vectors" which describes where known possible security holes lie. In that section solutions will be discussed and provided so that server and client devs can know how to protect themselves and their users.
 
 ## Required Endpoints
 
@@ -88,7 +120,7 @@ Gets a new JWT for the given user. The JWT can be used to authenticate with the 
 
 | Parameters | Description | Required | Sample Value |
 | ---------- | ----------- | -------- | ------------ |
-| username | The username of the user | Yes | "lane.c.wagner"
+| username | The username of the user | Yes | "lane"
 | password | The password of the user | Yes | "SU93Rc00lpa55"
 
 #### Example Response
@@ -102,9 +134,59 @@ Code: 200
 
 ## Optional Endpoints
 
-Of course servers are able to have other optional endpoints (user sign-ups, avatar pictures, password resets, etc) but those are not REQUIRED to adhere to CCAP, because most of those functions could also be handled by a webpage portal. CCAP simply facilitates alias -> address realtionships.
+The following endpoints are not REQUIRED to adhere to CCAP, because most of those functions could also be handled by a webpage portal, or simply on the server backend side if the user is running their own server. However, IF a server or wallet are going to implement the functionality of the following endpoints, they should do it in this manner. If for some reason this is impossible, please submit an issue/PR so we can fix the problem.
 
-Some cryptocurrencies may have additional requirements, and we encourage them to build their requirements on top of this protcol to ensure maximal plug-and-play in the crypto industry.
+### POST /user
+
+No Authorization (Public method)
+
+Create a new user on the server.
+
+| Parameters | Description | Required | Sample Value |
+| ---------- | ----------- | -------- | ------------ |
+| username | The username of the user | Yes | "lane"
+| password | The password of the user | Yes | "SU93Rc00lpa55"
+| email | The email of the user | Yes | "lane.wagner@gmail.com"
+| ... | If additional information is required for sign-ups, then this endpoint shouldn't be used. Clients should sign up via a custom front-end portal of some sort. | ... | ...
+
+#### Example Response
+
+```javascript
+Code: 200
+{
+    "message": "success"
+}
+```
+
+### DELETE /user
+
+Authorization: BEARER {jwt}
+
+Delete all records of the authenticated user on the server.
+
+#### Example Response
+
+```javascript
+Code: 200
+{
+    "message": "success"
+}
+```
+
+### DELETE /address/{coin}
+
+Authorization: BEARER {jwt}
+
+Delete the address of the specified coin for the authenticated user.
+
+#### Example Response
+
+```javascript
+Code: 200
+{
+    "message": "success"
+}
+```
 
 ## Attack Vectors
 
@@ -121,3 +203,7 @@ We encourage anyone who has ideas for a way to help secure the CCAP system at th
 ## Contribute
 
 CCAP is an open-source protocol please feel free to submit change proposals via the "issues" tab on github, or by submitting a pull request.
+
+## CCAP Compliant Software
+
+* Nothing here yet... we just released! Give us a sec ;)

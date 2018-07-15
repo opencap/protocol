@@ -192,15 +192,24 @@ Code: 200
 
 ## Attack Vectors
 
+### Address Swaps
+
 The most obvious way for a malicious party to use the alias system to steal funds would be to hack a CCAP server and secretly change out addresses so that their address is associated with someone else's alias.
 
-We encourage anyone who has ideas for a way to help secure the CCAP system at the protocol level, however it may be that the best way is simply through secure practices on the server. Here is a list of ideas than can drastically help secure individual CCAP servers:
+Possible remedies:
 
 * Allow users to turn on 2FA for address updates
 * Only allow address updates from verified IP addresses
 * Run a CCAP server yourself instead of using a third party (we anticipate the majority of users will prefer a third party service, like gmail for SMTP for example, but this is not required by the protocol)
 * Only allow address updates manually through a browser. Some currencies may not update addresses often, if ever. (Nano for example)
 * Use 2 way encryption like AES-256 to encrypt and store aliases with passwords. Only unencrypt when necessary.
+
+### Payment Tracking
+
+It is fairly simple for a third party to constatly poll a given aliases endpoint and record all the addresses as they are server over time. This is a breach of privacy. While the alias protocol isn't necessarily meant to have stringent privacy measures (the whole point of an alias is to relate an account to an address) there are a couple things that can be done to increase privacy:
+
+* Coins that are able to implement features similar to BIP 47 should do so and use payment codes instead of regular addresses.
+* Servers can have sign-ups that don't require any personal information, just an anonymous alias.
 
 ## Contribute
 

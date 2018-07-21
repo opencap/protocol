@@ -20,6 +20,8 @@ Inception: July 2018
 
 [Attack Vectors](#attack-vectors)
 
+[Justifications](#justifications)
+
 [Contribute](#contribute)
 
 [CCAP Compliant Software](#ccap-compliant-software)
@@ -210,9 +212,19 @@ It is fairly simple for a third party to constatly poll a given alias's endpoint
 * Coins that are able to implement features similar to BIP 47 should do so and use payment codes instead of regular addresses.
 * Servers can have sign-ups that don't require any personal information, so users can use an anonymous alias.
 
+## Justifications
+
+* **Squatting:** CCAP is a REST protocol built on top of DNS to stop "squatters". Squatting is when users that are the first-adopters of the protocol come in and steal all the valuable aliases ("nike", "coke", "trump", "btc", etc). By requiring that the a domain name is part of an alias, users have to first own the domain which is a system that is already fairly distributed.
+
+* **TXT Records**: There is another protocol out there, OpenAlias, that proposes the usage of domain TXT Records for transmitting alias/address combinations. A lot of good work was done there, but we designed this system because we felt that most defvelopers are more comfortable building out a simple CRUD app with a database. If it is easier for developers to adhere tothe protocol, it will naturally be more distibuted and decentralized.
+
+* **Why no blockchain?** The amount of data being stored on blockchains is a constant struggle, we are always trying to reduce the amount of data that needs to be verified by all nodes in a decentralized network (see the bitcoin scaling problem)Namecoin also never experienced great adoption so we saw no reason to beat that dead horse.
+
 ## Contribute
 
-CCAP is an open-source protocol please feel free to submit change proposals via the "issues" tab on github, or by submitting a pull request.
+CCAP is an open-source protocol please feel free to submit change proposals via the "issues" tab on github, or by submitting a pull request. 
+
+Build software that supports the protocol! The more wallets and servers actually work together to solve the alias problem, the easier it is to solve in the end. If you aren't a developer, reach out to your favorite project teams and let them know about the project!
 
 ## CCAP Compliant Software
 

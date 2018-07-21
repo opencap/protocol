@@ -83,7 +83,7 @@ Adds or updates the address for the authenticated user of the given coin type.
 * Alice's wallet constructs the JSON request to send to the server
 
 ```javascript
-Authorization: BEARER {jwt}
+Authorization: Bearer {jwt}
 {
     "coin": "BTC",
     "address": "bc1qvw0ytfntx6zs0lfsruem6xwj0mewng523ktatp",
@@ -162,7 +162,7 @@ Code: 200
 
 ### DELETE /ccap/user
 
-Authorization: BEARER {jwt}
+Authorization: Bearer {jwt}
 
 Delete all records of the authenticated user on the server.
 
@@ -177,7 +177,7 @@ Code: 200
 
 ### DELETE /ccap/address/{coin}
 
-Authorization: BEARER {jwt}
+Authorization: Bearer {jwt}
 
 Delete the address of the specified coin for the authenticated user.
 
@@ -198,18 +198,17 @@ The most obvious way for a malicious party to use the alias system to steal fund
 
 Possible remedies:
 
-* Allow users to turn on 2FA for address updates
 * Only allow address updates from verified IP addresses
-* Run a CCAP server yourself instead of using a third party (we anticipate the majority of users will prefer a third party service, like gmail for SMTP for example, but this is not required by the protocol)
-* Only allow address updates manually through a browser. Some currencies may not update addresses often, if ever. (Nano for example)
-* Use 2 way encryption like AES-256 to encrypt and store aliases with passwords. Only unencrypt when necessary.
+* Run a CCAP server yourself instead of using a third party (Using a third party isn't inherently insecure, and in the case of a non-programmer it is probably more secure)
+* Only allow address updates manually through a browser and 2FA/Captcha. Some currencies may not update addresses often, if ever. (Nano for example)
+* Use 2 way encryption like AES-256 to cipher address and user data before storing it in a database so it can't easily be swapped out
 
 ### Payment Tracking
 
-It is fairly simple for a third party to constatly poll a given aliases endpoint and record all the addresses as they are server over time. This is a breach of privacy. While the alias protocol isn't necessarily meant to have stringent privacy measures (the whole point of an alias is to relate an account to an address) there are a couple things that can be done to increase privacy:
+It is fairly simple for a third party to constatly poll a given alias's endpoint and record all that alias's addresses over time. While the alias protocol isn't necessarily meant to have stringent privacy measures (the whole point of an alias is to relate a public account to an address) there are a couple things that can be done to increase privacy:
 
 * Coins that are able to implement features similar to BIP 47 should do so and use payment codes instead of regular addresses.
-* Servers can have sign-ups that don't require any personal information, just an anonymous alias.
+* Servers can have sign-ups that don't require any personal information, so users can use an anonymous alias.
 
 ## Contribute
 

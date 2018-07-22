@@ -63,7 +63,7 @@ While security isn't enforced explicitly, each README in this repo will have a s
 
 ## Required Endpoints
 
-### POST /ccap/address
+### POST /address
 
 Authorization: Bearer {jwt}
 

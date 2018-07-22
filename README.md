@@ -79,7 +79,7 @@ Adds or updates the address for the authenticated user of the given coin type.
 * Alice recieves a payment from Bob and her wallet recognizes that a payment was recieved
 * Assuming Alice wants to update her address, her wallet will generate a new address
 * Alice's wallet uses her alias to construct a URL and HTTP Method
-* @alice.ogdolo.com -> POST <https://ogdolo.com/ccap/address>
+* alice@ogdolo.com -> POST <https://ogdolo.com/ccap/address>
 * Alice's wallet authenticates with the CCAP server using her credentials to get a JWT that will securely allow her wallet to update her address
 * Alice's wallet constructs the JSON request to send to the server
 
@@ -101,9 +101,9 @@ Returns the address of the related username and coin, if they exist.
 
 #### Example Usage
 
-* Bob's decides to send Alice 5 BTC via her alias @alice.ogdolo.com
+* Bob's decides to send Alice 5 BTC via her alias alice@ogdolo.com
 * Bob's wallet parses the alias into a URL destination and HTTP method
-* @alice.ogdolo.com -> GET <https://ogdolo.com/ccap/address/alice/btc>
+* alice@ogdolo.com -> GET <https://ogdolo.com/ccap/address/alice/btc>
 * If alice truly has a Bitcoin address hosted on the domain that her alias suggests, the address will be sent back to Bob's wallet with an HTTP 200 Status OK.
 
 ```javascript

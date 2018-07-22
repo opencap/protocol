@@ -18,6 +18,8 @@ Inception: July 2018
 
 [Optional Endpoints](#optional-endpoints)
 
+[DNS Records](#dns-records)
+
 [Attack Vectors](#attack-vectors)
 
 [Justifications](#justifications)
@@ -191,6 +193,17 @@ Code: 200
     "message": "success"
 }
 ```
+
+## DNS Records
+
+Similar to mail servers, a DNS record for each CCAP domain is required that points to the actual CCAP service host and port. A [Service record (SRV)](https://en.wikipedia.org/wiki/SRV_record) is used to accomplish this.  
+  
+The format is the following:  
+`_ccap._tcp.example.org. TTL class SRV priority weight port target.`  
+
+In practice, a record can look like this:  
+`_ccap._tcp.ogdolo.com. 3600 IN SRV 10 0 1337 ccap01.ogdolo.com.`  
+This means that the server at ccap01.ogdolo.com:1337 handles the requests to all aliases which have ogdolo.com as a domain name.
 
 ## Attack Vectors
 

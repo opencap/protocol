@@ -48,13 +48,12 @@ Subdirectory README files should follow the same general format as this root fil
 
 ## Anatomy of an Alias
 
-### @{username}.{domain name}
+### {username}@{domain name}
 
-### example: @lane.ogdolo.com
+### example: lane@ogdolo.com
 
-The only information necessary in the alias is the domain where a user's address information is stored and a username. The @ symbol in front is to not confuse aliases with email addresses. Username's cannot contain a "." because this can cause ambiguity when subdomains are used. For example @lane.crypto.ogdolo.com. It is not clear if this means lane.crypto is the username, or if crypto.ogdolo.com is the domain name.
-
-Note: There is current discussion/debate around the format of the alias. If you have an opionion please express it in the appropriate issue that has been raised.
+Aliases have the same anatomy as an email address. This greatly benefits user experience as people are used to emailing, and payment services like PayPal allow sending to email addresses as well.  
+Using email addresses does neither mean that a CCAP service has to be run on the same host as the mail server nor that a mail server has to be run under the target domain name at all.
 
 ## Security
 

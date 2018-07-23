@@ -95,7 +95,7 @@ Authorization: Bearer {jwt}
 
 * Alice sends the request and her address is updated on the server
 
-### GET /ccap/address/{username}/{coin}
+### GET /ccap/address/{coin}/{address}
 
 No Authorization (Public method)
 

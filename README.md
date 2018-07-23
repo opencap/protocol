@@ -1,4 +1,4 @@
-# CCAP - CryptoCurrency Alias Protocol
+# CAP - Crypto Alias Protocol
 
 Inception: July 2018
 
@@ -26,7 +26,7 @@ Discord: https://discord.gg/A8Jkp2
 
 [Contribute](#contribute)
 
-[CCAP Compliant Software](#ccap-compliant-software)
+[CAP Compliant Software](#cap-compliant-software)
 
 ## Problem
 
@@ -36,15 +36,15 @@ Cryptocurrency addresses also change over time for a given user in some currenci
 
 ## Solution
 
-CCAP is a protocol that defines the standard by which cryptocurrency wallets can communicate with servers to relate aliases to cryptocurrency addresses. The protocol allows for the decentralization of the alias --> address relationship. Anyone can use the protocol to build/host their own server on their own domain. Servers can be majorly centralized, or individuals can run their own servers, much like SMTP (email).
+CAP is a protocol that defines the standard by which cryptocurrency wallets can communicate with servers to relate aliases to cryptocurrency addresses. The protocol allows for the decentralization of the alias --> address relationship. Anyone can use the protocol to build/host their own server on their own domain. Servers can be majorly centralized, or individuals can run their own servers, much like SMTP (email).
 
-CCAP is adhered to by both client (wallet) software and server (address storage) sofware. Wallets must know how to properly parse an alias and perform the proper API calls. Servers must know how to handle those requests in the proper manner and send back valid data. Any given wallet and server that adhere to the CCAP protocol will be able to communicate cryptocurrency address information seamlessly.
+CAP is adhered to by both client (wallet) software and server (address storage) sofware. Wallets must know how to properly parse an alias and perform the proper API calls. Servers must know how to handle those requests in the proper manner and send back valid data. Any given wallet and server that adhere to the CAP protocol will be able to communicate cryptocurrency address information seamlessly.
 
-CCAP is a simple protocol that does one thing: relate aliases to addresses. Servers can of course add more features to their servers (profile pictures, address re-use and validation, etc.) but these features are not a part of the base protocol.
+CAP is a simple protocol that does one thing: relate aliases to addresses. Servers can of course add more features to their servers (profile pictures, address re-use and validation, etc.) but these features are not a part of the base protocol.
 
 ## Format of this Repository
 
-The CCAP project is completely open source. This root README.md file describes the protocol in general as it applies to all coins. Each coin also has it's own specific folder that contains additional protocols. The subdirectories can have additional requirements or exceptions. The protocols in a coins subdirectory will take priority over the root protocol in case of a conflict.
+The CAP project is completely open source. This root README.md file describes the protocol in general as it applies to all coins. Each coin also has it's own specific folder that contains additional protocols. The subdirectories can have additional requirements or exceptions. The protocols in a coins subdirectory will take priority over the root protocol in case of a conflict.
 
 Subdirectory README files should follow the same general format as this root file.
 
@@ -55,17 +55,17 @@ Subdirectory README files should follow the same general format as this root fil
 ### example: lane@ogdolo.com
 
 Aliases have the same anatomy as an email address. This greatly benefits user experience as people are used to emailing, and payment services like PayPal allow sending to email addresses as well.  
-Using email addresses does neither mean that a CCAP service has to be run on the same host as the mail server nor that a mail server has to be run under the target domain name at all.
+Using email addresses does neither mean that a CAP service has to be run on the same host as the mail server nor that a mail server has to be run under the target domain name at all.
 
 ## Security
 
-CCAP does does not define the standard by which data should be stored and encrypted on either the client or server side. Those are details that depend upon the specific implementation. CCAP is only a communication protocol. Naturally, CCAP defines the security of communication (HTTPS) and the client-->server authentication endpoints.
+CAP does does not define the standard by which data should be stored and encrypted on either the client or server side. Those are details that depend upon the specific implementation. CAP is only a communication protocol. Naturally, CAP defines the security of communication (HTTPS) and the client-->server authentication endpoints.
 
 While security isn't enforced explicitly, each README in this repo will have a section marked "Attack Vectors" which describes where known possible security holes lie. In that section solutions will be discussed and provided so that server and client devs can know how to protect themselves and their users.
 
 ## Required Endpoints
 
-### POST /ccap/address
+### POST /cap/address
 
 Authorization: Bearer {jwt}
 
@@ -81,8 +81,8 @@ Adds or updates the address for the authenticated user of the given coin type.
 * Alice recieves a payment from Bob and her wallet recognizes that a payment was recieved
 * Assuming Alice wants to update her address, her wallet will generate a new address
 * Alice's wallet uses her alias to construct a URL and HTTP Method
-* alice@ogdolo.com -> POST <https://ogdolo.com/ccap/address>
-* Alice's wallet authenticates with the CCAP server using her credentials to get a JWT that will securely allow her wallet to update her address
+* alice@ogdolo.com -> POST <https://ogdolo.com/cap/address>
+* Alice's wallet authenticates with the CAP server using her credentials to get a JWT that will securely allow her wallet to update her address
 * Alice's wallet constructs the JSON request to send to the server
 
 ```javascript
@@ -95,7 +95,7 @@ Authorization: Bearer {jwt}
 
 * Alice sends the request and her address is updated on the server
 
-### GET /ccap/address/{coin}/{address}
+### GET /cap/address/{coin}/{address}
 
 No Authorization (Public method)
 
@@ -105,7 +105,7 @@ Returns the address of the related username and coin, if they exist.
 
 * Bob's decides to send Alice 5 BTC via her alias alice@ogdolo.com
 * Bob's wallet parses the alias into a URL destination and HTTP method
-* alice@ogdolo.com -> GET <https://ogdolo.com/ccap/address/alice/btc>
+* alice@ogdolo.com -> GET <https://ogdolo.com/cap/address/alice/btc>
 * If alice truly has a Bitcoin address hosted on the domain that her alias suggests, the address will be sent back to Bob's wallet with an HTTP 200 Status OK.
 
 ```javascript
@@ -117,7 +117,7 @@ Code: 200
 
 * Bob's wallet can notify Bob that a valid address was found, and the wallet can now route a payment to Alice through her address.
 
-### POST /ccap/auth
+### POST /cap/auth
 
 No Authorization (Public method)
 
@@ -139,9 +139,9 @@ Code: 200
 
 ## Optional Endpoints
 
-The following endpoints are not REQUIRED to adhere to CCAP, because most of those functions could also be handled by a webpage portal, or simply on the server backend side if the user is running their own server. However, IF a server or wallet are going to implement the functionality of the following endpoints, they should do it in this manner. If for some reason this is impossible, please submit an issue/PR so we can fix the problem.
+The following endpoints are not REQUIRED to adhere to CAP, because most of those functions could also be handled by a webpage portal, or simply on the server backend side if the user is running their own server. However, IF a server or wallet are going to implement the functionality of the following endpoints, they should do it in this manner. If for some reason this is impossible, please submit an issue/PR so we can fix the problem.
 
-### POST /ccap/user
+### POST /cap/user
 
 No Authorization (Public method)
 
@@ -163,7 +163,7 @@ Code: 200
 }
 ```
 
-### DELETE /ccap/user
+### DELETE /cap/user
 
 Authorization: Bearer {jwt}
 
@@ -178,7 +178,7 @@ Code: 200
 }
 ```
 
-### DELETE /ccap/address/{coin}
+### DELETE /cap/address/{coin}
 
 Authorization: Bearer {jwt}
 
@@ -197,12 +197,12 @@ Code: 200
 
 ### Address Swaps
 
-The most obvious way for a malicious party to use the alias system to steal funds would be to hack a CCAP server and secretly change out addresses so that their address is associated with someone else's alias.
+The most obvious way for a malicious party to use the alias system to steal funds would be to hack a CAP server and secretly change out addresses so that their address is associated with someone else's alias.
 
 Possible remedies:
 
 * Only allow address updates from verified IP addresses
-* Run a CCAP server yourself instead of using a third party (Using a third party isn't inherently insecure, and in the case of a non-programmer it is probably more secure)
+* Run a CAP server yourself instead of using a third party (Using a third party isn't inherently insecure, and in the case of a non-programmer it is probably more secure)
 * Only allow address updates manually through a browser and 2FA/Captcha. Some currencies may not update addresses often, if ever. (Nano for example)
 * Use 2 way encryption like AES-256 to cipher address and user data before storing it in a database so it can't easily be swapped out
 
@@ -215,7 +215,7 @@ It is fairly simple for a third party to constatly poll a given alias's endpoint
 
 ## Justifications
 
-* **Squatting:** CCAP is a REST protocol built on top of DNS to stop "squatters". Squatting is when users that are the first-adopters of the protocol come in and steal all the valuable aliases ("nike", "coke", "trump", "btc", etc). By requiring that the a domain name is part of an alias, users have to first own the domain which is a system that is already fairly distributed.
+* **Squatting:** CAP is a REST protocol built on top of DNS to stop "squatters". Squatting is when users that are the first-adopters of the protocol come in and steal all the valuable aliases ("nike", "coke", "trump", "btc", etc). By requiring that the a domain name is part of an alias, users have to first own the domain which is a system that is already fairly distributed.
 
 * **TXT Records**: There is another protocol out there, OpenAlias, that proposes the usage of domain TXT Records for transmitting alias/address combinations. A lot of good work was done there, but we designed this system because we felt that most defvelopers are more comfortable building out a simple CRUD app with a database. If it is easier for developers to adhere tothe protocol, it will naturally be more distibuted and decentralized.
 
@@ -223,10 +223,10 @@ It is fairly simple for a third party to constatly poll a given alias's endpoint
 
 ## Contribute
 
-CCAP is an open-source protocol please feel free to submit change proposals via the "issues" tab on github, or by submitting a pull request. 
+CAP is an open-source protocol please feel free to submit change proposals via the "issues" tab on github, or by submitting a pull request. 
 
 Build software that supports the protocol! The more wallets and servers actually work together to solve the alias problem, the easier it is to solve in the end. If you aren't a developer, reach out to your favorite project teams and let them know about the project!
 
-## CCAP Compliant Software
+## CAP Compliant Software
 
 * Nothing here yet... we just released! Give us a sec ;)

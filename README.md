@@ -28,6 +28,8 @@ Discord: https://discord.gg/A8Jkp2
 
 [TIER 2 Endpoints](#tier-2-endpoints)
 
+[TIER 3 Endpoints](#tier-3-endpoints)
+
 [Contribute](#contribute)
 
 [CAP Compliant Software](#CAP-compliant-software)
@@ -113,7 +115,7 @@ It is fairly simple for a third party to constatly poll a given alias's endpoint
 
 ## ENDPOINTS
 
-All endpoints (Tier 1 and Tier 2) adhere to RESTful standards and communicate using JSON. 
+All endpoints (Tier 1-3) adhere to RESTful standards and communicate using JSON. 
 
 All endpoints are served at the URL in the following format:
 
@@ -129,7 +131,43 @@ Endpoints are prefixed with Protocol version in case of non-backwards compatibil
 
 The following GET endpoint is the only endpoint a server needs to support to be CAP 1 compliant. This is because in order for a user to have a CAP alias, wallets just need to know where to look up the address. CAP 1 can be as simple as a static string served from the endpoint.
 
-### GET /v1/address/{ledger_id}/{username}
+### GET /v1
+
+No Authorization (Public method)
+
+Returns general information about the server (name, software, supported ledgers, ...).
+
+```javascript
+Code: 200
+{
+    "name": "Example OpenCAP server",
+    "software": "OpenCAP 1.0",
+    "supported_ledgers": [
+        0,
+        1
+    ],
+    "donations": "donate@domain.tld",
+    "registrations": true,
+    "custom_domains": true
+}
+```
+
+### GET /v1/users/{username}
+
+No Authorization (Public method)
+
+Returns some profile information about the user/alias.
+
+```javascript
+Code: 200
+{
+    "name": "Satoshi Nakamoto",
+    "picture": "https://...",
+    "pgp_fingerprint": "..."
+}
+```
+
+### GET /v1/users/{username}/ledgers/{ledger_id}
 
 No Authorization (Public method)
 
@@ -137,26 +175,25 @@ Returns the address of the related username and ledger, if it exists on the serv
 
 #### Example Usage
 
-* Bob's decides to send Alice 5 BTC via her alias alice@ogdolo.com
+* Bob decides to send Alice 5 BCH via her alias alice@domain.tld
 * Bob's wallet parses the alias into a URL destination and HTTP method
-* BTC_SEGWIT = ledger_id: 1
-* alice@ogdolo.com -> GET <https://opencap.ogdolo.com/address/1/alice>
-* If alice truly has a Bitcoin address hosted on the domain that her alias suggests, the address will be sent back to Bob's wallet with an HTTP 200 Status OK.
+* Ledger ID for Bitcoin Cash = 0
+* alice@domain.tld -> GET <https://opencap.domain.tld/v1/users/alice/ledgers/0>
+* If Alice truly has a Bitcoin Cash address hosted on the domain that her alias suggests, the address will be sent back to Bob's wallet with an HTTP 200 Status OK.
 
 ```javascript
 Code: 200
 {
     "type": 0,
     "address": "YukHsVy/J9VCU5nr9vD7UOu4jxg=",
-    "extensions": {
-        "dnssig": "..."
-    }
+    "dns_sig": "...",
+    "pgp_sig": "..."
 }
 ```
 
-* Bob's wallet can notify Bob that a valid address was found, and the wallet can now route a payment to Alice through her address.
+* Bob's wallet can notify Bob that a valid address was found, and the wallet can now route a payment to Alice through her address. Furthermore, it's recommended to check attached signatures if any for improved security.
 
-A wallet that uses multiple "ledgers" (BTC has legacy addresses and segwit addresses that constitute different ledgers within CAP) would first query the endpoint using the ledger_id of the preferred ledger, and if that fails it can try other ledgers. If the sender was able to send to a segwit address, they would first query the BTC_SEGWIT id (1) and if that fails, they would try the BTC_LEGACY id (0).
+A wallet that uses multiple "ledgers" (Bitcoin has legacy addresses and segwit addresses that constitute different ledgers within CAP) would first query the endpoint using the ledger_id of the preferred ledger, and if that fails it can try other ledgers. If the sender was able to send to a segwit address, they would first query the Bitcoin SegWit Ledger ID and if that fails, they would try the Bitcoin Legacy Ledger ID.
 
 <hr>
 
@@ -164,85 +201,98 @@ A wallet that uses multiple "ledgers" (BTC has legacy addresses and segwit addre
 
 The following endpoints are required for a server to be CAP 2 compliant. These endpoints allow a wallet to know how to interact with a server on behalf of the user, in other words CREATE/UPDATE/DELETE address/user info.
 
-### PUT /v1/address
-
-Authorization: Bearer {jwt}
-
-Adds or updates the address for the authenticated user of the given coin type.
-
-| Parameters | Description | Required | Sample Value |
-| ---------- | ----------- | -------- | ------------ |
-| ledger_id | The ledger_id for this address | Yes | 1 (BTC_SEGWIT)
-| address | The user's address for this ledger | Yes | YukHsVy/J9VCU5nr9vD7UOu4jxg=
-| type | The address type | Yes | 0
-
-#### Example Usage
-
-* Alice recieves a payment from Bob and her wallet recognizes that a payment was recieved
-* Assuming Alice wants to update her address, her wallet will generate a new address
-* Alice's wallet uses her alias to construct a URL and HTTP Method
-* alice@ogdolo.com -> POST <https://opencap.ogdolo.com/address>
-* Alice's wallet authenticates with the CAP server using her credentials to get a JWT that will securely allow her wallet to update her address
-* Alice's wallet constructs the JSON request to send to the server
-
-```javascript
-Authorization: Bearer {jwt}
-{
-    "ledger_id": 0,
-    "address": "YukHsVy/J9VCU5nr9vD7UOu4jxg=",
-}
-```
-
-* Alice sends the request and her address is updated on the server
-
-
-### POST /v1/auth
+### POST /v1/users
 
 No Authorization (Public method)
 
-Gets a new JWT for the given user. The JWT can be used to authenticate with the other endpoints. JWT should last 5 minutes.
+Creates a new user.
 
-| Parameters | Description | Required | Sample Value |
-| ---------- | ----------- | -------- | ------------ |
-| username | The username of the user | Yes | "lane"
-| password | The password of the user | Yes | "SU93Rc00lpa55"
-
-#### Example Response
-
+Body:
 ```javascript
-Code: 200
 {
-    "jwt": "fn9s8dfasp7fub2uifb928rbpfdsfgasd9f8sdfbsa9fbsdf8ushdf9wbf"
+    "username": "john",
+    "password": "mysecretpassword"
 }
 ```
 
-### DELETE /v1/user
-
-Authorization: Bearer {jwt}
-
-Delete all records of the authenticated user on the server.
-
-#### Example Response
-
+Response:
 ```javascript
-Code: 200
+Status: 200
 {
-    "message": "success"
+
 }
 ```
 
-### DELETE /v1/address/{ledger_id}
+### DELETE /v1/users/:username
 
-Authorization: Bearer {jwt}
+Basic Authentication
 
-Delete the address of the specified ledger for the authenticated user.
+Deletes the user and all associated addresses.
 
-#### Example Response
-
+Response:
 ```javascript
-Code: 200
+Status: 200
 {
-    "message": "success"
+
+}
+```
+
+### PUT /v1/users/{username}/ledgers/{ledger_id}
+
+Basic Authentication
+
+Adds or updates the address for the user of the given ledger id.  
+Please note that the authenticated user and the param in the url must match.
+
+Body:
+```javascript
+{
+    "type": 0,
+    "address": "YukHsVy/J9VCU5nr9vD7UOu4jxg="
+}
+```
+
+Response:
+```javascript
+Status: 200
+{
+
+}
+```
+
+### DELETE /v1/users/{username}/ledgers/{ledger_id}
+
+Basic Authentication
+
+Deletes the address for the user of the given ledger id.  
+Please note that the authenticated user and the param in the url must match.
+
+Response:
+```javascript
+Status: 200
+{
+
+}
+```
+
+## TIER 3 ENDPOINTS
+
+The following endpoints are required for a server to be CAP 3 compliant. These endpoints allow the desktop client to manage custom domains.
+
+### POST /v1/domains/:domain
+
+No Authorization (Public method)
+
+Notifies the server that the DNS entries of 'opencap.' + specified domain point to it.  
+- First, the server should check whether there actually is a CNAME record pointing to it.  
+- Then, it reads the public key from the TXT record and saves it together with the domain name  
+- At last, it asks Let's Encrypt to issue a certificate for 'opencap.' + specified domain  
+
+Response:
+```javascript
+Status: 200
+{
+
 }
 ```
 

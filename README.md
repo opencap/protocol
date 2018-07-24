@@ -218,4 +218,4 @@ CCAP is an open-source protocol please feel free to submit change proposals via 
 ## CCAP Compliant Software
 
 ### Server:
-- [flaskCCAP](https://github.com/FrilledShark/flaskCCAP) - CCAP implemtation in Python Flask
+- [flaskCAP](https://github.com/FrilledShark/flaskCAP) - openCAP implemtation in Python Flask

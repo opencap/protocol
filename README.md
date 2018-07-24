@@ -164,7 +164,7 @@ A wallet that uses multiple "ledgers" (BTC has legacy addresses and segwit addre
 
 The following endpoints are required for a server to be CAP 2 compliant. These endpoints allow a wallet to know how to interact with a server on behalf of the user, in other words CREATE/UPDATE/DELETE address/user info.
 
-### POST /v1/address
+### PUT /v1/address
 
 Authorization: Bearer {jwt}
 

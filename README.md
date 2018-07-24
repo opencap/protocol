@@ -121,13 +121,15 @@ https://opencap.{domain}.{extension}:443/{endpoint}
 
 HTTPS is required for all CAP endpoints, and as is standard the port 443 will be used.
 
+Endpoints are prefixed with Protocol version in case of non-backwards compatibility.
+
 <hr>
 
 ## TIER 1 ENDPOINT
 
 The following GET endpoint is the only endpoint a server needs to support to be CAP 1 compliant. This is because in order for a user to have a CAP alias, wallets just need to know where to look up the address. CAP 1 can be as simple as a static string served from the endpoint.
 
-### GET /address/{ledger_id}/{username}
+### GET /v1/address/{ledger_id}/{username}
 
 No Authorization (Public method)
 
@@ -167,7 +169,7 @@ The "address_type"
 
 The following endpoints are required for a server to be CAP 2 compliant. These endpoints allow a wallet to know how to interact with a server on behalf of the user, in other words CREATE/UPDATE/DELETE address/user info.
 
-### POST /address
+### POST /v1/address
 
 Authorization: Bearer {jwt}
 
@@ -198,7 +200,7 @@ Authorization: Bearer {jwt}
 * Alice sends the request and her address is updated on the server
 
 
-### POST /auth
+### POST /v1/auth
 
 No Authorization (Public method)
 
@@ -218,7 +220,7 @@ Code: 200
 }
 ```
 
-### DELETE /user
+### DELETE /v1/user
 
 Authorization: Bearer {jwt}
 
@@ -233,7 +235,7 @@ Code: 200
 }
 ```
 
-### DELETE /address/{ledger_id}
+### DELETE /v1/address/{ledger_id}
 
 Authorization: Bearer {jwt}
 

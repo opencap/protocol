@@ -146,7 +146,7 @@ Returns the address of the related username and ledger, if it exists on the serv
 ```javascript
 Code: 200
 {
-    "address_type": 0,
+    "type": 0,
     "address": "YukHsVy/J9VCU5nr9vD7UOu4jxg=",
     "extensions": {
         "dnssig": "..."
@@ -157,8 +157,6 @@ Code: 200
 * Bob's wallet can notify Bob that a valid address was found, and the wallet can now route a payment to Alice through her address.
 
 A wallet that uses multiple "ledgers" (BTC has legacy addresses and segwit addresses that constitute different ledgers within CAP) would first query the endpoint using the ledger_id of the preferred ledger, and if that fails it can try other ledgers. If the sender was able to send to a segwit address, they would first query the BTC_SEGWIT id (1) and if that fails, they would try the BTC_LEGACY id (0).
-
-The "address_type"
 
 <hr>
 
@@ -176,7 +174,7 @@ Adds or updates the address for the authenticated user of the given coin type.
 | ---------- | ----------- | -------- | ------------ |
 | ledger_id | The ledger_id for this address | Yes | 1 (BTC_SEGWIT)
 | address | The user's address for this ledger | Yes | YukHsVy/J9VCU5nr9vD7UOu4jxg=
-| address_type | The address type | Yes | 0
+| type | The address type | Yes | 0
 
 #### Example Usage
 

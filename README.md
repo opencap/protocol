@@ -178,7 +178,7 @@ Adds or updates the address for the authenticated user of the given coin type.
 | Parameters | Description | Required | Sample Value |
 | ---------- | ----------- | -------- | ------------ |
 | ledger_id | The ledger_id for this address | Yes | 1 (BTC_SEGWIT)
-| address | The user's address for this ledger | Yes | bc1qvw0ytfntx6zs0lfsruem6xwj0mewng523ktatp
+| address | The user's address for this ledger | Yes | YukHsVy/J9VCU5nr9vD7UOu4jxg=
 
 #### Example Usage
 
@@ -193,7 +193,7 @@ Adds or updates the address for the authenticated user of the given coin type.
 Authorization: Bearer {jwt}
 {
     "ledger_id": 0,
-    "address": "bc1qvw0ytfntx6zs0lfsruem6xwj0mewng523ktatp",
+    "address": "YukHsVy/J9VCU5nr9vD7UOu4jxg=",
 }
 ```
 

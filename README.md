@@ -26,7 +26,7 @@ Discord: https://discord.gg/A8Jkp2
 
 [Contribute](#contribute)
 
-[CAP Compliant Software](#cap-compliant-software)
+[CAP Compliant Software](#CAP-compliant-software)
 
 ## Problem
 
@@ -65,7 +65,7 @@ While security isn't enforced explicitly, each README in this repo will have a s
 
 ## Required Endpoints
 
-### POST /cap/address
+### POST /address
 
 Authorization: Bearer {jwt}
 
@@ -81,7 +81,7 @@ Adds or updates the address for the authenticated user of the given coin type.
 * Alice recieves a payment from Bob and her wallet recognizes that a payment was recieved
 * Assuming Alice wants to update her address, her wallet will generate a new address
 * Alice's wallet uses her alias to construct a URL and HTTP Method
-* alice@ogdolo.com -> POST <https://ogdolo.com/cap/address>
+* alice@ogdolo.com -> POST <https://cap.ogdolo.com/address>
 * Alice's wallet authenticates with the CAP server using her credentials to get a JWT that will securely allow her wallet to update her address
 * Alice's wallet constructs the JSON request to send to the server
 
@@ -95,7 +95,7 @@ Authorization: Bearer {jwt}
 
 * Alice sends the request and her address is updated on the server
 
-### GET /cap/address/{coin}/{address}
+### GET /address/{username}/{coin}
 
 No Authorization (Public method)
 
@@ -105,7 +105,7 @@ Returns the address of the related username and coin, if they exist.
 
 * Bob's decides to send Alice 5 BTC via her alias alice@ogdolo.com
 * Bob's wallet parses the alias into a URL destination and HTTP method
-* alice@ogdolo.com -> GET <https://ogdolo.com/cap/address/alice/btc>
+* alice@ogdolo.com -> GET <https://cap.ogdolo.com/address/alice/btc>
 * If alice truly has a Bitcoin address hosted on the domain that her alias suggests, the address will be sent back to Bob's wallet with an HTTP 200 Status OK.
 
 ```javascript
@@ -117,7 +117,7 @@ Code: 200
 
 * Bob's wallet can notify Bob that a valid address was found, and the wallet can now route a payment to Alice through her address.
 
-### POST /cap/auth
+### POST /auth
 
 No Authorization (Public method)
 
@@ -141,7 +141,7 @@ Code: 200
 
 The following endpoints are not REQUIRED to adhere to CAP, because most of those functions could also be handled by a webpage portal, or simply on the server backend side if the user is running their own server. However, IF a server or wallet are going to implement the functionality of the following endpoints, they should do it in this manner. If for some reason this is impossible, please submit an issue/PR so we can fix the problem.
 
-### POST /cap/user
+### POST /user
 
 No Authorization (Public method)
 
@@ -163,7 +163,7 @@ Code: 200
 }
 ```
 
-### DELETE /cap/user
+### DELETE /user
 
 Authorization: Bearer {jwt}
 
@@ -178,7 +178,7 @@ Code: 200
 }
 ```
 
-### DELETE /cap/address/{coin}
+### DELETE /address/{coin}
 
 Authorization: Bearer {jwt}
 

@@ -149,7 +149,7 @@ Code: 200
 	"message": "success",
 	"data": {
         "address_type": 0,
-		"address": "bc1qvw0ytfntx6zs0lfsruem6xwj0mewng523ktatp",
+		"address": "YukHsVy/J9VCU5nr9vD7UOu4jxg=",
 		"extensions": {
 			"dnssig": "..."
 		}

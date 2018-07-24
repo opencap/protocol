@@ -143,7 +143,7 @@ The following endpoints are not REQUIRED to adhere to CAP, because most of those
 
 ### POST /cap/user
 
-No Authorization (Public method)
+Authorization: Secret {secret}
 
 Create a new user on the server.
 
@@ -151,7 +151,7 @@ Create a new user on the server.
 | ---------- | ----------- | -------- | ------------ |
 | username | The username of the user | Yes | "lane"
 | password | The password of the user | Yes | "SU93Rc00lpa55"
-| email | The email of the user | Yes | "lane.wagner@gmail.com"
+| email | The email of the user | no | "lane.wagner@gmail.com"
 | ... | If additional information is required for sign-ups, then this endpoint shouldn't be used. Clients should sign up via a custom front-end portal of some sort. | ... | ...
 
 #### Example Response

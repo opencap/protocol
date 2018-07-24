@@ -146,14 +146,11 @@ Returns the address of the related username and ledger, if it exists on the serv
 ```javascript
 Code: 200
 {
-	"message": "success",
-	"data": {
-        "address_type": 0,
-		"address": "YukHsVy/J9VCU5nr9vD7UOu4jxg=",
-		"extensions": {
-			"dnssig": "..."
-		}
-	}
+    "address_type": 0,
+    "address": "YukHsVy/J9VCU5nr9vD7UOu4jxg=",
+    "extensions": {
+        "dnssig": "..."
+    }
 }
 ```
 

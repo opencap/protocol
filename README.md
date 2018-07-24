@@ -30,7 +30,7 @@ Discord: https://discord.gg/A8Jkp2
 
 [Contribute](#contribute)
 
-[CAP Compliant Software](#cap-compliant-software)
+[CAP Compliant Software](#CAP-compliant-software)
 
 <hr>
 

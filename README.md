@@ -179,6 +179,7 @@ Adds or updates the address for the authenticated user of the given coin type.
 | ---------- | ----------- | -------- | ------------ |
 | ledger_id | The ledger_id for this address | Yes | 1 (BTC_SEGWIT)
 | address | The user's address for this ledger | Yes | YukHsVy/J9VCU5nr9vD7UOu4jxg=
+| address_type | The address type | Yes | 0
 
 #### Example Usage
 

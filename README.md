@@ -136,7 +136,7 @@ Returns the address of the related username and ledger, if it exists on the serv
 * Bob decides to send Alice 5 BCH via her alias alice@domain.tld
 * Bob's wallet parses the alias into a URL destination and HTTP method
 * Ledger ID for Bitcoin Cash = 0
-* alice@domain.tld -> GET <https://opencap.domain.tld/v1/users/alice/ledgers/0>
+* alice@domain.tld -> GET <https://opencap.domain.tld/v1/alice/0>
 * If Alice truly has a Bitcoin Cash address hosted on the domain that her alias suggests, the address will be sent back to Bob's wallet with an HTTP 200 Status OK.
 
 ```javascript

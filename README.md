@@ -149,6 +149,107 @@ A wallet that uses multiple "ledgers" (Bitcoin has legacy addresses and segwit a
 
 <hr>
 
+## TIER 2 ENDPOINTS
+
+The following endpoints are required for a server to be CAP 2 compliant. These endpoints allow a wallet to know how to interact with a server on behalf of the user, in other words CREATE/UPDATE/DELETE address/user info.
+
+### POST /v1/users
+
+No Authorization (Public method)
+
+Creates a new user.
+
+Body:
+```javascript
+{
+    "username": "john",
+    "password": "mysecretpassword"
+}
+```
+
+Response:
+```javascript
+Status: 200
+{
+
+}
+```
+
+### DELETE /v1/users/:username
+
+Basic Authentication
+
+Deletes the user and all associated addresses.
+
+Response:
+```javascript
+Status: 200
+{
+
+}
+```
+
+### PUT /v1/users/{username}/ledgers/{ledger_id}
+
+Basic Authentication
+
+Adds or updates the address for the user of the given ledger id.  
+Please note that the authenticated user and the param in the url must match.
+
+Body:
+```javascript
+{
+    "type": 0,
+    "address": "YukHsVy/J9VCU5nr9vD7UOu4jxg="
+}
+```
+
+Response:
+```javascript
+Status: 200
+{
+
+}
+```
+
+### DELETE /v1/users/{username}/ledgers/{ledger_id}
+
+Basic Authentication
+
+Deletes the address for the user of the given ledger id.  
+Please note that the authenticated user and the param in the url must match.
+
+Response:
+```javascript
+Status: 200
+{
+
+}
+```
+
+## TIER 3 ENDPOINTS
+
+The following endpoints are required for a server to be CAP 3 compliant. These endpoints allow the desktop client to manage custom domains.
+
+### POST /v1/domains/:domain
+
+No Authorization (Public method)
+
+Notifies the server that the DNS entries of 'opencap.' + specified domain point to it.  
+- First, the server should check whether there actually is a CNAME record pointing to it.  
+- Then, it reads the public key from the TXT record and saves it together with the domain name  
+- At last, it asks Let's Encrypt to issue a certificate for 'opencap.' + specified domain  
+
+Response:
+```javascript
+Status: 200
+{
+
+}
+```
+
+<hr>
+
 ## Contribute
 
 CAP is an open-source protocol please feel free to submit change proposals via the "issues" tab on github, or by submitting a pull request. 

@@ -107,31 +107,28 @@ It is fairly simple for a third party to constatly poll a given alias's endpoint
 
 <hr>
 
+## Connecting to the CAP server
+
+When a wallet gets an alias like john@doe.com it first has to determine which server to query.  
+It will first try connecting to https://doe.com:41145/, and fallback querying the SRV record _cap._tcp at 'doe.com' and use the specified server for the requests.
+
 ## Endpoints
-
-All endpoints are served at the URL in the following format:
-
-https://opencap.{domain}.{extension}:443/{endpoint}
-
-HTTPS is required for all CAP endpoints, and as is standard the port 443 will be used.
-
-Endpoints are prefixed with Protocol version in case of non-backwards compatibility.
 
 <hr>
 
-### GET /v1/{username}/{ledger_id}
+### GET /{domain}/{username}/{ledger_id}
 
 No Authorization (Public method)
 
-Returns the address of the related username and ledger, if it exists on the server.
+Returns the address of the related domain, username and ledger, if it exists on the server.
 
 #### Example Usage
 
 * Bob decides to send Alice 5 BCH via her alias alice@domain.tld
-* Bob's wallet parses the alias into a URL destination and HTTP method
+* Wallet finds a CAP server running at https://domain.tld:41145/
 * Ledger ID for Bitcoin Cash = 0
-* alice@domain.tld -> GET <https://opencap.domain.tld/v1/alice/0>
-* If Alice truly has a Bitcoin Cash address hosted on the domain that her alias suggests, the address will be sent back to Bob's wallet with an HTTP 200 Status OK.
+* alice@domain.tld -> GET <https://domain.tld:41145/domain.tld/alice/0>
+* If Alice truly has a Bitcoin Cash address, the address will be sent back to Bob's wallet with an HTTP 200 Status OK.
 
 ```javascript
 Code: 200

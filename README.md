@@ -24,12 +24,6 @@ Discord: https://discord.gg/A8Jkp2
 
 [Endpoints](#endpoints)
 
-[TIER 1 Endpoint](#tier-1-endpoint)
-
-[TIER 2 Endpoints](#tier-2-endpoints)
-
-[TIER 3 Endpoints](#tier-3-endpoints)
-
 [Contribute](#contribute)
 
 [CAP Compliant Software](#CAP-compliant-software)

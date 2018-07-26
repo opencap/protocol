@@ -28,7 +28,7 @@ Status: 200
 
 Authorization Bearer {jwt}
 
-Authenticates a user to be able to use the JWT for the other endpoints. The JWT should contain enough information to uniquely identify the user. This would typically be the username and domain. The JWT must not expire for at least thirty minutes.
+Authenticates a user to be able to use a JWT to authenticate at the other endpoints. The JWT should contain enough information to uniquely identify the user which would typically be the user's username and domain. The JWT must not expire for at least thirty minutes.
 
 Body:
 ```javascript
@@ -56,8 +56,7 @@ Deletes the authenticated user and all associated addresses.
 Response:
 ```javascript
 Status: 200
-{
-}
+{}
 ```
 
 ## PUT /v1/address
@@ -78,8 +77,7 @@ Body:
 Response:
 ```javascript
 Status: 200
-{
-}
+{}
 ```
 
 ## DELETE /v1/address/{asset}
@@ -91,6 +89,5 @@ Deletes the address for the user of the given asset.
 Response:
 ```javascript
 Status: 200
-{
-}
+{}
 ```

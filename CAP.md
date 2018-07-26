@@ -3,13 +3,19 @@
 The CAP sub-protocol can be considered the only "required" portion of the opencap protocol. CAP allows a client (wallet) to be able to take an alias as input and derive the appropriate crypto address to send a payment to. There are only two things required of a server to be CAP compliant:
 
 ## 1.
-The domain of the CAP server must have a SRV record that points at itself. This is so that the other sub-protocol ([CAPP](/CAPP.md)) has the possibiliy of allowing proxy aliases. For more info on that see CAPP.md in the root of this repository. The format of the SRV record is as follows:
+The domain of the CAP server must have a SRV record that points at itself. This is so that the other sub-protocol ([CAPP](/CAPP.md)) has the possibiliy of allowing proxy aliases. The format of the SRV record is as follows:
 
 ```javascript
-CAPP-opencap.domain.tld:443
+CAPP-{domain}:{port}-host
 ```
 
-Where "opencap.domain.tld" is the domain where the CAP server is running and 443 is the port it is listening on. Any subdomain can be used but "opencap" is standard. Any port may be used but communication is required to be over HTTPS.
+"CAPP" specifies that this SRV record is to be used for the CAPP protocol.
+
+{domain} is the domain where the server is hosted. For example, opencap.ogdolo.com Any subdomain can be used but "opencap" is standard.
+
+{port} Any port may be used but communication is required to be over HTTPS. Standard is 443
+
+"host" specifies that this is a host server and not a proxy domain used by ([CAPP](/CAPP.md)).
 
 ## 2.
 The following endpoint must be supported:
@@ -27,7 +33,7 @@ Returns the address of the related domain, username, and ledger if it exists on 
 * Wallet finds a SRV record that contains:
 
 ```javascript
-opencap.domain.tld:443
+CAPP-opencap.domain.tld:443-host
 ```
 
 which specifies that this alias is not a "proxied" alias and is hosted on the server with the same domain name as that of the alias.
@@ -35,7 +41,7 @@ which specifies that this alias is not a "proxied" alias and is hosted on the se
 * Wallet now knows that a CAP server is running at https://opencap.domain.tld:443
 * Bob is sending BTC and the Asset ID for BTC is 0
 * Bob's wallet makes a GET request to the formulated URL: https://opencap.domain.tld:443/0/alice/domain.tld
-* If Alice truly has a BTC address on the server it will be sent back to Bob's wallet with an HTTP 200 Status OK.
+* If Alice truly has at least one BTC address on the server, it will be sent back to Bob's wallet with an HTTP 200 Status OK.
 
 ```javascript
 Code: 200
@@ -58,8 +64,6 @@ Code: 200
 }
 ```
 
-Bob's wallet can notify Bob that a valid address was found, and the wallet can now route a payment to Alice through her address of the type Bob wants to send to.
+Bob's wallet notifies Bob that two valid addresses ware found. The wallet can now route a payment to Alice through her address of the type Bob chooses.
 
-Some assets have multiple types. In these instances it is possible that an alias has mutliple addresses stored, one of each type. For this reason all available address types of the given asset are returned in an array. In the above example segwit addresses and legacy addresses have different types in regards to the BTC asset.
-
-Each asset type has it's own file specifying the quirks of that asset, the names of the address types, etc.
+Each asset has it's own file specifying the quirks of that asset, the names of the address types, etc. Those details are found here: [Assets](/Assets.md)

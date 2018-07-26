@@ -20,7 +20,7 @@ CAPP-{domain}:{port}-host
 ## 2.
 The following endpoint must be supported:
 
-## GET address/{asset}/{username}/{domain}
+## GET /domains/{domain}/users/{username}/ledgers/{ledger_id}
 
 No Authorization (Public method)
 
@@ -28,7 +28,7 @@ Returns the address of the related domain, username, and ledger if it exists on 
 
 ### Example Usage
 
-* Bob decides to send Alice 5 BTC via her alias alice@domain.tld
+* Bob decides to send Alice 5 NANO via her alias alice@domain.tld
 * Bob's wallet does a name server lookup to the SRV record for domain.tld
 * Wallet finds a SRV record that contains:
 
@@ -39,31 +39,22 @@ CAPP-opencap.domain.tld:443-host
 which specifies that this alias is not a "proxied" alias and is hosted on the server with the same domain name as that of the alias.
 
 * Wallet now knows that a CAP server is running at https://opencap.domain.tld:443
-* Bob is sending BTC and the Asset ID for BTC is 0
-* Bob's wallet makes a GET request to the formulated URL: https://opencap.domain.tld:443/0/alice/domain.tld
-* If Alice truly has at least one BTC address on the server, it will be sent back to Bob's wallet with an HTTP 200 Status OK.
+* Bob is sending NANO and the Ledger ID for NANO is 1
+* Bob's wallet makes a GET request to the formulated URL: https://opencap.domain.tld:443/domain.tld/alice/1
+* If Alice truly has at least one NANO address on the server, it will be sent back to Bob's wallet with an HTTP 200 Status OK.
 
 ```javascript
 Code: 200
 {
-    "addresses":[
-        "type": "legacy",
-        "address": "1AsXFv29DNMLGctzhhwjp...",
-        "extensions": {
-            "name": "My legacy address",
-            // any other asset specific info can be in here
-        },
-        "type": "segwit",
-        "address": "bc1qvw0ytfntx6zs0lfsruem...",
-        "extensions": {
-            "name": "My segwit address",
-            // any other asset specific info can be in here
-        }
+    "type": 1,
+    "address": "XKdD14CTd6BNYerDzfkqFDilogkaqdbZpaYq6EqxuQ8=",
+    "extensions": {
+        "name": "Alice",
+        // ...
     }
-    ]
 }
 ```
 
-Bob's wallet notifies Bob that two valid addresses ware found. The wallet can now route a payment to Alice through her address of the type Bob chooses.
+Bob's wallet notifies Bob that a NANO address has been found (xrb_1q79ahdr36uqn38p5tp5sqwkn73rnpj1k8obtuetdbjcx37d5gahhd1u9cuh in this example). The wallet can now route a payment to Alice through her address.
 
 Each asset has it's own file specifying the quirks of that asset, the names of the address types, etc. Those details are found here: [Assets](/Assets.md)

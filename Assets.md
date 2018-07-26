@@ -5,6 +5,6 @@ Create a GitHub issue and propose a Ledger to be added to the system.
 
 | ID | Distributed Ledger / P2P Network | Type                                  |
 | -- | -------------------------------- | ----                                  |
-| 0  | Bitcoin                          | [Bitcoin](/TYPES/Bitcoin.md)          |
-| 1  | Bitcoin Cash                     | [Bitcoin Cash](/TYPES/BitcoinCash.md) |
-| 2  | Nano / Raiblocks                 | [Nano](/TYPES/Nano.md)                |
+| 0  | Bitcoin                          | [Bitcoin](/Types/Bitcoin.md)          |
+| 1  | Bitcoin Cash                     | [Bitcoin Cash](/Types/BitcoinCash.md) |
+| 2  | Nano / Raiblocks                 | [Nano](/Types/Nano.md)                |

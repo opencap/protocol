@@ -8,13 +8,12 @@ The following endpoints are required:
 
 No Authorization (Public method)
 
-Creates a new user.
+Creates a new user. The new user is associated with the host's domain by default. This only changes if the endpoint described in the ([CAPP](/CAPP.md)) sub-protocol is used. The user<->domain relationship is one-to-one, although one server can have users with the same name as long as they are on different domains.
 
 Body:
 ```javascript
 {
     "username": "john", // the username that will be the first part of the alias
-    "domain": "ogdolo.com", // the domain that makes up last part of the alias
     "password": "mysecretpassword"
 }
 ```
@@ -25,18 +24,17 @@ Status: 200
 {}
 ```
 
-Note: The "domain" parameter is so that IF this CAMP server is also a CAPP server it can host aliases that use other proxy domains. See the ([CAPP](/CAPP.md)) file for more info.
-
 ## POST /v1/auth
 
 Authorization Bearer {jwt}
 
-Authenticates a user to be able to use the JWT for the other endpoints
+Authenticates a user to be able to use the JWT for the other endpoints. The JWT should contain enough information to uniquely identify the user. This would typically be the username and domain. The JWT must not expire for at least thirty minutes.
 
 Body:
 ```javascript
 {
     "username": "lane",
+    "domain" : "ogdolo.com",
     "password": "su93rS3cret"
 }
 ```
@@ -66,7 +64,7 @@ Status: 200
 
 Authorization Bearer {jwt}
 
-Adds or updates the address for the authenticated user of the given asset.  
+Adds or updates the address of the authenticated user for the given asset.  
 
 Body:
 ```javascript

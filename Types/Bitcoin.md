@@ -2,9 +2,9 @@
 
 A Bitcoin Type address either holds a public key hash or a script hash.  
 
-| Type | Description             |
-| 0    | Public key hash (P2PKH) |
-| 1    | Script hash (P2SH)      |
+| Type | Description             | Length  |
+| 0    | Public key hash (P2PKH) | 20 byte |
+| 1    | Script hash (P2SH)      | 20 byte |
 
 Example:  
 ```javascript

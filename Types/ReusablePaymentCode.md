@@ -2,11 +2,11 @@
 
 A Reusable Payment Code Type holds a [BIP-47 payment code](https://github.com/bitcoin/bips/blob/master/bip-0047.mediawiki).  
 
-| Type | Description              |
-| 0    | Version 1 Payment Code   |
-| 1    | Version 2 Payment Code   |
+| Type | Description              | Length  |
+| 0    | Version 1 Payment Code   | 79 byte |
+| 1    | Version 2 Payment Code   | 79 byte |
 
-The base64-encoded address field contains [bytes 1-79](https://github.com/bitcoin/bips/blob/master/bip-0047.mediawiki#binary-serialization) of the payment code (byte 0 is represented by the 'type' property).
+The base64-encoded address field contains [byte 1-79](https://github.com/bitcoin/bips/blob/master/bip-0047.mediawiki#binary-serialization) of the payment code (byte 0 is represented by the 'type' property).
 
 Example:  
 ```javascript

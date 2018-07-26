@@ -2,9 +2,9 @@
 
 A SegWit Type address either holds a public key hash or a script hash.  
 
-| Type | Description              |
-| 0    | Public key hash (P2WPKH) |
-| 1    | Script hash (P2WSH)      |
+| Type | Description              | Length  |
+| 0    | Public key hash (P2WPKH) | 20 byte |
+| 1    | Script hash (P2WSH)      | 32 byte |
 
 Example:  
 ```javascript

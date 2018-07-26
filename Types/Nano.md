@@ -2,8 +2,8 @@
 
 A Nano Type address holds a public key.  
 
-| Type | Description                   |
-| 0    | Public key (standard address) |
+| Type | Description                   | Length  |
+| 0    | Public key (standard address) | 32 byte |
 
 Example:  
 ```javascript

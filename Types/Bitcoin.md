@@ -1,4 +1,4 @@
-# Bitcoin Types
+# Bitcoin
 
 A Bitcoin Type address either holds a public key hash or a script hash.  
 

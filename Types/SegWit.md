@@ -1,4 +1,4 @@
-# [WIP] SegWit Types
+# [WIP] SegWit
 
 A SegWit Type address either holds a public key hash or a script hash.  
 

@@ -1,4 +1,4 @@
-# Nano Type
+# Nano
 
 A Nano Type address holds a public key.  
 

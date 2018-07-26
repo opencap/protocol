@@ -1,75 +1,53 @@
 # CAPP - Crypto Alias Proxy Protocol
 
-CAPP is a sub-protocol that allows us to use a CAPP compliant server as a host for a separate domain name. A good comparison would be when a company uses a service like gmail to handle hosting and SMTP, but points their own domain at the service. For instance, a company named "dixiechiro" uses gmail but has an address "lane@dixiechiro.com"
+CAPP is a sub-protocol that allows us to use a CAPP compliant server as a host for a separate domain name. A good comparison would be when a company uses a service like gmail to handle email hosting, but points their own domain at the service. For instance, a company like Walmart uses gmail but has a email addresses ending in "@walmart.com"
 
-When we talk about this "proxy" feature we refer to the CAPP enabled server that runs the API the "host server". The domain that is being pointed towards that host will be called the "proxy domain".
+For the purposes of this documentation we refer to the CAPP server that runs the API the "host server". The domain that is being pointed towards that host will be called the "proxy domain".
 
-The proxy feature is the reason why the "domain" parameter is required by all CAP and CAMP servers. These servers, even if they don't support acting as a proxy, all must at least be able to tell clients that they are not acting as a proxy so those aliases use a "domain" paramter that just points to the host server itself.
+The proxy feature is the reason why the "domain" parameter is used by CAP and CAMP servers. These servers, even if they don't support acting as a proxy, all must at least be able to communicate that they are not acting as a proxy. To keept things simple, those aliases use a "domain" paramter that just points to the host server itself.
 
-## 1. Adding a SRV record
+## 1. Verifying a domain on the host server
 
-SRV records are used so that the proxy domain can forward alias traffic along without needing a server of any kind.
+In order to use a host server for a proxy domain, the proxy user must have an account on the host server and be able to obtain a JWT via the /v1/auth endpoint. Once a jwt is obtained, the jwt is used to construct a SRV record. The SRV record is used to forward future requests to the proxy domain along to the host server.
 
-The process for adding a SRV record to a domain is different depending on who you use for your domain name provider. What goes in the SRV record is the interesting part, and must follow the following format:
+### The SRV record
 
-CAPP-{domain}:{port}
+The SRV record must have the following format:
+
+CAPP-{domain}:{port}-{jwt}
 
 This must map to the exact domain where the actual OpenCAP server is running. Let's use Ogdolo as an example, and pretend we have a proxy domain "proxy.com" and we want to use Ogdolo as a CAPP host. We would go into "proxy.com" domain management and add a SRV record that says:
 
 ```
-CAPP-opencap.ogdolo.com:443
+CAPP-opencap.ogdolo.com:443-89sfhdhf9.89df7f08dg7hd0s8g7hf08.8f0sd7fdf
 ```
 
-It is considered "indsutry standard" to use "opencap" as the subdomain where the OpenCAP server runs, and Ogdolo adheres to that standard.
+Once the SRV record is added, the following endpoint is used to verify to the host server that a user actually owns the proxy domain. The jwt proves to the server because no one else would have been able to add the jwt to the SRV record. Keep in mind, the jwt only lasts for 20 minutes at a minumum so adding the jwt to the SRV record needs to happen relatively quickly.
 
-## 2. Creating the alias on a Host Server
+## POST /v1/domain
 
-Once the SRV record is correctly confirgured all that needs to happen is we create an alias on the host server and use our own domain. For instance, to create the alias "lane@dixiechiro.com" we make a POST request to https://opencap.ogdolo.com/v1/users
+Authorization Bearer {jwt}
 
+Associates a domain with the authenticated user
+
+Body:
 ```javascript
 {
-    "username": "lane",
-    "domain": "dixiechiro.com",
-    "password": "mysecretpassword"
+    "domain": "proxy.com",
+    // the master_jwt parameter is only used for adding addtional users to a 
+    // proxy domain as described below, otherwise the empty string is passed.
+    "master_jwt": ""  
 }
 ```
 
-Now I have an account on ogdolo.com and Ogdolo knows that I'm using a proxy domain. I can create an address on Ogdolo while authenticated as "lane":
-
-PUT https://opencap.ogdolo.com/v1/address
-
+Response:
 ```javascript
-{
-    "asset": 0, // 0 = BTC
-    "type": "segwit",
-    "address": "bc1qvw0ytfntx6zs0lfsruem6xwj0mewng523ktatp"
-}
+Status: 200
+{}
 ```
 
-Now to test that the proxy is working correctly I can follow the client (wallet) protocol using my alias lane@dixiechiro.com:
+Once the server recieves the request, the server will do a lookup to get the SRV record from proxy.com and ensure that the jwt in the SRV record matches that of the authenticated user. If it does, then the domain of the user on that server will be updated to "proxy.com"
 
-* Do a name server lookup to the SRV record on dixiechiro.com
-* SRV record points to Ogdolo:
+Once one user has successfully verified a proxy domain, that first user's jwt can be used to add other aliases to the same proxy domain so that the SRV record doesn't need to be updated every time. The user to be added would use the POST /v1/domain endpoint and authenticate as themself. They would pass in the first user's jwt as the "master_jwt" to prove that they should be allowed to have an alias on the proxy domain as well.
 
-```javascript
-opencap.ogdolo.com:443
-```
-
-* Make a GET request to Ogdolo
-* https://opencap.ogdolo.com:443/0/lane/dixiechiro.com
-* Ogdolo responds with the correct address:
-
-```javascript
-Code: 200
-{
-    "addresses":[
-        "type": "segwit",
-        "address": "bc1qvw0ytfntx6zs0lfsruem...",
-        "extensions": {
-            "name": "My segwit address",
-            // any other asset specific info can be in here
-        }
-    }
-    ]
-}
-```
+Now the proxy domain is all set up. When a wallet wants to send money to user@proxy.com, first the wallet will look at proxy.com's SRV record and find that it points to host.com. Then the wallet knows that it should make the rest of it's requests to host.com using "proxy.com" as the domain and "user" as the username.

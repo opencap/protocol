@@ -12,21 +12,17 @@ Discord: https://discord.gg/A8Jkp2
 
 [Solution](#solution)
 
-[Format of this Repository](#format-of-this-repository)
-
 [Anatomy of an Alias](#anatomy-of-an-alias)
 
-[Security](#security)
+[Sub-Protocols](#sub-protocols)
 
 [Attack Vectors](#attack-vectors)
 
 [Justifications](#justifications)
 
-[Endpoints](#endpoints)
-
 [Contribute](#contribute)
 
-[CAP Compliant Software](#CAP-compliant-software)
+[OpenCAP Compliant Software](#OpenCAP-compliant-software)
 
 <hr>
 
@@ -40,19 +36,11 @@ Cryptocurrency addresses also change over time for a given user in some currenci
 
 ## Solution
 
-CAP is a protocol that defines the standard by which cryptocurrency wallets can communicate with servers to relate aliases to cryptocurrency addresses. The protocol allows for the decentralization of the alias --> address relationship. Anyone can use the protocol to build/host their own server on their own domain. Servers can be majorly centralized, or individuals can run their own servers, much like SMTP (email).
+OpenCAP is a protocol that defines the standard by which cryptocurrency wallets can communicate with servers to relate aliases to cryptocurrency addresses. The protocol allows for the decentralization of the alias --> address relationship. Anyone can use the protocol to build/host their own server on their own domain. Servers can be majorly centralized, or individuals can run their own servers, much like SMTP (email).
 
-CAP is adhered to by both client (wallet) software and server (address storage) sofware. Wallets must know how to properly parse an alias and perform the proper API calls. Servers must know how to handle those requests in the proper manner and send back valid data. Any given wallet and server that adhere to the CAP protocol will be able to communicate cryptocurrency address information seamlessly.
+OpenCAP is adhered to by both client (wallet) software and server (address storage) sofware. Wallets must know how to properly parse an alias and perform the proper API calls. Servers must know how to handle those requests in the proper manner and send back valid data. Any given wallet and server that adhere to the OpenCAP protocol will be able to communicate cryptocurrency address information seamlessly.
 
-CAP is a simple protocol that does one thing: relate aliases to addresses. Servers can of course add more features to their servers (profile pictures, address re-use and validation, etc.) but these features are not a part of the base protocol.
-
-<hr>
-
-## Format of this Repository
-
-The CAP project is completely open source. This root README.md file describes the protocol in general as it applies to all coins. Each coin also has it's own specific folder that contains additional protocols. The subdirectories can have additional requirements or exceptions. The protocols in a coins subdirectory will take priority over the root protocol in case of a conflict.
-
-Subdirectory README files should follow the same general format as this root file.
+OpenCAP is a simple protocol that does one thing: relate aliases to addresses. Servers can of course add more features to their servers (profile pictures, address re-use and validation, etc.) but these features are not a part of the base protocol.
 
 <hr>
 
@@ -62,16 +50,25 @@ Subdirectory README files should follow the same general format as this root fil
 
 ### example: lane@ogdolo.com
 
-Aliases have the same anatomy as an email address. This greatly benefits user experience as people are used to emailing, and payment services like PayPal allow sending to email addresses as well.  
-Using email addresses does neither mean that a CAP service has to be run on the same host as the mail server nor that a mail server has to be run under the target domain name at all.
+Aliases have the same anatomy as an email address. This greatly benefits user experience as people are used to emailing, and payment services like PayPal allow sending to email addresses as well.
+
+Using email address format does neither mean that a OpenCAP service has to be run on the same host as a mail server nor that a mail server has to be run under the target domain name at all. Email addresses have nothing to do with OpenCAP aliases other than they share a format.
 
 <hr>
 
-## Security
+## Sub-Protocols
 
-CAP does does not define the standard by which data should be stored and encrypted on either the client or server side. Those are details that depend upon the specific implementation. CAP is only a communication protocol. Naturally, CAP defines the security of communication (HTTPS) and the client-->server authentication endpoints.
+OpenCAP is the generic name to describe the entire alias protocol. There are three sub-protocols that allow servers to decide to what level they wish to provide alias hosting.
 
-While security isn't enforced explicitly, each README in this repo will have a section marked "Attack Vectors" which describes where known possible security holes lie. In that section solutions will be discussed and provided so that server and client devs can know how to protect themselves and their users.
+They sub-protocol are listed in descending levels of importance. For example, all CAMP servers also must be CAP servers. All CAPP servers must also be CAMP and CAP servers.
+
+1. ([CAP](/CAP.md)) - Crypto Alias Protcol: CAP is the base protocol and any server that wants to host aliases must at least adhere to CAP requirements.
+
+2. ([CAMP](/CAMP.md)) - Crypto Alias Management Protocol: CAMP is a set of requirements that allow client (wallet) software to intereact with CAMP servers and make changes to the user's alias by CREATE/UPDATE/DELETE operations on the users account.
+
+3. ([CAPP](/CAPP.md)) - Crypto Alias Proxy Protocol: CAPP describes how a user can set up a "proxy domain" so that all aliases using that domain can actually be served from a seperate host server while retaining the same domain name.
+
+Each of these sub-protocols has its own file in the root of the repository describing the requirements.
 
 <hr>
 
@@ -79,13 +76,13 @@ While security isn't enforced explicitly, each README in this repo will have a s
 
 ### Address Swaps
 
-The most obvious way for a malicious party to use the alias system to steal funds would be to hack a CAP server and secretly change out addresses so that their address is associated with someone else's alias.
+The most obvious way for a malicious party to use the alias system to steal funds would be to hack a OpenCAP server and secretly change out addresses so that their address is associated with someone else's alias.
 
 Possible remedies:
 
 * Only allow address updates from verified IP addresses
-* Run a CAP server yourself instead of using a third party (Using a third party isn't inherently insecure, and in the case of a non-programmer it is probably more secure)
-* Only allow address updates manually through a browser and 2FA/Captcha. Some currencies may not update addresses often, if ever. (Nano for example)
+* Run a OpenCAP server yourself instead of using a third party (Using a third party isn't inherently insecure, and in the case of a non-programmer it is probably more secure)
+* Only allow address updates manually through a browser and 2FA/captcha. Some currencies may not update addresses often, if ever. (Nano for example)
 * Use 2 way encryption like AES-256 to cipher address and user data before storing it in a database so it can't easily be swapped out
 
 ### Payment Tracking
@@ -95,11 +92,15 @@ It is fairly simple for a third party to constatly poll a given alias's endpoint
 * Coins that are able to implement features similar to BIP 47 should do so and use payment codes instead of regular addresses.
 * Servers can have sign-ups that don't require any personal information, so users can use an anonymous alias.
 
+### DNSSEC Omission
+
+TODO: we need an explanation of the SRV/DNSSEC security issue
+
 <hr>
 
 ## Justifications
 
-* **Squatting:** CAP is a REST protocol built on top of DNS to stop "squatters". Squatting is when users that are the first-adopters of the protocol come in and steal all the valuable aliases ("nike", "coke", "trump", "btc", etc). By requiring that the a domain name is part of an alias, users have to first own the domain which is a system that is already fairly distributed.
+* **Squatting:** OpenCAP is a REST protocol built on top of DNS to stop "squatters". Squatting is when users that are the first-adopters of the protocol come in and steal all the valuable aliases ("nike", "coke", "trump", "btc", etc). By requiring that the a domain name is part of an alias, users have to first own the domain which is a system that is already fairly distributed.
 
 * **TXT Records**: There is another protocol out there, OpenAlias, that proposes the usage of domain TXT Records for transmitting alias/address combinations. A lot of good work was done there, but we designed this system because we felt that most defvelopers are more comfortable building out a simple CRUD app with a database. If it is easier for developers to adhere tothe protocol, it will naturally be more distibuted and decentralized.
 
@@ -107,42 +108,14 @@ It is fairly simple for a third party to constatly poll a given alias's endpoint
 
 <hr>
 
-## Connecting to the CAP server
-
-When a wallet gets an alias like john@doe.com it first has to determine which server to query.  
-It will first try connecting to https://doe.com:41145/, and fallback querying the SRV record _cap._tcp at 'doe.com' and use the specified server for the requests.
-
-## TIER 3 ENDPOINTS
-
-The following endpoints are required for a server to be CAP 3 compliant. These endpoints allow the desktop client to manage custom domains.
-
-### POST /v1/domains/:domain
-
-No Authorization (Public method)
-
-Notifies the server that the DNS entries of 'opencap.' + specified domain point to it.  
-- First, the server should check whether there actually is a CNAME record pointing to it.  
-- Then, it reads the public key from the TXT record and saves it together with the domain name  
-- At last, it asks Let's Encrypt to issue a certificate for 'opencap.' + specified domain  
-
-Response:
-```javascript
-Status: 200
-{
-
-}
-```
-
-<hr>
-
 ## Contribute
 
-CAP is an open-source protocol please feel free to submit change proposals via the "issues" tab on github, or by submitting a pull request. 
+OpenCAP is an open-source protocol please feel free to submit change proposals via the "issues" tab on github, or by submitting a pull request. 
 
 Build software that supports the protocol! The more wallets and servers actually work together to solve the alias problem, the easier it is to solve in the end. If you aren't a developer, reach out to your favorite project teams and let them know about the project!
 
 <hr>
 
-## CAP Compliant Software
+## OpenCAP Compliant Software
 
 * Nothing here yet... we just released! Give us a sec ;)

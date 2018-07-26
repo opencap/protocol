@@ -3,6 +3,7 @@
 A Reusable Payment Code Type holds a [BIP-47 payment code](https://github.com/bitcoin/bips/blob/master/bip-0047.mediawiki).  
 
 | Type | Description              | Length  |
+| ---- | -----------              | ------  |
 | 0    | Version 1 Payment Code   | 79 byte |
 | 1    | Version 2 Payment Code   | 79 byte |
 

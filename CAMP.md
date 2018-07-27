@@ -70,15 +70,15 @@ HTTP/1.1 200 OK
 
 ```
 
-## PUT /v1/domains/{domain}/users/{username}/ledgers/{ledger_id}
+## PUT /v1/domains/{domain}/users/{username}/assets/{asset_id}
 
 Authorization Bearer {jwt}
 
-Adds or updates the address of the authenticated user for the given ledger id.  
+Adds or updates the address of the authenticated user for the given asset id.  
 
 Request:
 ```
-PUT /domains/domain.tld/users/alice/ledgers/1 HTTP/1.1
+PUT /domains/domain.tld/users/alice/assets/1 HTTP/1.1
 Authorization: earer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
 
 {
@@ -94,7 +94,7 @@ HTTP/1.1 200 OK
 
 ```
 
-## DELETE /v1/domains/{domain}/users/{username}/ledgers/{ledger_id}
+## DELETE /v1/domains/{domain}/users/{username}/assets/{asset_id}
 
 Authorization Bearer {jwt}
 
@@ -103,7 +103,7 @@ Token username must match with username in path parameter.
 
 Request:
 ```
-DELETE /domains/domain.tld/users/alice/ledgers/1 HTTP/1.1
+DELETE /domains/domain.tld/users/alice/assets/1 HTTP/1.1
 Authorization: earer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
 
 ```

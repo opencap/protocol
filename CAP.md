@@ -20,11 +20,11 @@ CAPP-{domain}:{port}-host
 ## 2.
 The following endpoint must be supported:
 
-## GET /v1/domains/{domain}/users/{username}/ledgers/{ledger_id}
+## GET /v1/domains/{domain}/users/{username}/assets/{asset_id}
 
 No Authorization (Public method)
 
-Returns the address of the related domain, username, and ledger if it exists on the server.
+Returns the address of the related domain, username, and asset if it exists on the server.
 
 ### Example Usage
 
@@ -39,7 +39,7 @@ CAPP-opencap.domain.tld:443-host
 which specifies that this alias is not a "proxied" alias and is hosted on the server with the same domain name as that of the alias.
 
 * Wallet now knows that a CAP server is running at https://opencap.domain.tld:443
-* Bob is sending NANO and the Ledger ID for NANO is 1
+* Bob is sending NANO and the Asset ID for NANO is 1
 * Bob's wallet makes a GET request to the formulated URL: https://opencap.domain.tld:443/domain.tld/alice/1
 * If Alice truly has at least one NANO address on the server, it will be sent back to Bob's wallet with an HTTP 200 Status OK.
 

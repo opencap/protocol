@@ -4,7 +4,7 @@ CAMP is a sub-protocol of OpenCap. CAMP is an optional protocol that allows a se
 
 The following endpoints are required:
 
-## POST /domains/{domain}/users
+## POST /v1/domains/{domain}/users
 
 No Authorization (Public method)
 
@@ -27,7 +27,7 @@ HTTP/1.1 200 OK
 ```
 
 
-## GET /domains/{domain}/users/{username}/token
+## GET /v1/domains/{domain}/users/{username}/token
 
 Basic Authentication (username + password)
 
@@ -50,7 +50,7 @@ Content-Type: application/json
 }
 ```
 
-## DELETE /domains/{domain}/users/{username}
+## DELETE /v1/domains/{domain}/users/{username}
 
 Authorization Bearer {jwt}
 
@@ -70,7 +70,7 @@ HTTP/1.1 200 OK
 
 ```
 
-## PUT /domains/{domain}/users/{username}/ledgers/{ledger_id}
+## PUT /v1/domains/{domain}/users/{username}/ledgers/{ledger_id}
 
 Authorization Bearer {jwt}
 
@@ -94,7 +94,7 @@ HTTP/1.1 200 OK
 
 ```
 
-## DELETE /domains/{domain}/users/{username}/ledgers/{ledger_id}
+## DELETE /v1/domains/{domain}/users/{username}/ledgers/{ledger_id}
 
 Authorization Bearer {jwt}
 

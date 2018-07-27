@@ -24,7 +24,7 @@ CAPP-opencap.ogdolo.com:443-89sfhdhf9.89df7f08dg7hd0s8g7hf08.8f0sd7fdf
 
 Once the SRV record is added, the following endpoint is used to verify to the host server that a user actually owns the proxy domain. The jwt proves to the server because no one else would have been able to add the jwt to the SRV record. Keep in mind, the jwt only lasts for 20 minutes at a minumum so adding the jwt to the SRV record needs to happen relatively quickly.
 
-## POST /domains
+## POST /v1/domains
 
 Authorization Bearer {jwt}
 

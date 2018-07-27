@@ -20,7 +20,7 @@ CAPP-{domain}:{port}-host
 ## 2.
 The following endpoint must be supported:
 
-## GET /domains/{domain}/users/{username}/ledgers/{ledger_id}
+## GET /v1/domains/{domain}/users/{username}/ledgers/{ledger_id}
 
 No Authorization (Public method)
 

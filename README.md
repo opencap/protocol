@@ -60,8 +60,7 @@ Using email address format does neither mean that a OpenCAP service has to be ru
 
 OpenCAP is the generic name to describe the entire alias protocol. There are three sub-protocols that allow servers to decide to what level they wish to provide alias hosting.
 
-They sub-protocol are listed in descending levels of importance. For example, all CAMP servers also must be CAP servers. All CAPP servers must also be CAMP and CAP servers.  
-All endpoints described in the three files must be prefixed with `/v1`.
+They sub-protocol are listed in descending levels of importance. For example, all CAMP servers also must be CAP servers. All CAPP servers must also be CAMP and CAP servers.
 
 1. [CAP](/CAP.md) - Crypto Alias Protcol: CAP is the base protocol and any server that wants to host aliases must at least adhere to CAP requirements.
 

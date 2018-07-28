@@ -31,7 +31,7 @@ HTTP/1.1
 
 ## POST /v1/auth
 
-Basic Authentication (username + password)
+No Authorization (Public method)
 
 Authenticates a user to be able to use a JWT to authenticate at the other endpoints. The JWT should contain enough information to uniquely identify the user which would typically be the user's username and domain. The JWT must not expire for at least thirty minutes.
 

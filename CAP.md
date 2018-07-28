@@ -44,7 +44,8 @@ which specifies that this alias is not a "proxied" alias and is hosted on the se
 * If Alice truly has at least one NANO address on the server, it will be sent back to Bob's wallet with an HTTP 200 Status OK.
 
 ```javascript
-Code: 200
+HTTP/1.1
+200 OK
 {
     "type": 1,
     "address": "XKdD14CTd6BNYerDzfkqFDilogkaqdbZpaYq6EqxuQ8=",

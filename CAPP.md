@@ -18,7 +18,7 @@ CAPP-{domain}:{port}-{jwt}
 
 This must map to the exact domain where the actual OpenCAP server is running. Let's use Ogdolo as an example, and pretend we have a proxy domain "proxy.com" and we want to use Ogdolo as a CAPP host. We would go into "proxy.com" domain management and add a SRV record that says:
 
-```
+```javascript
 CAPP-opencap.ogdolo.com:443-89sfhdhf9.89df7f08dg7hd0s8g7hf08.8f0sd7fdf
 ```
 
@@ -30,20 +30,21 @@ Authorization Bearer {jwt}
 
 Associates a domain with the authenticated user
 
-Body:
 ```javascript
+HTTP/1.1
+PUT /v1/domains
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
 {
     "domain": "proxy.com",
-    // the master_jwt parameter is only used for adding addtional users to a 
-    // proxy domain as described below, otherwise the empty string is passed.
     "master_jwt": ""  
 }
 ```
 
 Response:
+
 ```javascript
-Status: 200
-{}
+HTTP/1.1
+200 OK
 ```
 
 Once the server recieves the request, the server will do a lookup to get the SRV record from proxy.com and ensure that the jwt in the SRV record matches that of the authenticated user. If it does, then the domain of the user on that server will be updated to "proxy.com"

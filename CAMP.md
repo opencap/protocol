@@ -67,17 +67,19 @@ Deletes the specified user and all associated addresses.
 Token username must match with username in path parameter.
 
 Request:
+
 ```javascript
 HTTP/1.1
-DELETE v1/domains/domain.tld/users/alice HTTP/1.1
+DELETE /v1/domains/domain.tld/users/alice HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
 
 ```
 
 Response:
-```
-HTTP/1.1 200 OK
 
+```javascript
+HTTP/1.1
+200 OK
 ```
 
 ## PUT /v1/domains/{domain}/users/{username}/assets/{asset_id}
@@ -103,7 +105,6 @@ Response:
 ```javascript
 HTTP/1.1
 200 OK
-
 ```
 
 ## DELETE /v1/domains/{domain}/users/{username}/assets/{asset_id}
@@ -114,14 +115,15 @@ Deletes the address for the user of the given asset.
 Token username must match with username in path parameter.
 
 Request:
+
 ```javascript
 HTTP/1.1
 DELETE /v1/domains/domain.tld/users/alice/assets/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
-
 ```
 
 Response:
+
 ```javascript
 HTTP/1.1
 200 OK

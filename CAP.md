@@ -26,6 +26,31 @@ No Authorization (Public method)
 
 Returns the address of the related domain, username, and asset if it exists on the server.
 
+Request:
+
+```javascript
+HTTP/1.1
+GET /v1/domains/{domain}/users/{username}/assets/{asset_id}
+```
+
+Response:
+
+```javascript
+HTTP/1.1
+200 OK
+Content-Type: application/json
+{
+    "type": 1,
+    "address": "XKdD14CTd6BNYerDzfkqFDilogkaqdbZpaYq6EqxuQ8=",
+    "extensions": {
+        "name": "Alice",
+        // ...
+    }
+}
+```
+
+Each asset has it's own file in this repo specifying the quirks of that asset, the names of the address types, etc. Those details are found here: [Assets](/Assets.md)
+
 ### Example Usage
 
 * Bob decides to send Alice 5 NANO via her alias alice@domain.tld
@@ -42,20 +67,4 @@ which specifies that this alias is not a "proxied" alias and is hosted on the se
 * Bob is sending NANO and the Asset ID for NANO is 1
 * Bob's wallet makes a GET request to the formulated URL: https://opencap.domain.tld:443/domain.tld/alice/1
 * If Alice truly has at least one NANO address on the server, it will be sent back to Bob's wallet with an HTTP 200 Status OK.
-
-```javascript
-HTTP/1.1
-200 OK
-{
-    "type": 1,
-    "address": "XKdD14CTd6BNYerDzfkqFDilogkaqdbZpaYq6EqxuQ8=",
-    "extensions": {
-        "name": "Alice",
-        // ...
-    }
-}
-```
-
-Bob's wallet notifies Bob that a NANO address has been found (xrb_1q79ahdr36uqn38p5tp5sqwkn73rnpj1k8obtuetdbjcx37d5gahhd1u9cuh in this example). The wallet can now route a payment to Alice through her address.
-
-Each asset has it's own file specifying the quirks of that asset, the names of the address types, etc. Those details are found here: [Assets](/Assets.md)
+* Bob's wallet notifies Bob that a NANO address has been found (xrb_1q79ahdr36uqn38p5tp5sqwkn73rnpj1k8obtuetdbjcx37d5gahhd1u9cuh in this example). The wallet can now route a payment to Alice through her address.

@@ -4,90 +4,111 @@ CAMP is a sub-protocol of OpenCap. CAMP is an optional protocol that allows a se
 
 The following endpoints are required:
 
-## POST /v1/users
+## POST /v1/domains/{domain}/users
 
 No Authorization (Public method)
 
 Creates a new user. The new user is associated with the host's domain by default. This only changes if the endpoint described in the ([CAPP](/CAPP.md)) sub-protocol is used. The user<->domain relationship is one-to-one, although one server can have users with the same name as long as they are on different domains.
 
-Body:
-```javascript
+Request:
+```
+POST /domains/{domain}/users HTTP/1.1
+
 {
-    "username": "john", // the username that will be the first part of the alias
+    "username": "alice",
     "password": "mysecretpassword"
 }
 ```
 
 Response:
-```javascript
-Status: 200
-{}
+```
+HTTP/1.1 200 OK
+
 ```
 
-## POST /v1/auth
 
-Authorization Bearer {jwt}
+## POST /v1/domains/{domain}/users/{username}/auth
+
+Basic Authentication (username + password)
 
 Authenticates a user to be able to use a JWT to authenticate at the other endpoints. The JWT should contain enough information to uniquely identify the user which would typically be the user's username and domain. The JWT must not expire for at least thirty minutes.
 
-Body:
-```javascript
-{
-    "username": "lane",
-    "domain" : "ogdolo.com",
-    "password": "su93rS3cret"
-}
+Request:
+```
+POST /domains/domain.tld/users/alice/auth HTTP/1.1
+Authorization: Basic YWxpY2U6bXlzZWNyZXRwYXNzd29yZA==
+
 ```
 
 Response:
-```javascript
-Status: 200
+```
+HTTP/1.1 200 OK
+Content-Type: application/json
+
 {
-    "jwt": "ujahsdbf9dfsf.sdf8ihnsd9fgasdsdfusd8f0adf78f.ud8fs0fbsf"
+    "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE"
 }
 ```
 
-## DELETE /v1/users
+## DELETE /v1/domains/{domain}/users/{username}
 
 Authorization Bearer {jwt}
 
-Deletes the authenticated user and all associated addresses.
+Deletes the specified user and all associated addresses.  
+Token username must match with username in path parameter.
 
-Response:
-```javascript
-Status: 200
-{}
+Request:
+```
+DELETE /domains/domain.tld/users/alice HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
+
 ```
 
-## PUT /v1/address
+Response:
+```
+HTTP/1.1 200 OK
+
+```
+
+## PUT /v1/domains/{domain}/users/{username}/assets/{asset_id}
 
 Authorization Bearer {jwt}
 
-Adds or updates the address of the authenticated user for the given asset.  
+Adds or updates the address of the authenticated user for the given asset id.  
 
-Body:
-```javascript
+Request:
+```
+PUT /domains/domain.tld/users/alice/assets/1 HTTP/1.1
+Authorization: earer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
+
 {
-    "asset": 0, // 0 = BTC
-    "type": "segwit",
-    "address": "bc1qvw0ytfntx6zs0lfsruem6xwj0mewng523ktatp"
+    "type": 0,
+    "address": "XKdD14CTd6BNYerDzfkqFDilogkaqdbZpaYq6EqxuQ8="
 }
 ```
 
 Response:
-```javascript
-Status: 200
-{}
+```
+HTTP/1.1 200 OK
+
 ```
 
-## DELETE /v1/address/{asset}
+## DELETE /v1/domains/{domain}/users/{username}/assets/{asset_id}
 
 Authorization Bearer {jwt}
 
 Deletes the address for the user of the given asset.  
+Token username must match with username in path parameter.
+
+Request:
+```
+DELETE /domains/domain.tld/users/alice/assets/1 HTTP/1.1
+Authorization: earer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
+
+```
 
 Response:
-```javascript
-Status: 200
-{}
+```
+HTTP/1.1 200 OK
+
 ```

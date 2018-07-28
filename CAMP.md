@@ -27,7 +27,7 @@ HTTP/1.1 200 OK
 ```
 
 
-## GET /v1/domains/{domain}/users/{username}/token
+## POST /v1/domains/{domain}/users/{username}/auth
 
 Basic Authentication (username + password)
 
@@ -35,7 +35,7 @@ Authenticates a user to be able to use a JWT to authenticate at the other endpoi
 
 Request:
 ```
-GET /domains/domain.tld/users/alice/token HTTP/1.1
+POST /domains/domain.tld/users/alice/auth HTTP/1.1
 Authorization: Basic YWxpY2U6bXlzZWNyZXRwYXNzd29yZA==
 
 ```

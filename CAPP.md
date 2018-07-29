@@ -4,11 +4,9 @@ CAPP is a sub-protocol that allows us to use a CAPP compliant server as a host f
 
 For the purposes of this documentation we refer to the CAPP server that runs the API the "host server". The domain that is being pointed towards that host will be called the "proxy domain".
 
-The proxy feature is the reason why the "domain" parameter is used by CAP and CAMP servers. These servers, even if they don't support acting as a proxy, all must at least be able to communicate that they are not acting as a proxy. To keept things simple, those aliases use a "domain" paramter that just points to the host server itself.
-
 ## Pointing the proxy domain to the host server
 
-The first step is to add a SRV record to the proxy domain to the host server so that when wallets query the proxy domain they can be redirected to the proper host.
+The first step to setup a proxy domain is to add a SRV record that points to the host server so that when wallets query the proxy domain they can be redirected to the proper host.
 
 The format of the SRV record is as follows:
 

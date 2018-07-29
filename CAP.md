@@ -3,19 +3,21 @@
 The CAP sub-protocol can be considered the only "required" portion of the opencap protocol. CAP allows a client (wallet) to be able to take an alias as input and derive the appropriate crypto address to send a payment to. There are only two things required of a server to be CAP compliant:
 
 ## 1.
-The domain of the CAP server must have a SRV record that points at itself. This is so that the other sub-protocol ([CAPP](/CAPP.md)) has the possibiliy of allowing proxy aliases. The format of the SRV record is as follows:
+The domain of the CAP server must have a SRV record that to where exactly the CAP application endpoints are being served. This is so that subdomains and third party servers can be used. For information on third party servers see ([CAPP](/CAPP.md)). 
+
+The format of the SRV record is as follows:
 
 ```javascript
-CAPP-{domain}:{port}-host
+_service._proto.name. TTL class SRV priority weight port target.
 ```
 
-"CAPP" specifies that this SRV record is to be used for the CAPP protocol.
+Here the SRV record for Ogdolo.com to use as a reference:
 
-{domain} is the domain where the server is hosted. For example, opencap.ogdolo.com Any subdomain can be used but "opencap" is standard.
+```javascript
+_cap._tcp.ogdolo.com. 86400 IN SRV 0 5 443 opencap.ogdolo.com.
+```
 
-{port} Any port may be used but communication is required to be over HTTPS. Standard is 443
-
-"host" specifies that this is a host server and not a proxy domain used by ([CAPP](/CAPP.md)).
+For more information on SRV records view: https://en.wikipedia.org/wiki/SRV_record#Record_format
 
 ## 2.
 The following endpoint must be supported:

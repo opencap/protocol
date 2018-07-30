@@ -4,17 +4,17 @@ CAMP is a sub-protocol of OpenCap. CAMP is an optional protocol that allows a se
 
 The following endpoints are required:
 
-## POST /v1/domains/{domain}/users
+## POST /v1/users
 
 No Authorization (Public method)
 
-Creates a new user. The new user is associated with the host's domain by default. This only changes if the endpoint described in the ([CAPP](/CAPP.md)) sub-protocol is used. The user<->domain relationship is one-to-one, although one server can have users with the same name as long as they are on different domains.
+Creates a new user. The new user is automatically associated with the domain of the host server. If an alias with a different domain is desired, see [CAPP](/CAPP.md)
 
 Request:
 
 ```javascript
 HTTP/1.1
-POST /v1/domains/domain.tld/users
+POST /v1/users
 Content-Type: application/json
 {
     "username": "alice",
@@ -33,7 +33,7 @@ HTTP/1.1
 
 No Authorization (Public method)
 
-Authenticates a user to be able to use a JWT to authenticate at the other endpoints. The JWT should contain enough information to uniquely identify the user which would typically be the user's username and domain. The JWT must not expire for at least thirty minutes.
+Authenticates a user to be able to use a JWT to authenticate at the other endpoints. The JWT must at least contain the alias of the user. The JWT must not expire for at least thirty minutes.
 
 Request:
 
@@ -42,8 +42,7 @@ HTTP/1.1
 POST /v1/auth
 Content-Type: application/json
 {
-    "username": "alice",
-    "domain": "ogdolo.com",
+    "alias": "alice@domain.tld",
     "password": "mysecretpassword"
 }
 ```
@@ -59,19 +58,18 @@ Content-Type: application/json
 }
 ```
 
-## DELETE /v1/domains/{domain}/users
+## DELETE /v1/users
 
 Authorization Bearer {jwt}
 
-Deletes the authorized user and all associated addresses.  
+Deletes the authorized user for the authorized domain and all associated addresses.  
 
 Request:
 
 ```javascript
 HTTP/1.1
-DELETE /v1/domains/domain.tld/users HTTP/1.1
+DELETE /v1/users HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
-
 ```
 
 Response:

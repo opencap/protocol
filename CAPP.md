@@ -17,19 +17,39 @@ _service._proto.name. TTL class SRV priority weight port target.
 Here is an example SRV record:
 
 ```javascript
-_cap._tcp.proxy.com. 86400 IN SRV 0 5 443 opencap.host.com.
+_cap._tcp.proxy.tld. 86400 IN SRV 0 5 443 opencap.host.tld.
 ```
 
 For more information on SRV records view: https://en.wikipedia.org/wiki/SRV_record#Record_format
 
 ## Verifying a domain on the host server
 
-Once the SRV record is added all incoming alias queries will be properly redirected to the host server. Assuming we already have an account on our host server we now need to change the domain our account is associated with on the host server. There are two steps:
+Once the SRV record is added all incoming alias queries will be properly redirected to the host server. Now we need to:
 
-1. Add a TXT record to proxy.com that will prove we are the owner
-2. Notify the host server to check the TXT record and validate our ownership
+1. Add a TXT record to proxy.tld that will prove we are the owner
+2. Create an account on the host server with an alias that uses our proxy domain
+3. Validate to the host that we are the owner of the proxy domain
 
-The format of the TXT record that we need to add to proxy.com is as follows:
+### Create an account on the host server
+
+The following endpoint must be supported by CCAP servers, it allows users to create accounts associated with a proxy domain.
+
+```javascript
+HTTP/1.1
+POST /v1/users/proxy
+Content-Type: application/json
+{
+    "username": "alice",
+    "domain": "proxy.tld",
+    "password": "mysecretpassword"
+}
+```
+
+Because we created an account with a proxy domain, we will be unable to create addresses until we verify that we own the proxy.
+
+### Validate to the server that we own the proxy
+
+The format of the TXT record that we need to add to proxy.tld is as follows:
 
 ```javascript
 cap: {jwt}
@@ -41,21 +61,18 @@ for example:
 cap: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
 ```
 
-The JWT is simply the the JWT that is obtained via the /v1/auth endpoint in the ([CAMP](/CAMP.md)) sub-protocol. The JWT shouldn't expire for at least 30 minutes, which means we have 30 minutes to use the following endpoint to verify our ownership:
+The JWT is simply the the JWT that is obtained via the /v1/auth endpoint in the [CAMP](/CAMP.md) sub-protocol. The JWT shouldn't expire for at least 30 minutes, which means we have 30 minutes to use the following endpoint to verify our ownership:
 
-## POST /v1/domains
+#### PUT /v1/users/proxy
 
 Authorization Bearer {jwt}
 
-Associates a domain with the authenticated user
-
 ```javascript
 HTTP/1.1
-PUT /v1/domains
+PUT /v1/users/proxy
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
 {
-    "domain": "proxy.com",
-    "master_jwt": ""  
+    // No request body
 }
 ```
 
@@ -66,13 +83,34 @@ HTTP/1.1
 200 OK
 ```
 
-Once the server recieves the request, the server will do a lookup to get the TXT and SRV records from proxy.com and ensure two things: 
+Once the server recieves the request, the server will do a lookup to get the TXT and SRV records from proxy.tld (which is specified in the user's alias in the JWT) and ensure two things:
 
-1. The TXT record has a valid JWT to prove that we own proxy.com
-2. The SRV record has the proper format to forward alias lookups back to host.com
+1. The TXT record has a valid JWT to prove that the user owns proxy.tld
+2. The SRV record has the proper format to forward alias lookups back to host.tld
 
-### Additional Users aliases on the proxy domain using "master_jwt"
+### Adding additional users to the proxy domain
 
-Once one user has successfully verified a proxy domain, that first user's jwt can be used to add other aliases to the same proxy domain so that the TXT record doesn't need to be validated every time.
+Once one user has successfully verified a proxy domain, that user is considered an owner of the proxy domain. An owner can use the same create proxy user endpoint to create additional users that are associated with the proxy. 
 
-The user to be added would use the POST /v1/domain endpoint and authenticate as themself. They would pass in the first user's jwt as the "master_jwt" parameter to prove that they should be allowed to have an alias on the proxy domain as well.
+These new users do not need to update the TXt record to validate ownership, they are automatically validated with the new domain. In order to become a domain owner however, the new user would need to use the PUT /v1/users/proxy endpoint.
+
+Request:
+
+```javascript
+HTTP/1.1
+POST /v1/users/proxy
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
+Content-Type: application/json
+{
+    "username": "susan",
+    "domain": "proxy.tld",
+    "password": "susanpassword"
+}
+```
+
+Response:
+
+```javascript
+HTTP/1.1
+200 OK
+```

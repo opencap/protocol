@@ -90,9 +90,9 @@ Once the server recieves the request, the server will do a lookup to get the TXT
 
 ### Adding additional users to the proxy domain
 
-Once one user has successfully verified a proxy domain, that user is considered an owner of the proxy domain. An owner can use the same create proxy user endpoint to create additional users that are associated with the proxy. 
+Once one user has successfully verified a proxy domain, that user is considered an owner of the proxy domain. An owner can use the same create proxy user endpoint to create additional users that are associated with the proxy.
 
-These new users do not need to update the TXt record to validate ownership, they are automatically validated with the new domain. In order to become a domain owner however, the new user would need to use the PUT /v1/users/proxy endpoint.
+These new users do not need to update the TXT record to validate ownership, they are automatically validated. In order to become a domain owner however, the new user would need to use the PUT /v1/users/proxy endpoint.
 
 Request:
 

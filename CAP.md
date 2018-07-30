@@ -19,9 +19,9 @@ _cap._tcp.ogdolo.com. 86400 IN SRV 0 5 443 opencap.ogdolo.com.
 
 For more information on SRV records view: https://en.wikipedia.org/wiki/SRV_record#Record_format
 
-## 2. The following endpoint must be supported:
+## 2. The following endpoint must be supported
 
-## GET /v1/domains/{domain}/users/{username}/assets/{asset_id}
+## GET /v1/addresses?alias={alias}&asset={asset}
 
 No Authorization (Public method)
 
@@ -31,7 +31,7 @@ Request:
 
 ```javascript
 HTTP/1.1
-GET /v1/domains/{domain}/users/{username}/assets/{asset_id}
+GET /v1/addresses?alias=alice@domain.tld&asset=1
 ```
 
 Response:
@@ -66,6 +66,6 @@ which specifies that this alias is not a "proxied" alias and is hosted on the se
 
 * Wallet now knows that a CAP server is running at https://opencap.domain.tld:443
 * Bob is sending NANO and the Asset ID for NANO is 1
-* Bob's wallet makes a GET request to the formulated URL: https://opencap.domain.tld:443/domain.tld/alice/1
+* Bob's wallet makes a GET request to the formulated URL: https://opencap.domain.tld:443/v1/addresses/?alias=alice@domain.tld&asset=1
 * If Alice truly has at least one NANO address on the server, it will be sent back to Bob's wallet with an HTTP 200 Status OK.
 * Bob's wallet notifies Bob that a NANO address has been found (xrb_1q79ahdr36uqn38p5tp5sqwkn73rnpj1k8obtuetdbjcx37d5gahhd1u9cuh in this example). The wallet can now route a payment to Alice through her address.

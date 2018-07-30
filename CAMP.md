@@ -14,7 +14,7 @@ Request:
 
 ```javascript
 HTTP/1.1
-POST /v1/domains/{domain}/users
+POST /v1/domains/domain.tld/users
 Content-Type: application/json
 {
     "username": "alice",
@@ -59,18 +59,17 @@ Content-Type: application/json
 }
 ```
 
-## DELETE /v1/domains/{domain}/users/{username}
+## DELETE /v1/domains/{domain}/users
 
 Authorization Bearer {jwt}
 
-Deletes the specified user and all associated addresses.  
-Token username must match with username in path parameter.
+Deletes the authorized user and all associated addresses.  
 
 Request:
 
 ```javascript
 HTTP/1.1
-DELETE /v1/domains/domain.tld/users/alice HTTP/1.1
+DELETE /v1/domains/domain.tld/users HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
 
 ```
@@ -82,7 +81,7 @@ HTTP/1.1
 200 OK
 ```
 
-## PUT /v1/domains/{domain}/users/{username}/assets/{asset_id}
+## PUT /v1/addresses
 
 Authorization Bearer {jwt}
 
@@ -92,10 +91,11 @@ Request:
 
 ```javascript
 HTTP/1.1
-PUT /v1/domains/domain.tld/users/alice/assets/1
+PUT /v1/addresses
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
 {
     "type": 0,
+    "asset": 1,
     "address": "XKdD14CTd6BNYerDzfkqFDilogkaqdbZpaYq6EqxuQ8="
 }
 ```
@@ -107,18 +107,17 @@ HTTP/1.1
 200 OK
 ```
 
-## DELETE /v1/domains/{domain}/users/{username}/assets/{asset_id}
+## DELETE /v1/addresses/{asset}
 
 Authorization Bearer {jwt}
 
-Deletes the address for the user of the given asset.  
-Token username must match with username in path parameter.
+Deletes the address for authorized user of the given asset.
 
 Request:
 
 ```javascript
 HTTP/1.1
-DELETE /v1/domains/domain.tld/users/alice/assets/1
+DELETE /v1/addresses/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
 ```
 

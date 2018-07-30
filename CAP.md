@@ -42,6 +42,7 @@ HTTP/1.1
 Content-Type: application/json
 {
     "type": 1,
+    "asset": 1,
     "address": "XKdD14CTd6BNYerDzfkqFDilogkaqdbZpaYq6EqxuQ8=",
     "extensions": {
         "name": "Alice",
@@ -51,6 +52,42 @@ Content-Type: application/json
 ```
 
 Each asset has it's own file in this repo specifying the quirks of that asset, the names of the address types, etc. Those details are found here: [Assets](/Assets.md)
+
+If no asset is included in the query parameters, then this endpoint will serve a list of all assets for the given alias. For example:
+
+Request:
+
+```javascript
+HTTP/1.1
+GET /v1/addresses?alias=alice@domain.tld
+```
+
+Response:
+
+```javascript
+HTTP/1.1
+200 OK
+Content-Type: application/json
+[
+    {
+        "type": 1,
+        "asset": 1,
+        "address": "XKdD14CTd6BNYerDzfkqFDilogkaqdbZpaYq6EqxuQ8=",
+        "extensions": {
+            "name": "Alice",
+            // ...
+        }
+    },
+    {
+        "type": 1,
+        "asset": 3,
+        "address": "FDilogkaqdbZpaYq6EqxuQ8=XKdD14CTd6BNYerDzfkq",
+        "extensions": {
+            "name": "Alice",
+            // ...
+        }
+    }
+]
 
 ### Example Usage
 

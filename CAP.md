@@ -88,6 +88,7 @@ Content-Type: application/json
         }
     }
 ]
+```
 
 ### Example Usage
 

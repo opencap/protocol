@@ -34,7 +34,7 @@ Once the SRV record is added all incoming alias queries will be properly redirec
 
 #### POST /v1/users/proxy
 
-CAPP servers must allow some way for users to be created with a separate domain, this endpoint is reserved for that purpose. A payload could look like this, although again it depends on the host server and these endpoints should be access via a client supplied by each host individually:
+CAPP servers must allow some way for users to be created with a separate domain, this endpoint is reserved for that purpose. The payload struture is NOT specified by the CAMP protocol becasuse each server may have different user data requirements for signing up. Typically this endpoint should be accessed via a client supplied by the CAMP server so there is no confusion.
 
 ```javascript
 HTTP/1.1
@@ -63,7 +63,7 @@ for example:
 cap: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
 ```
 
-The JWT is simply the the JWT that is obtained via the /v1/auth endpoint in the [CAMP](/CAMP.md) sub-protocol. The JWT shouldn't expire for at least 30 minutes, which means the user has at least 30 minutes to add the JWT to the TXT record and hit the following required endpoint:
+The JWT is the same one that is obtained via the /v1/auth endpoint in the [CAMP](/CAMP.md) sub-protocol. The JWT shouldn't expire for at least 30 minutes, which means the user has at least 30 minutes to add the JWT to the TXT record and hit the following required endpoint:
 
 #### PUT /v1/users/proxy
 
@@ -92,7 +92,7 @@ Once the server recieves the request, the server will do a lookup to get the TXT
 
 ### Adding additional users to the proxy domain
 
-Once one user has successfully verified a proxy domain, that user is considered an owner of the proxy domain. An owner can use the same POST /v1/users/proxy endpoint to create additional users that are associated with the proxy.
+Once one user has successfully verified a proxy domain, that user is considered an owner of the proxy domain. An owner can use the same POST /v1/users/proxy endpoint to create additional users that are associated with the proxy. This is done by simply adding an Authorization header with the token of the owner.
 
 These new users do not need to update the TXT record to validate ownership, they are automatically validated. In order to become a domain owner however, the new user would need to use the PUT /v1/users/proxy endpoint.
 

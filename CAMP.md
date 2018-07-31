@@ -6,9 +6,30 @@ The following endpoints are required:
 
 ## POST /v1/users
 
-This endpoint is intended to create new users on the server. The input data is not included in the protocol becuase every server may have different requirements on what data is required of users and how/if those users need to be validated. The minimum is that each user be given a username and password. The username defines the first part of the alias, for example:
+This endpoint is intended to create new users on the server. The payload struture is NOT specified by the CAMP protocol becasuse each server may have different user data requirements for signing up. The minimum is that each user be given a username and password. The username defines the first part of the alias, for example:
 
 username@domain.tld
+
+Here is what an example payload could look like, but typically this endpoint should be accessed via a client supplied by the CAMP server so there is no confusion.
+
+Request:
+
+```javascript
+HTTP/1.1
+POST /v1/users
+Content-Type: application/json
+{
+    "username": "alice",
+    "password": "mysecretpassword"
+}
+```
+
+Response:
+
+```javascript
+HTTP/1.1
+200 OK
+```
 
 ## POST /v1/auth
 

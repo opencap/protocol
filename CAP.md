@@ -45,9 +45,9 @@ HTTP/1.1
 200 OK
 Content-Type: application/json
 {
-    "type": 1,
-    "asset": 1,
-    "address": "XKdD14CTd6BNYerDzfkqFDilogkaqdbZpaYq6EqxuQ8=",
+    "type": 0,
+    "asset": 0,
+    "address": "YukHsVy/J9VCU5nr9vD7UOu4jxg=",
     "extensions": {
         "name": "Alice",
         // ...
@@ -74,18 +74,18 @@ HTTP/1.1
 Content-Type: application/json
 [
     {
-        "type": 1,
-        "asset": 1,
-        "address": "XKdD14CTd6BNYerDzfkqFDilogkaqdbZpaYq6EqxuQ8=",
+        "type": 0,
+        "asset": 0,
+        "address": "YukHsVy/J9VCU5nr9vD7UOu4jxg=",
         "extensions": {
             "name": "Alice",
             // ...
         }
     },
     {
-        "type": 1,
+        "type": 0,
         "asset": 3,
-        "address": "FDilogkaqdbZpaYq6EqxuQ8=XKdD14CTd6BNYerDzfkq",
+        "address": "YukHsVy/J9VCU5nr9vD7UOu4jxg=",
         "extensions": {
             "name": "Alice",
             // ...
@@ -107,7 +107,7 @@ CAPP-opencap.domain.tld:443-host
 which specifies that this alias is not a "proxied" alias and is hosted on the server with the same domain name as that of the alias.
 
 * Wallet now knows that a CAP server is running at https://opencap.domain.tld:443
-* Bob is sending NANO and the Asset ID for NANO is 1
-* Bob's wallet makes a GET request to the formulated URL: https://opencap.domain.tld:443/v1/addresses/?alias=alice@domain.tld&asset=1
+* Bob is sending NANO and the Asset ID for NANO is 4
+* Bob's wallet makes a GET request to the formulated URL: https://opencap.domain.tld:443/v1/addresses/?alias=alice@domain.tld&asset=4
 * If Alice truly has at least one NANO address on the server, it will be sent back to Bob's wallet with an HTTP 200 Status OK.
-* Bob's wallet notifies Bob that a NANO address has been found (xrb_1q79ahdr36uqn38p5tp5sqwkn73rnpj1k8obtuetdbjcx37d5gahhd1u9cuh in this example). The wallet can now route a payment to Alice through her address.
+* Bob's wallet notifies Bob that a NANO address has been found. The wallet can now route a payment to Alice through her address.

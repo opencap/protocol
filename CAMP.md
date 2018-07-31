@@ -6,28 +6,9 @@ The following endpoints are required:
 
 ## POST /v1/users
 
-No Authorization (Public method)
+This endpoint is intended to create new users on the server. The input data is not included in the protocol becuase every server may have different requirements on what data is required of users and how/if those users need to be validated. The minimum is that each user be given a username and password. The username defines the first part of the alias, for example:
 
-Creates a new user. The new user is automatically associated with the domain of the host server. If an alias with a different domain is desired, see [CAPP](/CAPP.md)
-
-Request:
-
-```javascript
-HTTP/1.1
-POST /v1/users
-Content-Type: application/json
-{
-    "username": "alice",
-    "password": "mysecretpassword"
-}
-```
-
-Response:
-
-```javascript
-HTTP/1.1
-200 OK
-```
+username@domain.tld
 
 ## POST /v1/auth
 

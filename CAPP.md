@@ -24,15 +24,17 @@ For more information on SRV records view: https://en.wikipedia.org/wiki/SRV_reco
 
 ## Verifying a domain on the host server
 
-Once the SRV record is added all incoming alias queries will be properly redirected to the host server. Now we need to:
+Once the SRV record is added all incoming alias queries will be properly redirected to the host server. The next steps are:
 
-1. Add a TXT record to proxy.tld that will prove we are the owner
-2. Create an account on the host server with an alias that uses our proxy domain
-3. Validate to the host that we are the owner of the proxy domain
+1. Add a TXT record to proxy.tld that will prove ownership of the user
+2. Create an account on the host server with an alias that is associated with the proxy domain
+3. Validate to the host that the user owns the domain by using a TXT record
 
 ### Create an account on the host server
 
-The following endpoint must be supported by CCAP servers, it allows users to create accounts associated with a proxy domain.
+#### POST /v1/users/proxy
+
+CAPP servers must allow some way for users to be created with a separate domain, this endpoint is reserved for that purpose. A payload could look like this, although again it depends on the host server and these endpoints should be access via a client supplied by each host individually:
 
 ```javascript
 HTTP/1.1
@@ -45,11 +47,11 @@ Content-Type: application/json
 }
 ```
 
-Because we created an account with a proxy domain, we will be unable to create addresses until we verify that we own the proxy.
+It is possible for two users to have the same username on the host server as long as they have different domains. In other words aliases must be unique, usernames don't need to be.
 
-### Validate to the server that we own the proxy
+### Validate to the host server that the user owns the proxy domain
 
-The format of the TXT record that we need to add to proxy.tld is as follows:
+The format of the TXT record that is added to proxy.tld is as follows:
 
 ```javascript
 cap: {jwt}
@@ -61,7 +63,7 @@ for example:
 cap: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
 ```
 
-The JWT is simply the the JWT that is obtained via the /v1/auth endpoint in the [CAMP](/CAMP.md) sub-protocol. The JWT shouldn't expire for at least 30 minutes, which means we have 30 minutes to use the following endpoint to verify our ownership:
+The JWT is simply the the JWT that is obtained via the /v1/auth endpoint in the [CAMP](/CAMP.md) sub-protocol. The JWT shouldn't expire for at least 30 minutes, which means the user has at least 30 minutes to add the JWT to the TXT record and hit the following required endpoint:
 
 #### PUT /v1/users/proxy
 
@@ -90,9 +92,11 @@ Once the server recieves the request, the server will do a lookup to get the TXT
 
 ### Adding additional users to the proxy domain
 
-Once one user has successfully verified a proxy domain, that user is considered an owner of the proxy domain. An owner can use the same create proxy user endpoint to create additional users that are associated with the proxy.
+Once one user has successfully verified a proxy domain, that user is considered an owner of the proxy domain. An owner can use the same POST /v1/users/proxy endpoint to create additional users that are associated with the proxy.
 
 These new users do not need to update the TXT record to validate ownership, they are automatically validated. In order to become a domain owner however, the new user would need to use the PUT /v1/users/proxy endpoint.
+
+The following is an example of what the payload could look like. Again, this endpoint is required, but the payload is not specified because different servers will require different information at sign-up. This endpoint would typically be accessed via a client supplied by the host server.
 
 Request:
 

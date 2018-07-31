@@ -95,7 +95,7 @@ PUT /v1/addresses
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
 {
     "type": 0,
-    "asset": 0,
+    "asset": 100,
     "address": "YukHsVy/J9VCU5nr9vD7UOu4jxg="
 }
 ```

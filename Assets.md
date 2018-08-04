@@ -1,7 +1,7 @@
-# Ledger IDs
+# Asset IDs
 
-Ledgers are added in the order that there are wallets that support the protocol.  
-Create a GitHub issue and propose a Ledger to be added to the system.
+Assets are added in the order that there are wallets that support the protocol.  
+Create a GitHub issue and propose an Asset to be added to the system.
 
 | ID | Distributed Ledger / P2P Network | Type                                                 |
 | -- | -------------------------------- | ----                                                 |

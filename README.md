@@ -62,11 +62,11 @@ OpenCAP is the generic name to describe the entire alias protocol. There are thr
 
 They sub-protocol are listed in descending levels of importance. For example, all CAMP servers also must be CAP servers. All CAPP servers must also be CAMP and CAP servers.
 
-1. [CAP](/CAP.md) - Crypto Alias Protcol: CAP is the base protocol and any server that wants to host aliases must at least adhere to CAP requirements.
+1.  [CAP](/CAP.md) - Crypto Alias Protcol: CAP is the base protocol and any server that wants to host aliases must at least adhere to CAP requirements.
 
-2. [CAMP](/CAMP.md) - Crypto Alias Management Protocol: CAMP is a set of requirements that allow client (wallet) software to intereact with CAMP servers and make changes to the user's alias by CREATE/UPDATE/DELETE operations on the users account.
+2.  [CAMP](/CAMP.md) - Crypto Alias Management Protocol: CAMP is a set of requirements that allow client (wallet) software to intereact with CAMP servers and make changes to the user's alias by CREATE/UPDATE/DELETE operations on the users account.
 
-3. [CAPP](/CAPP.md) - Crypto Alias Proxy Protocol: CAPP describes how a user can set up a "proxy domain" so that all aliases using that domain can actually be served from a seperate host server while retaining the same domain name.
+3.  [CAPP](/CAPP.md) - Crypto Alias Proxy Protocol: CAPP describes how a user can set up a "proxy domain" so that all aliases using that domain can actually be served from a seperate host server while retaining the same domain name.
 
 Each of these sub-protocols has its own file in the root of the repository describing the requirements.
 
@@ -80,17 +80,25 @@ The most obvious way for a malicious party to use the alias system to steal fund
 
 Possible remedies:
 
-* Only allow address updates from verified IP addresses
-* Run a OpenCAP server yourself instead of using a third party (Using a third party isn't inherently insecure, and in the case of a non-programmer it is probably more secure)
-* Only allow address updates manually through a browser and 2FA/captcha. Some currencies may not update addresses often, if ever. (Nano for example)
-* Use 2 way encryption like AES-256 to cipher address and user data before storing it in a database so it can't easily be swapped out
+- Only allow address updates from verified IP addresses
+- Run a OpenCAP server yourself instead of using a third party (Using a third party isn't inherently insecure, and in the case of a non-programmer it is probably more secure)
+- Only allow address updates manually through a browser and 2FA/captcha. Some currencies may not update addresses often, if ever. (Nano for example)
+- Use 2 way encryption like AES-256 to cipher address and user data before storing it in a database so it can't easily be swapped out
 
 ### Payment Tracking
 
 It is fairly simple for a third party to constatly poll a given alias's endpoint and record all that alias's addresses over time. While the alias protocol isn't necessarily meant to have stringent privacy measures (the whole point of an alias is to relate a public account to an address) there are a couple things that can be done to increase privacy:
 
-* Coins that are able to implement features similar to BIP 47 should do so and use payment codes instead of regular addresses.
-* Servers can have sign-ups that don't require any personal information, so users can use an anonymous alias.
+- Coins that are able to implement features similar to BIP 47 should do so and use payment codes instead of regular addresses.
+- Servers can have sign-ups that don't require any personal information, so users can use an anonymous alias.
+
+### Cross-Site Scripting XSS
+
+Like any javascript client, wallets and other client-side OpenCAP software can be vulnerable to XSS attacks. All OpenCAP software must take precautions to not allow any data returned by a potentially untrustworthy server to be injected in a script and ran.
+
+Reference:
+
+https://en.wikipedia.org/wiki/Cross-site_scripting#Preventive_measures
 
 ### DNSSEC Omission
 
@@ -100,17 +108,17 @@ TODO: we need an explanation of the SRV/DNSSEC security issue
 
 ## Justifications
 
-* **Squatting:** OpenCAP is a REST protocol built on top of DNS to stop "squatters". Squatting is when users that are the first-adopters of the protocol come in and steal all the valuable aliases ("nike", "coke", "trump", "btc", etc). By requiring that the a domain name is part of an alias, users have to first own the domain which is a system that is already fairly distributed.
+- **Squatting:** OpenCAP is a REST protocol built on top of DNS to stop "squatters". Squatting is when users that are the first-adopters of the protocol come in and steal all the valuable aliases ("nike", "coke", "trump", "btc", etc). By requiring that the a domain name is part of an alias, users have to first own the domain which is a system that is already fairly distributed.
 
-* **TXT Records**: There is another protocol out there, OpenAlias, that proposes the usage of domain TXT Records for transmitting alias/address combinations. A lot of good work was done there, but we designed this system because we felt that most defvelopers are more comfortable building out a simple CRUD app with a database. If it is easier for developers to adhere tothe protocol, it will naturally be more distibuted and decentralized.
+- **TXT Records**: There is another protocol out there, OpenAlias, that proposes the usage of domain TXT Records for transmitting alias/address combinations. A lot of good work was done there, but we designed this system because we felt that most defvelopers are more comfortable building out a simple CRUD app with a database. If it is easier for developers to adhere tothe protocol, it will naturally be more distibuted and decentralized.
 
-* **Why no blockchain?** The amount of data being stored on blockchains is a constant struggle, we are always trying to reduce the amount of data that needs to be verified by all nodes in a decentralized network (see the bitcoin scaling problem)Namecoin also never experienced great adoption so we saw no reason to beat that dead horse.
+- **Why no blockchain?** The amount of data being stored on blockchains is a constant struggle, we are always trying to reduce the amount of data that needs to be verified by all nodes in a decentralized network (see the bitcoin scaling problem)Namecoin also never experienced great adoption so we saw no reason to beat that dead horse.
 
 <hr>
 
 ## Contribute
 
-OpenCAP is an open-source protocol please feel free to submit change proposals via the "issues" tab on github, or by submitting a pull request. 
+OpenCAP is an open-source protocol please feel free to submit change proposals via the "issues" tab on github, or by submitting a pull request.
 
 Build software that supports the protocol! The more wallets and servers actually work together to solve the alias problem, the easier it is to solve in the end. If you aren't a developer, reach out to your favorite project teams and let them know about the project!
 
@@ -118,4 +126,4 @@ Build software that supports the protocol! The more wallets and servers actually
 
 ## OpenCAP Compliant Software
 
-* Nothing here yet... we just released! Give us a sec ;)
+- Nothing here yet... we just released! Give us a sec ;)

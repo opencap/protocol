@@ -64,7 +64,7 @@ Content-Type: application/json
 
 Authorization Bearer {jwt}
 
-Deletes the authorized user for the authorized domain and all associated addresses.  
+Deletes the authorized user for the authorized domain and all associated addresses.
 
 Request:
 
@@ -85,7 +85,7 @@ HTTP/1.1
 
 Authorization Bearer {jwt}
 
-Adds or updates the address of the authenticated user for the given asset id.  
+Adds or updates the address of the authenticated user for the given address type.
 
 Request:
 
@@ -94,9 +94,8 @@ HTTP/1.1
 PUT /v1/addresses
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
 {
-    "type": 0,
-    "asset": 100,
-    "address": "YukHsVy/J9VCU5nr9vD7UOu4jxg="
+    "address_type": 100,
+    "address": "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2"
 }
 ```
 
@@ -107,17 +106,17 @@ HTTP/1.1
 200 OK
 ```
 
-## DELETE /v1/addresses/{asset}
+## DELETE /v1/addresses/{address_type}
 
 Authorization Bearer {jwt}
 
-Deletes the address for authorized user of the given asset.
+Deletes the address for authorized user of the given address_type.
 
 Request:
 
 ```javascript
 HTTP/1.1
-DELETE /v1/addresses/1
+DELETE /v1/addresses/100
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
 ```
 

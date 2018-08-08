@@ -4,7 +4,7 @@ The CAP sub-protocol can be considered the only "required" portion of the openca
 
 ## 1. A SRV Record pointing to the host OR a host on the default domain and port
 
-When a client looks up an address like "username@domain.tld", first it contacts "domain.tld" and checks for a SRV record with "_cap" as the service service. If it finds one, it will then contact the host specified in that SRV record for all API calls. IF there is no SRV record found, the client will instead try to make the API calls on the default host and port which in this case would be: https://domain.tld:41145
+When a client looks up an address like "username@domain.tld", first it contacts "domain.tld" and checks for a SRV record with "\_cap" as the service service. If it finds one, it will then contact the host specified in that SRV record for all API calls. IF there is no SRV record found, the client will instead try to make the API calls on the default host and port which in this case would be: https://domain.tld:41145
 
 The SRV record allows CAP servers to use a separate domain/port if they choose to do so.
 
@@ -25,17 +25,19 @@ For more information on SRV records view: https://en.wikipedia.org/wiki/SRV_reco
 
 ## 2. The following endpoint must be supported
 
-## GET /v1/addresses?alias={alias}&asset={asset}
+## GET /v1/addresses?alias={alias}&address_type={address_type}
 
 No Authorization (Public method)
 
-Returns the address of the related domain, username, and asset if it exists on the server.
+Returns the address(es) of the related domain and username. If the address_type parameter is included then only that address type is returned, otherwise an array containing all of the user's addresses is returned. The "extensions" field in the return value will contain optional superflous information about the address.
+
+Each address type has it's own file in this repo specifying the quirks of that addresstype, the names of the address types, etc. Those details are found here: [Address Types](AddressTypes/README.md)
 
 Request:
 
 ```javascript
 HTTP/1.1
-GET /v1/addresses?alias=alice@domain.tld&asset=1
+GET /v1/addresses?alias=alice@domain.tld&address_type=100
 ```
 
 Response:
@@ -45,9 +47,8 @@ HTTP/1.1
 200 OK
 Content-Type: application/json
 {
-    "type": 0,
-    "asset": 100,
-    "address": "YukHsVy/J9VCU5nr9vD7UOu4jxg=",
+    "address_type": 100,
+    "address": "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2",
     "extensions": {
         "name": "Alice",
         // ...
@@ -55,9 +56,7 @@ Content-Type: application/json
 }
 ```
 
-Each asset has it's own file in this repo specifying the quirks of that asset, the names of the address types, etc. Those details are found here: [Assets](/Assets.md)
-
-If no asset is included in the query parameters, then this endpoint will serve a list of all assets for the given alias. For example:
+or
 
 Request:
 
@@ -74,18 +73,16 @@ HTTP/1.1
 Content-Type: application/json
 [
     {
-        "type": 0,
-        "asset": 100,
-        "address": "YukHsVy/J9VCU5nr9vD7UOu4jxg=",
+        "address_type": 100,
+        "address": "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2",
         "extensions": {
             "name": "Alice",
             // ...
         }
     },
     {
-        "type": 0,
-        "asset": 200,
-        "address": "YukHsVy/J9VCU5nr9vD7UOu4jxg=",
+        "address_type": 101,
+        "address": "3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy",
         "extensions": {
             "name": "Alice",
             // ...
@@ -96,9 +93,9 @@ Content-Type: application/json
 
 ### Example Usage
 
-* Bob decides to send Alice 5 NANO via her alias alice@domain.tld
-* Bob's wallet does a name server lookup to the SRV record for domain.tld
-* Wallet finds a SRV record that contains:
+- Bob decides to send Alice 5 NANO via her alias alice@domain.tld
+- Bob's wallet does a name server lookup to the SRV record for domain.tld
+- Wallet finds a SRV record that contains:
 
 ```javascript
 CAPP-opencap.domain.tld:443-host
@@ -106,8 +103,8 @@ CAPP-opencap.domain.tld:443-host
 
 which specifies that this alias is not a "proxied" alias and is hosted on the server with the same domain name as that of the alias.
 
-* Wallet now knows that a CAP server is running at https://opencap.domain.tld:443
-* Bob is sending NANO and the Asset ID for NANO is 300
-* Bob's wallet makes a GET request to the formulated URL: https://opencap.domain.tld:443/v1/addresses/?alias=alice@domain.tld&asset=300
-* If Alice truly has at least one NANO address on the server, it will be sent back to Bob's wallet with an HTTP 200 Status OK.
-* Bob's wallet notifies Bob that a NANO address has been found. The wallet can now route a payment to Alice through her address.
+- Wallet now knows that a CAP server is running at https://opencap.domain.tld:443
+- Bob is sending Nano and the Address Type ID for NANO is 300
+- Bob's wallet makes a GET request to the formulated URL: https://opencap.domain.tld:443/v1/addresses/?alias=alice@domain.tld&address_type=300
+- If Alice truly has a Nano address on the server, it will be sent back to Bob's wallet with an HTTP 200 Status OK.
+- Bob's wallet notifies Bob that a Nano address has been found. The wallet can now route a payment to Alice through her address.

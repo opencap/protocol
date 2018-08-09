@@ -2,7 +2,7 @@
 
 Inception: July 2018
 
-Discord: https://discord.gg/A8Jkp2
+Discord: https://discord.gg/FTMCBE8
 
 <hr>
 

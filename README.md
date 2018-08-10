@@ -62,11 +62,11 @@ OpenCAP is the generic name to describe the entire alias protocol. There are thr
 
 They sub-protocol are listed in descending levels of importance. For example, all CAMP servers also must be CAP servers. All CAPP servers must also be CAMP and CAP servers.
 
-1.  [CAP](/CAP.md) - Crypto Alias Protcol: CAP is the base protocol and any server that wants to host aliases must at least adhere to CAP requirements.
+1. [CAP](/CAP.md) - Crypto Alias Protcol: CAP is the base protocol and any server that wants to host aliases must at least adhere to CAP requirements.
 
-2.  [CAMP](/CAMP.md) - Crypto Alias Management Protocol: CAMP is a set of requirements that allow client (wallet) software to intereact with CAMP servers and make changes to the user's alias by CREATE/UPDATE/DELETE operations on the users account.
+2. [CAMP](/CAMP.md) - Crypto Alias Management Protocol: CAMP is a set of requirements that allow client (wallet) software to intereact with CAMP servers and make changes to the user's alias by CREATE/UPDATE/DELETE operations on the users account.
 
-3.  [CAPP](/CAPP.md) - Crypto Alias Proxy Protocol: CAPP describes how a user can set up a "proxy domain" so that all aliases using that domain can actually be served from a seperate host server while retaining the same domain name.
+3. [CAPP](/CAPP.md) - Crypto Alias Proxy Protocol: CAPP describes how a user can set up a "proxy domain" so that all aliases using that domain can actually be served from a seperate host server while retaining the same domain name.
 
 Each of these sub-protocols has its own file in the root of the repository describing the requirements.
 
@@ -102,7 +102,7 @@ https://en.wikipedia.org/wiki/Cross-site_scripting#Preventive_measures
 
 ### DNSSEC Omission
 
-TODO: we need an explanation of the SRV/DNSSEC security issue
+TODO: we need an explanation of the DNSSEC security issue
 
 <hr>
 

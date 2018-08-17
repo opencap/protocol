@@ -1,30 +1,22 @@
 # CAPP - Crypto Alias Proxy Protocol
 
-CAPP is a sub-protocol that allows us to use a CAPP compliant server as a host for a separate domain name. A good comparison would be when a company uses a service like gmail to handle email hosting, but points their own domain at the service. For instance, a company like Walmart uses gmail but has a email addresses ending in "@walmart.com"
+CAPP is a sub-protocol that allows us to use a CAPP compliant server as a host for a separate domain name. For example, lets pretend that alice has a business that owns a website hosted on "business.com". Alice wants to use ogdolo.com as the server to host her CAP/CAMP alias but she wants to use the alias alice$business.com instead of alice$ogdolo.com. If ogdolo.com is a CAPP server, she will be able to.
 
 For the purposes of this documentation we refer to the CAPP server that runs the API the "host server". The domain that is being pointed towards that host will be called the "proxy domain".
 
 ## Pointing the proxy domain to the host server
 
-The first step to setup a proxy domain is to add a SRV record that points to the host server so that when wallets query the proxy domain they can be redirected to the proper host.
-
-The format of the SRV record is as follows:
+The first step to setup a proxy domain is to add a CNAME record that points to the host server from the proxy domain. The CNAME record has the following format:
 
 ```javascript
-_service._proto.name. TTL class SRV priority weight port target.
+opencap.proxy.tld.  CNAME  opencap.host.tld.
 ```
 
-Here is an example SRV record:
-
-```javascript
-_cap._tcp.proxy.tld. 86400 IN SRV 0 5 443 opencap.host.tld.
-```
-
-For more information on SRV records view: https://en.wikipedia.org/wiki/SRV_record#Record_format
+For more information on CNAME records view: https://en.wikipedia.org/wiki/CNAME_record
 
 ## Verifying a domain on the host server
 
-Once the SRV record is added all incoming alias queries will be properly redirected to the host server. The next steps are:
+Once the CNAME record is added all incoming alias queries will be properly redirected to the host server. The next steps are:
 
 1. Add a TXT record to proxy.tld that will prove ownership of the user
 2. Create an account on the host server with an alias that is associated with the proxy domain
@@ -54,13 +46,27 @@ It is possible for two users to have the same username on the host server as lon
 The format of the TXT record that is added to proxy.tld is as follows:
 
 ```javascript
-cap: {jwt}
+<<<<<<< HEAD
+opencap-jwt-verification={jwt}
+=======
+cap: {
+  jwt;
+}
+>>>>>>> d772c2b97d174491aca7a1d85ade54fa739fbb04
 ```
 
 for example:
 
 ```javascript
-cap: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
+<<<<<<< HEAD
+opencap-jwt-verification=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
+=======
+cap: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+  .eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0
+  .Kxy -
+  elSGuiSzBv2s6JlqbFU3kxgOD -
+  sg1fm7AgrRFDE;
+>>>>>>> d772c2b97d174491aca7a1d85ade54fa739fbb04
 ```
 
 The JWT is the same one that is obtained via the /v1/auth endpoint in the [CAMP](/CAMP.md) sub-protocol. The JWT shouldn't expire for at least 30 minutes, which means the user has at least 30 minutes to add the JWT to the TXT record and hit the following required endpoint:
@@ -85,10 +91,10 @@ HTTP/1.1
 200 OK
 ```
 
-Once the server recieves the request, the server will do a lookup to get the TXT and SRV records from proxy.tld (which is specified in the user's alias in the JWT) and ensure two things:
+Once the server recieves the request, the server will do a lookup to get the TXT and CNAME records from proxy.tld (which is specified in the user's alias in the JWT) and ensure two things:
 
 1. The TXT record has a valid JWT to prove that the user owns proxy.tld
-2. The SRV record has the proper format to forward alias lookups back to host.tld
+2. The CNAME record has the proper format to forward alias lookups back to host.tld
 
 ### Adding additional users to the proxy domain
 

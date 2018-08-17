@@ -8,7 +8,7 @@ The following endpoints are required:
 
 This endpoint is intended to create new users on the server. The payload struture is NOT specified by the CAMP protocol becasuse each server may have different user data requirements for signing up. The minimum is that each user be given a username and password. The username defines the first part of the alias, for example:
 
-username@domain.tld
+username$domain.tld
 
 Here is what an example payload could look like, but typically this endpoint should be accessed via a client supplied by the CAMP server so there is no confusion.
 
@@ -44,7 +44,7 @@ HTTP/1.1
 POST /v1/auth
 Content-Type: application/json
 {
-    "alias": "alice@domain.tld",
+    "alias": "alice$domain.tld",
     "password": "mysecretpassword"
 }
 ```

@@ -54,13 +54,19 @@ It is possible for two users to have the same username on the host server as lon
 The format of the TXT record that is added to proxy.tld is as follows:
 
 ```javascript
-cap: {jwt}
+cap: {
+  jwt;
+}
 ```
 
 for example:
 
 ```javascript
-cap: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
+cap: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+  .eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0
+  .Kxy -
+  elSGuiSzBv2s6JlqbFU3kxgOD -
+  sg1fm7AgrRFDE;
 ```
 
 The JWT is the same one that is obtained via the /v1/auth endpoint in the [CAMP](/CAMP.md) sub-protocol. The JWT shouldn't expire for at least 30 minutes, which means the user has at least 30 minutes to add the JWT to the TXT record and hit the following required endpoint:

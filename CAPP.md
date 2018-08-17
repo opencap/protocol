@@ -1,6 +1,6 @@
 # CAPP - Crypto Alias Proxy Protocol
 
-CAPP is a sub-protocol that allows us to use a CAPP compliant server as a host for a separate domain name. For example, lets pretend that alice has a business that owns a website hosted on "business.com". Alice wants to use ogdolo.com as the server to host her CAP/CAMP alias but she wants to use the alias alice@business.com instead of alice@ogdolo.com. If ogdolo.com is a CAPP server, she will be able to.
+CAPP is a sub-protocol that allows us to use a CAPP compliant server as a host for a separate domain name. For example, lets pretend that alice has a business that owns a website hosted on "business.com". Alice wants to use ogdolo.com as the server to host her CAP/CAMP alias but she wants to use the alias alice$business.com instead of alice$ogdolo.com. If ogdolo.com is a CAPP server, she will be able to.
 
 For the purposes of this documentation we refer to the CAPP server that runs the API the "host server". The domain that is being pointed towards that host will be called the "proxy domain".
 
@@ -46,13 +46,27 @@ It is possible for two users to have the same username on the host server as lon
 The format of the TXT record that is added to proxy.tld is as follows:
 
 ```javascript
+<<<<<<< HEAD
 opencap-jwt-verification={jwt}
+=======
+cap: {
+  jwt;
+}
+>>>>>>> d772c2b97d174491aca7a1d85ade54fa739fbb04
 ```
 
 for example:
 
 ```javascript
+<<<<<<< HEAD
 opencap-jwt-verification=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
+=======
+cap: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+  .eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0
+  .Kxy -
+  elSGuiSzBv2s6JlqbFU3kxgOD -
+  sg1fm7AgrRFDE;
+>>>>>>> d772c2b97d174491aca7a1d85ade54fa739fbb04
 ```
 
 The JWT is the same one that is obtained via the /v1/auth endpoint in the [CAMP](/CAMP.md) sub-protocol. The JWT shouldn't expire for at least 30 minutes, which means the user has at least 30 minutes to add the JWT to the TXT record and hit the following required endpoint:

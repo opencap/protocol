@@ -6,7 +6,7 @@ The CAP sub-protocol can be considered the only "required" portion of the openca
 https://opencap.{domain}.{ext}:443
 ```
 
-All traffic is required to be served over HTTPS on port 443. {domain} and {ext} represent the domain and extension of the aliases that will be served from the server (with the exception of aliases adhering to the optional [CAPP](/CAPP.md) protocol). For instance if I want a server to host my alias "lane@ogdolo.com", I would run my server at:
+All traffic is required to be served over HTTPS on port 443. {domain} and {ext} represent the domain and extension of the aliases that will be served from the server (with the exception of aliases adhering to the optional [CAPP](/CAPP.md) protocol). For instance if I want a server to host my alias "lane$ogdolo.com", I would run my server at:
 
 ```
 https://opencap.ogdolo.com:443
@@ -26,7 +26,7 @@ Request:
 
 ```javascript
 HTTP/1.1
-GET /v1/addresses?alias=alice@domain.tld&address_type=100
+GET /v1/addresses?alias=alice$domain.tld&address_type=100
 ```
 
 Response:
@@ -51,7 +51,7 @@ Request:
 
 ```javascript
 HTTP/1.1
-GET /v1/addresses?alias=alice@domain.tld
+GET /v1/addresses?alias=alice$domain.tld
 ```
 
 Response:
@@ -82,9 +82,9 @@ Content-Type: application/json
 
 ### Example Usage
 
-- Bob decides to send Alice 5 NANO via her alias alice@domain.tld
+- Bob decides to send Alice 5 NANO via her alias alice$domain.tld
 - Wallet now knows that a CAP server is running at https://opencap.domain.tld:443, or that their is a CNAME record that will redirect to where the host is running.
 - Bob is sending Nano and the Address Type ID for NANO is 300
-- Bob's wallet makes a GET request to the formulated URL: https://opencap.domain.tld:443/v1/addresses/?alias=alice@domain.tld&address_type=300
+- Bob's wallet makes a GET request to the formulated URL: https://opencap.domain.tld:443/v1/addresses/?alias=alice$domain.tld&address_type=300
 - If Alice truly has a Nano address on the server, it will be sent back to Bob's wallet with an HTTP 200 Status OK.
 - Bob's wallet notifies Bob that a Nano address has been found. The wallet can now route a payment to Alice through her address.

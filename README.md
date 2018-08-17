@@ -46,9 +46,9 @@ OpenCAP is a simple protocol that does one thing: relate aliases to addresses. S
 
 ## Anatomy of an Alias
 
-### {username}@{domain name}
+### {username}${domain name}
 
-### example: lane@ogdolo.com
+### example: lane$ogdolo.com
 
 Aliases have the same anatomy as an email address. This greatly benefits user experience as people are used to emailing, and payment services like PayPal allow sending to email addresses as well.
 

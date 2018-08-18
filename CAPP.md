@@ -17,7 +17,7 @@ _service._proto.name. TTL class SRV priority weight port target.
 Here is an example SRV record:
 
 ```javascript
-_cap._tcp.proxy.tld. 86400 IN SRV 0 5 443 opencap.host.tld.
+_opencap._tcp.proxy.tld. 86400 IN SRV 0 5 443 opencap.host.tld.
 ```
 
 For more information on SRV records view: https://en.wikipedia.org/wiki/SRV_record#Record_format
@@ -54,19 +54,13 @@ It is possible for two users to have the same username on the host server as lon
 The format of the TXT record that is added to proxy.tld is as follows:
 
 ```javascript
-cap: {
-  jwt;
-}
+opencap-domain-verification={jwt}
 ```
 
 for example:
 
 ```javascript
-cap: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
-  .eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0
-  .Kxy -
-  elSGuiSzBv2s6JlqbFU3kxgOD -
-  sg1fm7AgrRFDE;
+opencap-domain-verification=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.KxyelSGuiSzBv2s6JlqbFU3kxgODsg1fm7AgrRFDE;
 ```
 
 The JWT is the same one that is obtained via the /v1/auth endpoint in the [CAMP](/CAMP.md) sub-protocol. The JWT shouldn't expire for at least 30 minutes, which means the user has at least 30 minutes to add the JWT to the TXT record and hit the following required endpoint:

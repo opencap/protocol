@@ -34,7 +34,7 @@ Once the SRV record is added all incoming alias queries will be properly redirec
 
 #### POST /v1/users/proxy
 
-CAPP servers must allow some way for users to be created with a separate domain, this endpoint is reserved for that purpose. The payload struture is NOT specified by the CAMP protocol becasuse each server may have different user data requirements for signing up. Typically this endpoint should be accessed via a client supplied by the CAMP server so there is no confusion.
+CAPP servers must allow some way for users to be created with a separate domain, this endpoint is reserved for that purpose. The payload struture is NOT specified by the CAMP protocol becasuse each server may have different user data requirements for signing up. Typically this endpoint should be accessed via a client supplied by the CAMP server so there is no confusion. The idea is that users will typically create their account using their provider's website or client, then any OpenCAP wallet (client) can manage that account. The majority of the managerial duties are simply to login and update addresses periodically.
 
 ```javascript
 HTTP/1.1
@@ -44,6 +44,7 @@ Content-Type: application/json
     "username": "alice",
     "domain": "proxy.tld",
     "password": "mysecretpassword"
+    // Additional info that is server specific
 }
 ```
 

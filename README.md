@@ -126,4 +126,6 @@ Build software that supports the protocol! The more wallets and servers actually
 
 ## OpenCAP Compliant Software
 
-- Nothing here yet... we just released! Give us a sec ;)
+| Link                    | Type             |
+| ----------------------- | ---------------- |
+| https://www.ogdolo.com/ | CAP, CAMP server |

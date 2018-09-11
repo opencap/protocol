@@ -10,7 +10,7 @@ This endpoint is intended to create new users on the server. The payload strutur
 
 username$domain.tld
 
-Here is what an example payload could look like, but typically this endpoint should be accessed via a client supplied by the CAMP server so there is no confusion.
+Here is what an example payload could look like, but typically this endpoint should be accessed via a client supplied by the CAMP server so there is no confusion. The idea is that users will typically create their account using their provider's website or client, then any OpenCAP wallet (client) can manage that account. The majority of the managerial duties are simply to login and update addresses periodically.
 
 Request:
 
@@ -21,6 +21,7 @@ Content-Type: application/json
 {
     "username": "alice",
     "password": "mysecretpassword"
+    // Additional info that is server specific
 }
 ```
 

@@ -50,9 +50,9 @@ OpenCAP is a simple protocol that does one thing: relate aliases to addresses. S
 
 ### example: lane$ogdolo.com
 
-Aliases have the same anatomy as an email address. This greatly benefits user experience as people are used to emailing, and payment services like PayPal allow sending to email addresses as well.
+The anatomy of an OpenCAP alias may remind you of an email address. The only difference being the seperator between username and domain.
 
-Using email address format does neither mean that a OpenCAP service has to be run on the same host as a mail server nor that a mail server has to be run under the target domain name at all. Email addresses have nothing to do with OpenCAP aliases other than they share a format.
+However it is very important to note that email addresses have nothing to do with OpenCAP aliases other than that they share a similar format.
 
 <hr>
 

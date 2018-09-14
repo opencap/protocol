@@ -32,6 +32,8 @@ https://github.com/javanthropus/resolv-srv
 
 ### Go
 
+https://github.com/opencap/go-opencap
+
 https://golang.org/pkg/net/#LookupSRV
 
 ### PHP

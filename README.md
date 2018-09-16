@@ -16,6 +16,8 @@ Discord: https://discord.gg/FTMCBE8
 
 [Sub-Protocols](#sub-protocols)
 
+[Text Standard](#text-standard)
+
 [Attack Vectors](#attack-vectors)
 
 [Justifications](#justifications)

@@ -19,7 +19,7 @@ HTTP/1.1
 POST /v1/users
 Content-Type: application/json
 {
-    "username": "alice",
+    "alias": "alice$domain.tld",
     "password": "mysecretpassword"
     // Additional info that is server specific
 }

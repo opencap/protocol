@@ -1,6 +1,6 @@
 # CAPP - Crypto Alias Proxy Protocol
 
-CAPP is a sub-protocol that allows us to use a CAPP compliant server as a host for a separate domain name. A good comparison would be when a company uses a service like gmail to handle email hosting, but points their own domain at the service. For instance, a company like Walmart uses gmail but has a email addresses ending in "@walmart.com"
+CAPP is a sub-protocol that allows a CAPP compliant server to be used as a host for a separate domain name. A good comparison would be when a company uses a service like gmail to handle email hosting, but points their own domain at the service. For instance, a company like Walmart uses gmail but has its email addresses ending in "@walmart.com"
 
 For the purposes of this documentation we refer to the CAPP server that runs the API the "host server". The domain that is being pointed towards that host will be called the "proxy domain".
 
@@ -20,102 +20,38 @@ Here is an example SRV record:
 _opencap._tcp.proxy.tld. 86400 IN SRV 0 5 443 opencap.host.tld.
 ```
 
+Once the SRV record is added all incoming alias queries will be properly redirected to the host server.
+
 For more information on SRV records view: https://en.wikipedia.org/wiki/SRV_record#Record_format
-
-## Verifying a domain on the host server
-
-Once the SRV record is added all incoming alias queries will be properly redirected to the host server. The next steps are:
-
-1. Add a TXT record to proxy.tld that will prove ownership of the user
-2. Create an account on the host server with an alias that is associated with the proxy domain
-3. Validate to the host that the user owns the domain by using a TXT record
 
 ### Create an account on the host server
 
-#### POST /v1/users/proxy
+#### POST /v1/users
 
-CAPP servers must allow some way for users to be created with a separate domain, this endpoint is reserved for that purpose. The payload struture is NOT specified by the CAMP protocol becasuse each server may have different user data requirements for signing up. Typically this endpoint should be accessed via a client supplied by the CAMP server so there is no confusion. The idea is that users will typically create their account using their provider's website or client, then any OpenCAP wallet (client) can manage that account. The majority of the managerial duties are simply to login and update addresses periodically.
-
-```javascript
-HTTP/1.1
-POST /v1/users/proxy
-Content-Type: application/json
-{
-    "username": "alice",
-    "domain": "proxy.tld",
-    "password": "mysecretpassword"
-    // Additional info that is server specific
-}
-```
+This endpoint is reserved to create a new user or proxy user on the host server. The payload struture is not specified by the CAMP protocol becasuse each server may have different user data requirements for signing up.
 
 It is possible for two users to have the same username on the host server as long as they have different domains. In other words aliases must be unique, usernames don't need to be.
 
-### Validate to the host server that the user owns the proxy domain
+#### Verify that the new user is the owner of the proxy domain
 
-The format of the TXT record that is added to proxy.tld is as follows:
+Before activiting a new user that is using a proxy domain, a host server should check that this user has permission to have an alias using the proxy domain. There are many ways this can be done, here we descirbe one effective way that a host server can verify domain ownership. This method is not required by the CAPP protocol but is given as an example.
 
-```javascript
-opencap-domain-verification={jwt}
-```
+1. After a new proxy user account is created, the host server supplies the new user with a JWT that is associated with the new user and is signed by the server. This JWT could be similar (but not the same, for security purposes) to the JWT used for logging in.
 
-for example:
+2. The user is instructed to create a TXT record associated with their proxy domain that has the following format:
 
-```javascript
-opencap-domain-verification=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.KxyelSGuiSzBv2s6JlqbFU3kxgODsg1fm7AgrRFDE;
-```
+   ```javascript
+   opencap-domain-verification={jwt}
+   ```
 
-The JWT is the same one that is obtained via the /v1/auth endpoint in the [CAMP](/CAMP.md) sub-protocol. The JWT shouldn't expire for at least 30 minutes, which means the user has at least 30 minutes to add the JWT to the TXT record and hit the following required endpoint:
+   for example:
 
-#### PUT /v1/users/proxy
+   ```javascript
+   opencap-domain-verification=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.KxyelSGuiSzBv2s6JlqbFU3kxgODsg1fm7AgrRFDE;
+   ```
 
-Authorization Bearer {jwt}
+3. After the TXT record has been added to the proxy domain, the user notifies the host server. The host server then checks to make sure that the TXT record exists with the proper JWT.
 
-```javascript
-HTTP/1.1
-PUT /v1/users/proxy
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
-{
-    // No request body
-}
-```
+4. This proves that the user is the owner of the domain.
 
-Response:
-
-```javascript
-HTTP/1.1
-200 OK
-```
-
-Once the server recieves the request, the server will do a lookup to get the TXT and SRV records from proxy.tld (which is specified in the user's alias in the JWT) and ensure two things:
-
-1. The TXT record has a valid JWT to prove that the user owns proxy.tld
-2. The SRV record has the proper format to forward alias lookups back to host.tld
-
-### Adding additional users to the proxy domain
-
-Once one user has successfully verified a proxy domain, that user is considered an owner of the proxy domain. An owner can use the same POST /v1/users/proxy endpoint to create additional users that are associated with the proxy. This is done by simply adding an Authorization header with the token of the owner.
-
-These new users do not need to update the TXT record to validate ownership, they are automatically validated. In order to become a domain owner however, the new user would need to use the PUT /v1/users/proxy endpoint.
-
-The following is an example of what the payload could look like. Again, this endpoint is required, but the payload is not specified because different servers will require different information at sign-up. This endpoint would typically be accessed via a client supplied by the host server.
-
-Request:
-
-```javascript
-HTTP/1.1
-POST /v1/users/proxy
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
-Content-Type: application/json
-{
-    "username": "susan",
-    "domain": "proxy.tld",
-    "password": "susanpassword"
-}
-```
-
-Response:
-
-```javascript
-HTTP/1.1
-200 OK
-```
+   Now this user can called a "domain owner". A domain owner is now allowed to create other users on the host server associated with the proxy domain

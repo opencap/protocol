@@ -113,11 +113,34 @@ Like any javascript client, wallets and other client-side OpenCAP software can b
 
 Reference:
 
-https://en.wikipedia.org/wiki/Cross-site_scripting#Preventive_measures
+[Wikipedia Cross-Site Scripting](https://en.wikipedia.org/wiki/Cross-site_scripting#Preventive_measures)
 
-### DNSSEC Omission
+### DNS Poisening and MITM attacks
 
-TODO: we need an explanation of the SRV/DNSSEC security issue
+Because we are using the DNS system for SRV record lookups and to make API calls, there is potential for some form of DNS attack. If not handled properly this kind of attack could result in stolen funds because a malicious user could redirect API calls to their own server with their own addresses. None of the following solutions are required by OpenCAP but are suggestions that individual software implementations can use to help
+mitigate attacks.
+
+#### Servers
+
+- DNSSEC: Servers (both the actual host and the domain record host) can use DNSSEC to protect themselves
+
+[Wikipedia DNSSEC](https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions)
+
+#### Wallets (clients)
+
+- DNSSEC: verify that DNS responses use DNSSEC, and issue a warning to the user if they don't
+
+- DNS over HTTPS can be used to bypass local issues
+
+  - [Google DNS HTTPS API](https://dns.google.com/resolve?name=_opencap._tcp.ogdolo.com&type=SRV)
+
+  - [Cloudflare DNS HTTPS API](https://developers.cloudflare.com/1.1.1.1/dns-over-https/json-format/)
+
+- Hostname caching. For instance, whenever a wallet makes a SRV lookup to "example.tld" it should recieve the same domain name, let's say "opencap.example.tld". The wallet can cache this domain name and if it ever recieves a new name, it can alert the sender and warn them that something may be wrong.
+
+#### Individuals
+
+- DNSCrypt can secure your device from MITM attacks: https://dnscrypt.info/
 
 <hr>
 

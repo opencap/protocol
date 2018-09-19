@@ -132,7 +132,7 @@ mitigate attacks.
 
 - DNS over HTTPS can be used to bypass local issues
 
-  - [Google DNS HTTPS API](https://dns.google.com/resolve?name=_opencap._tcp.ogdolo.com&type=SRV)
+  - [Google DNS HTTPS API](https://dns.google.com/)
 
   - [Cloudflare DNS HTTPS API](https://developers.cloudflare.com/1.1.1.1/dns-over-https/json-format/)
 

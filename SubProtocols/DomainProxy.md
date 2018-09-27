@@ -1,8 +1,10 @@
-# CAPP - Crypto Alias Proxy Protocol
+# Domain Proxy
 
-CAPP is a sub-protocol that allows a CAPP compliant server to be used as a host for a separate domain name. A good comparison would be when a company uses a service like gmail to handle email hosting, but points their own domain at the service. For instance, a company like Walmart uses gmail but has its email addresses ending in "@walmart.com"
+Domain Proxy isn't exactly a protocol so much as it is a demonstration of what is possible using OpenCAP. If a server supports proxy domains that means it allows users to register aliases on the server that have a different domain. A good comparison would be when a company uses a service like gmail to handle email hosting, but points their own domain at the service. For instance, a company like Walmart uses gmail but has its email addresses ending in "@walmart.com"
 
-For the purposes of this documentation we refer to the CAPP server that runs the API the "host server". The domain that is being pointed towards that host will be called the "proxy domain".
+That being said, the following descibes how a Domain Proxy server could setup this service. Wallets are automatically able to query proxied addresses by nature of the SRV record system.
+
+For the purposes of this documentation we refer to the Domain Proxy server that runs the API the "host server". The domain that is being pointed towards that host will be called the "proxy domain".
 
 ## Pointing the proxy domain to the host server
 
@@ -26,15 +28,13 @@ For more information on SRV records view: https://en.wikipedia.org/wiki/SRV_reco
 
 ### Create an account on the host server
 
-#### POST /v1/users
-
-This endpoint is reserved to create a new user or proxy user on the host server. The payload struture is not specified by the CAMP protocol becasuse each server may have different user data requirements for signing up.
+The server must have some endpoint that allows proxied users to sign up. This could be the same endpoint that is reserved by the [Alias Management](/SubProtocols/AliasManagement.md) protocol.
 
 It is possible for two users to have the same username on the host server as long as they have different domains. In other words aliases must be unique, usernames don't need to be.
 
 #### Verify that the new user is the owner of the proxy domain
 
-Before activiting a new user that is using a proxy domain, a host server should check that this user has permission to have an alias using the proxy domain. There are many ways this can be done, here we descirbe one effective way that a host server can verify domain ownership. This method is not required by the CAPP protocol but is given as an example.
+Before activiting a new user that is using a proxy domain, a host server should check that this user has permission to have an alias using the proxy domain. There are many ways this can be done, here we describe one effective way that a host server can verify domain ownership.
 
 1. After a new proxy user account is created, the host server supplies the new user with a JWT that is associated with the new user and is signed by the server. This JWT could be similar (but not the same, for security purposes) to the JWT used for logging in.
 

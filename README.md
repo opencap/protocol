@@ -24,7 +24,7 @@ Discord: https://discord.gg/FTMCBE8
 
 [Contribute](#contribute)
 
-[OpenCAP Compliant Software](#OpenCAP-compliant-software)
+[OpenCAP Compliant Software](#opencap-compliant-software)
 
 <hr>
 

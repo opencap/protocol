@@ -10,17 +10,7 @@ For the purposes of this documentation we refer to the Domain Proxy server that 
 
 The first step to setup a proxy domain is to add a SRV record that points to the host server so that when wallets query the proxy domain they can be redirected to the proper host.
 
-The format of the SRV record is as follows:
-
-```javascript
-_service._proto.name. TTL class SRV priority weight port target.
-```
-
-Here is an example SRV record:
-
-```javascript
-_opencap._tcp.proxy.tld. 86400 IN SRV 0 5 443 opencap.host.tld.
-```
+The format of the SRV record is found here: [OpenCAP SRV Record](/SubProtocols/AddresssQuery.md#1-a-srv-record-on-the-aliass-domain)
 
 Once the SRV record is added all incoming alias queries will be properly redirected to the host server.
 

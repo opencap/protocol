@@ -2,7 +2,9 @@
 
 Alias Management is an optional protocol that allows a wallet to facilitate the creation, updating, and deletion of a user's alias resources on his/her server.
 
-All following endpoints are required by the server to adhere to "Alias Management", while a wallet can choose which to support. The endpoints are served at the same location as designated by the [Address Query](/SubProtocols/AddressQuery.md) protocol. As such, the location must be found using a SRV lookup by the wallet.
+All following endpoints are required by the server to adhere to "Alias Management", while a wallet can choose which to support. The endpoints are served at the same location as designated by the [SRV Record](/SubProtocols/AddresssQuery.md#1-a-srv-record-on-the-aliass-domain) in the [Address Query](/SubProtocols/AddressQuery.md) protocol.
+
+Again all endpoints must be served over HTTPS on port 443.
 
 ## POST /v1/auth
 

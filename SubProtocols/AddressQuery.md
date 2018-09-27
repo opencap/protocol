@@ -29,6 +29,8 @@ As an example:
 _opencap._tcp.example.tld. 86400 IN SRV 5 12 443 cap.example.tld.
 ```
 
+"cap.example.tld" describes where the host server's REST API is running.
+
 For more information on SRV records view: https://en.wikipedia.org/wiki/SRV_record#Record_format
 
 It is ideal for the SRV record to be secured using DNSSEC to mitigate against man-in-the-middle attacks, but not required.
@@ -115,24 +117,12 @@ dig SRV _opencap._tcp.example.tld
 
 There are many [tools](/Tools.md) that can make this lookup simple using different frameworks and languages.
 
-The format of the SRV record returned is as follows:
-
-```bash
-_service._proto.name. TTL class SRV priority weight port target.
-```
-
-For example:
-
-```bash
-_opencap._tcp.example.tld. 86400 IN SRV 0 5 443 cap.example.tld.
-```
-
-For more information on SRV records view: https://en.wikipedia.org/wiki/SRV_record#Record_format
+The format of the record is found [above](#1-a-srv-record-on-the-aliass-domain)
 
 Once the URL of the host server is found, in this example "cap.example.tld", the following request can be made:
 
-### GET https://cap.example.tld/v1/addresses?alias={alias}&address_type={address_type}
+### GET `https://cap.example.tld/v1/addresses?alias={alias}&address_type={address_type}`
 
-See above in the "Server Requirements" section for the return payload structure.
+See the [above](#2-host-the-following-endpoint-at-the-url-where-the-srv-points) for the return payload structure.
 
 The payload can then be parsed and the user of the wallet can decide which address_type (currency type) they want to send to the recipient.

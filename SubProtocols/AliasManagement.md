@@ -1,14 +1,14 @@
-# CAMP - Crypto Alias Management Protocol
+# Alias Management
 
-CAMP is a sub-protocol of OpenCap. CAMP is an optional protocol that allows a server to facilitate the creation, updating, and deletion of a user's alias resources. For a server to be CAMP compliant it must also be CAP compliant by serving aliases, CAMP is essentially a "tier 2" protocol built on top of CAP to add some more features.
+Alias Management is an optional protocol that allows a wallet to facilitate the creation, updating, and deletion of a user's alias resources on his/her server.
 
-The following endpoints are required:
+All following endpoints are required by the server to adhere to "Alias Management", while a wallet can choose which to support. The endpoints are served at the same location as designated by the [Address Query](/SubProtocols/AddressQuery.md) protocol. As such, the location must be found using a SRV lookup by the wallet.
 
 ## POST /v1/auth
 
 No Authorization (Public method)
 
-Authenticates a user to be able to use a JWT to authenticate at the other endpoints. The JWT must at least contain the alias of the user. The JWT must not expire for at least thirty minutes.
+Authenticates a user to be able to use a JWT to authenticate at the other endpoints. The JWT must at least contain the expiration date.
 
 Request:
 
@@ -102,4 +102,4 @@ HTTP/1.1
 
 ## POST /v1/users
 
-This endpoint is reserved to create new users on the server. The payload struture is not specified by the CAMP protocol becasuse each server may have different user data requirements for signing up.
+This endpoint is reserved to create new users on the server. The payload struture is not specified by the Alias Management protocol becasuse each server may have different user data requirements for signing up.

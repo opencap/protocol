@@ -11,8 +11,8 @@ Some coins will use the same address type, but they will be given their own IDs 
 | --- | -------------------- | ----------------------------------------------------- |
 | 100 | Bitcoin P2PKH        | [Bitcoin P2PKH](Bitcoin_P2PKH.md)                     |
 | 101 | Bitcoin P2SH         | [Bitcoin P2SH](Bitcoin_P2SH.md)                       |
-| 101 | Bitcoin Bech32       | [Bitcoin Bech32 Segwit](Bitcoin_Bech32.md)            |
-| 102 | Bitcoin Payment Code | [Bitcoin Payment Code Bip 47](Bitcoin_PaymentCode.md) |
+| 102 | Bitcoin Bech32       | [Bitcoin Bech32 Segwit](Bitcoin_Bech32.md)            |
+| 103 | Bitcoin Payment Code | [Bitcoin Payment Code Bip 47](Bitcoin_PaymentCode.md) |
 |     |                      |                                                       |
 | 200 | Bitcoin Cash P2PKH   | [Bitcoin P2PKH](Bitcoin_P2PKH.md)                     |
 | 201 | Bitcoin Cash P2SH    | [Bitcoin P2SH](Bitcoin_P2SH.md)                       |

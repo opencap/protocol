@@ -62,6 +62,7 @@ The {username} section of the alias is only allowed to use:
    - "."
    - "-"
    - "\_"
+4. And must be between 1 and 25 characters in length, inclusive
 
 <hr>
 

@@ -1,6 +1,6 @@
-# Domain Proxy
+# Domain Proxy Feature
 
-Domain Proxy isn't exactly a protocol so much as it is a demonstration of what is possible using OpenCAP. If a server supports proxy domains that means it allows users to register aliases on the server that have a different domain. A good comparison would be when a company uses a service like gmail to handle email hosting, but points their own domain at the service. For instance, a company like Walmart uses gmail but has its email addresses ending in "@walmart.com"
+If a server supports proxy domains that means it allows users to register aliases on the server that have a different domain. A good comparison would be when a company uses a service like gmail to handle email hosting, but points their own domain at the service. For instance, a company like Walmart uses gmail but has its email addresses ending in "@walmart.com"
 
 That being said, the following descibes how a Domain Proxy server could setup this service. Wallets are automatically able to query proxied addresses by nature of the SRV record system.
 

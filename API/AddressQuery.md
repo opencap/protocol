@@ -1,6 +1,6 @@
 # Address Query
 
-The Address Query sub-protocol can be considered the only "required" portion of the opencap protocol. Address Query allows a wallet (client) to be able to take an alias as input and derive the appropriate crypto address from a server.
+The "Address Query" endpoint and SRV configuration can be considered the only "required" portion of the opencap protocol. Address Query allows a wallet (client) to be able to take an alias as input and derive the appropriate crypto address from a server.
 
 ## Server Requirements
 
@@ -46,6 +46,8 @@ Returns the address(es) of the related domain and username. If the address_type 
 Each address_type has it's [own file](/AddressTypes/README.md) in this repo specifying the details and ID number.
 
 The endpoint must be served over HTTPS on port 443.
+
+It is ideal for the DNS record of the REST API be secured using DNSSEC to mitigate against man-in-the-middle attacks, but not required.
 
 Request:
 
@@ -105,7 +107,18 @@ Content-Type: application/json
 ]
 ```
 
-It is ideal for the DNS record for the domain of the REST API be secured using DNSSEC to mitigate against man-in-the-middle attacks, but not required.
+### Error Handling
+
+Whenever an error occurs with the request, a non-200 error code is sent back along with a "message" that describes the error.
+
+```javascript
+HTTP/1.1
+Non-200 HTTP Code
+Content-Type: application/json
+{
+    "message": "something bad happened",
+}
+```
 
 ## Wallet (Client) Requirements
 
@@ -121,7 +134,10 @@ The format of the record is found [above](#1-a-srv-record-on-the-aliass-domain)
 
 Once the URL of the host server is found, in this example "cap.example.tld", the following request can be made:
 
-### GET `https://cap.example.tld/v1/addresses?alias={alias}&address_type={address_type}`
+```python
+HTTP/1.1
+GET https://cap.example.tld/v1/addresses?alias={alias}&address_type={address_type}
+```
 
 See the [above](#2-host-the-following-endpoint-at-the-url-where-the-srv-points) for the return payload structure.
 

@@ -2,7 +2,7 @@
 
 Alias Management is an optional protocol that allows a wallet to facilitate the creation, updating, and deletion of a user's alias resources on his/her server.
 
-All following endpoints are required by the server to adhere to "Alias Management", while a wallet can choose which to support. The endpoints are served at the same location as designated by the [SRV Record](/SubProtocols/AddressQuery.md#1-a-srv-record-on-the-aliass-domain) in the [Address Query](/SubProtocols/AddressQuery.md) protocol.
+All following endpoints are required by the server to adhere to "Alias Management", while a wallet can choose which to support. The endpoints are served at the same location as designated by the [SRV Record](/API/AddressQuery.md#1-a-srv-record-on-the-aliass-domain) in the [Address Query](/API/AddressQuery.md) protocol.
 
 Again all endpoints must be served over HTTPS on port 443.
 
@@ -10,7 +10,7 @@ Again all endpoints must be served over HTTPS on port 443.
 
 No Authorization (Public method)
 
-Authenticates a user to be able to use a JWT to authenticate at the other endpoints. The JWT must at least contain the expiration date.
+Returns a JWT to authenticate at the other endpoints. The JWT must contain the expiration datetime. The authorization token is submitted as a header in the other requests.
 
 Request:
 
@@ -32,6 +32,14 @@ HTTP/1.1
 Content-Type: application/json
 {
     "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE"
+}
+```
+
+The decoded payload of the jwt must at least contain the expiration date. The format is a Unix Time Stamp in UTC.
+
+```javascript
+{
+  "exp": 1541031979,
 }
 ```
 
@@ -69,15 +77,13 @@ Deletes the authorized user for the authorized domain and all associated address
 Request:
 
 ```javascript
-HTTP/1.1
-DELETE /v1/users HTTP/1.1
+DELETE /v1/users
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
 ```
 
 Response:
 
 ```javascript
-HTTP/1.1
 200 OK
 ```
 
@@ -90,7 +96,6 @@ Deletes the address for authorized user of the given address_type.
 Request:
 
 ```javascript
-HTTP/1.1
 DELETE /v1/addresses/100
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
 ```
@@ -98,10 +103,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsa
 Response:
 
 ```javascript
-HTTP/1.1
 200 OK
 ```
 
 ## POST /v1/users
 
 This endpoint is reserved to create new users on the server. The payload struture is not specified by the Alias Management protocol becasuse each server may have different user data requirements for signing up.
+
+## Error Handling
+
+Errors are handled the same way as "Address Query" as seen [here](/API/AddressQuery.md#error-handling)

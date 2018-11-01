@@ -50,7 +50,7 @@ OpenCAP is a simple protocol that does one thing: relate aliases to addresses. S
 
 ### {username}${domain name}
 
-### example: lane$ogdolo.com
+### example: donate$ogdolo.com
 
 The anatomy of an OpenCAP alias may remind you of an email address. The only difference being the seperator between username and domain. However it is very important to note that email addresses have nothing to do with OpenCAP aliases other than that they share a similar format.
 
@@ -158,9 +158,11 @@ mitigate attacks.
 
 1. We didn't want to bloat an existing blockchain with superflous data that isn't directly related to transactions and balances.
 
-2. OpenCAP leaves the level of centralization up to the users. Some will use custodial OpenCAP providers, which may be the best option for some users. Others will run their own OpenCAP servers for complete control.
+2. OpenCAP leaves the level of centralization up to the users. Some will use third-party OpenCAP providers. Others will run their own OpenCAP servers for complete control.
 
-3. Previous blockchain implementations (like Namecoin) don't have the cleanest solution to the squatting problem (see above)
+3. In many cases it isn't desirable for an alias system to be immutable. OpenCAP leaves this up to the implementation.
+
+4. OpenCAP can achieve much faster create/update/delete operations than data stored on a blockchain, which means an alias can be changed quickly over time if desired.
 
 <hr>
 
@@ -168,7 +170,7 @@ mitigate attacks.
 
 OpenCAP is an open-source protocol please feel free to submit change proposals via the "issues" tab on github, or by submitting a pull request.
 
-Build software that supports the protocol! The more wallets and servers actually work together to solve the alias problem, the easier it is to solve in the end. If you aren't a developer, reach out to your favorite project teams and let them know about the project!
+Build software that supports the protocol! The more wallets and servers using OpenCAP, the more useful it will be. If you aren't a developer, reach out to your favorite project teams and let them know about aliases.
 
 <hr>
 

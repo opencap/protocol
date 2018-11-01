@@ -127,7 +127,7 @@ The format of the record is found [above](#1-a-srv-record-on-the-aliass-domain)
 
 Once the URL of the host server is found, in this example "cap.example.tld", the following request can be made:
 
-```python
+```
 HTTP/1.1
 GET https://cap.example.tld/v1/addresses?alias={alias}&address_type={address_type}
 ```

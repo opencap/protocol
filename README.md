@@ -148,7 +148,7 @@ mitigate attacks.
 
 -   **Squatting:** OpenCAP is a REST protocol built on top of DNS to stop "squatters". Squatting is when users that are the first-adopters of the protocol come in and lock-down all the "valuable" aliases ("nike", "coke", "trump", "btc", etc). By requiring that the a domain name is part of an alias, users have to first own the domain, or have permission to use it from the owner. Because domain names are already fairly distributed this is a good compromise.
 
--   **TXT Records**: There is another protocol out there, OpenAlias, that proposes the usage of domain TXT Records for transmitting and storing alias/address combinations. We didn't go this route for two reasons:
+-   **TXT Records**: There is another protocol, OpenAlias, that proposes the usage of domain TXT Records for transmitting and storing alias/address combinations. We didn't go this route for several reasons:
 
 1. OpenCAP is a communication protocol only. Using TXT records couples the communication layer to the data store. We want developers to have the freedom to use whatever data store they choose.
 

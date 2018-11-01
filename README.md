@@ -146,13 +146,15 @@ mitigate attacks.
 
 ## Justifications
 
--   **Squatting:** OpenCAP is a REST protocol built on top of DNS to stop "squatters". Squatting is when users that are the first-adopters of the protocol come in and lock-down all the "valuable" aliases ("nike", "coke", "trump", "btc", etc). By requiring that the a domain name is part of an alias, users have to first own the domain which is a system that is already fairly distributed.
+-   **Squatting:** OpenCAP is a REST protocol built on top of DNS to stop "squatters". Squatting is when users that are the first-adopters of the protocol come in and lock-down all the "valuable" aliases ("nike", "coke", "trump", "btc", etc). By requiring that the a domain name is part of an alias, users have to first own the domain, or have permission to use it from the owner. Because domain names are already fairly distributed this is a good compromise.
 
 -   **TXT Records**: There is another protocol out there, OpenAlias, that proposes the usage of domain TXT Records for transmitting and storing alias/address combinations. We didn't go this route for two reasons:
 
 1. OpenCAP is a communication protocol only. Using TXT records couples the communication layer to the data store. We want developers to have the freedom to use whatever data store they choose.
 
 2. Certain features aren't possible using DNS lookups. One example is that an OpenCAP server has the potential to serve a new address for each incoming GET request, preserving privacy. There is no way to guarantee this using DNS records.
+
+3. For most web developers (especially newer web developers) it is simpler to work with a REST API than to create, update, delete, and query DNS records. This simplicity should help with adoption.
 
 -   **Why no blockchain?**
 

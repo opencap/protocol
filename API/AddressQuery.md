@@ -52,7 +52,6 @@ It is ideal for the DNS record of the REST API be secured using DNSSEC to mitiga
 Request:
 
 ```javascript
-HTTP/1.1
 GET /v1/addresses?alias=alice$domain.tld&address_type=100
 ```
 
@@ -61,7 +60,6 @@ Response:
 The "extensions" object in the response is reserved for servers to be able to communicate extra data to clients they are familiar with. It is an optional field that the server can include if desired.
 
 ```javascript
-HTTP/1.1
 200 OK
 Content-Type: application/json
 {
@@ -76,14 +74,12 @@ or
 Request:
 
 ```javascript
-HTTP/1.1
 GET /v1/addresses?alias=alice$domain.tld
 ```
 
 Response:
 
 ```javascript
-HTTP/1.1
 200 OK
 Content-Type: application/json
 [
@@ -105,7 +101,6 @@ Content-Type: application/json
 Whenever an error occurs with the request, a non-200 error code is sent back along with a "message" that describes the error.
 
 ```javascript
-HTTP/1.1
 Non-200 HTTP Code
 Content-Type: application/json
 {
@@ -128,7 +123,6 @@ The format of the record is found [above](#1-a-srv-record-on-the-aliass-domain)
 Once the URL of the host server is found, in this example "cap.example.tld", the following request can be made:
 
 ```
-HTTP/1.1
 GET https://cap.example.tld/v1/addresses?alias={alias}&address_type={address_type}
 ```
 

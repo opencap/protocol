@@ -110,7 +110,7 @@ Content-Type: application/json
 
 ## Wallet (Client) Requirements
 
-When a wallet wants to find an address for a given alias first it looks up the SRV record for the domain. If the alias is "username$example.tld" then this would be done on linux in the following way:
+To find the address for a given alias a client must first look up the SRV record for the domain. If the alias is "username$example.tld" then this would be done on linux in the following way:
 
 ```bash
 dig SRV _opencap._tcp.example.tld
@@ -126,6 +126,6 @@ Once the URL of the host server is found, in this example "cap.example.tld", the
 GET https://cap.example.tld/v1/addresses?alias={alias}&address_type={address_type}
 ```
 
-See the [above](#2-host-the-following-endpoint-at-the-url-where-the-srv-points) for the return payload structure.
+See [above](#2-host-the-following-endpoint-at-the-url-where-the-srv-points) for the return payload structure.
 
-The payload can then be parsed and the user of the wallet can decide which address_type (currency type) they want to send to the recipient.
+The payload can then be parsed and the user of the wallet can decide which [address_type](/AddressTypes/README.md) (currency type and address version) to send to the recipient.

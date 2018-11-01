@@ -59,9 +59,16 @@ The {username} section of the alias is only allowed to use:
 1. Lower-case letters
 2. Numbers
 3. The following punctuation:
+<<<<<<< HEAD
     - "."
     - "-"
     - "\_"
+=======
+   - "."
+   - "-"
+   - "\_"
+4. And must be between 1 and 25 characters in length, inclusive
+>>>>>>> 4fc82fcebf25cc38a8fc7c5582de9c4f8733416d
 
 <hr>
 

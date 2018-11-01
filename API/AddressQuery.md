@@ -58,6 +58,8 @@ GET /v1/addresses?alias=alice$domain.tld&address_type=100
 
 Response:
 
+The "extensions" object in the response is reserved for servers to be able to communicate extra data to clients they are familiar with. It is an optional field that the server can include if desired.
+
 ```javascript
 HTTP/1.1
 200 OK
@@ -65,10 +67,7 @@ Content-Type: application/json
 {
     "address_type": 100,
     "address": "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2",
-    "extensions": {
-        "name": "Alice",
-        // ...
-    }
+    "extensions": {}
 }
 ```
 
@@ -91,18 +90,12 @@ Content-Type: application/json
     {
         "address_type": 100,
         "address": "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2",
-        "extensions": {
-            "name": "Alice",
-            // ...
-        }
+        "extensions": {}
     },
     {
         "address_type": 101,
         "address": "3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy",
-        "extensions": {
-            "name": "Alice",
-            // ...
-        }
+        "extensions": {}
     }
 ]
 ```

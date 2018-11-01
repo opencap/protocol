@@ -15,7 +15,6 @@ Returns a JWT to authenticate at the other endpoints. The JWT must contain the e
 Request:
 
 ```javascript
-HTTP/1.1
 POST /v1/auth
 Content-Type: application/json
 {
@@ -27,7 +26,6 @@ Content-Type: application/json
 Response:
 
 ```javascript
-HTTP/1.1
 200 OK
 Content-Type: application/json
 {
@@ -52,7 +50,6 @@ Adds or updates the address of the authenticated user for the given address type
 Request:
 
 ```javascript
-HTTP/1.1
 PUT /v1/addresses
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
 {
@@ -64,7 +61,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsa
 Response:
 
 ```javascript
-HTTP/1.1
 200 OK
 ```
 

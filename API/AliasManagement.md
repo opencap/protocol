@@ -64,25 +64,6 @@ Response:
 200 OK
 ```
 
-## DELETE /v1/users
-
-Authorization Bearer {jwt}
-
-Deletes the authorized user for the authorized domain and all associated addresses.
-
-Request:
-
-```javascript
-DELETE /v1/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwiZG9tYWluIjoiZG9tYWluLnRsZCIsImlhdCI6MTUxNjIzOTAyMn0.Kxy-elSGuiSzBv2s6JlqbFU3kxgOD-sg1fm7AgrRFDE
-```
-
-Response:
-
-```javascript
-200 OK
-```
-
 ## DELETE /v1/addresses/{address_type}
 
 Authorization Bearer {jwt}
@@ -102,7 +83,7 @@ Response:
 200 OK
 ```
 
-## POST /v1/users
+## POST, DELETE /v1/users
 
 This endpoint is reserved to create new users on the server. The payload struture is not specified by the Alias Management protocol becasuse each server may have different user data requirements for signing up.
 

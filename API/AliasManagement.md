@@ -83,9 +83,9 @@ Response:
 200 OK
 ```
 
-## POST, DELETE /v1/users
+## POST, DELETE, etc... /v1/users
 
-This endpoint is reserved to create new users on the server. The payload struture is not specified by the Alias Management protocol becasuse each server may have different user data requirements for signing up.
+This endpoint is reserved for user management. Payload strutures are not specified by the Alias Management protocol becasuse each server may have different user data requirements for signing up, deleteing, etc.
 
 ## Error Handling
 

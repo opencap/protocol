@@ -1,4 +1,4 @@
-# 101: Bitcoin Cash CashAddr
+# Bitcoin Cash CashAddr
 
 Description: https://github.com/bitcoincashorg/bitcoincash.org/blob/master/spec/cashaddr.md
 

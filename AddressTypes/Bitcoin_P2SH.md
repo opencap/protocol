@@ -1,4 +1,4 @@
-# 101: Bitcoin P2PKH
+# Bitcoin P2PKH
 
 Description: https://en.bitcoin.it/wiki/Address
 

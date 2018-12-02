@@ -1,4 +1,4 @@
-# 103: Bitcoin Payment Code - BIP 47
+# Bitcoin Payment Code - BIP 47
 
 Description: https://github.com/bitcoin/bips/blob/master/bip-0047.mediawiki
 

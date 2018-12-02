@@ -1,4 +1,4 @@
-# 102: Bitcoin Bech32
+# Bitcoin Bech32
 
 Description: https://en.bitcoin.it/wiki/Address
 

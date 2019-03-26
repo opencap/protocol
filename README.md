@@ -64,6 +64,9 @@ The {username} section of the alias is only allowed to use:
     - "\_"
 4. And must be between 1 and 25 characters in length, inclusive
 
+The {domain name} section of an alias may only use valid ASCII characters, which eliminates the use of some international domain names. This is intended
+to protect against an [IDN Homograph Attack](https://en.wikipedia.org/wiki/IDN_homograph_attack#Homographs_in_internationalized_domain_names)
+
 <hr>
 
 ## API
@@ -95,17 +98,17 @@ The most obvious way for a malicious party to use the alias system to steal fund
 
 Possible remedies:
 
--   Only allow address updates from verified IP addresses
--   Run a OpenCAP server yourself instead of using a third party (Using a third party isn't inherently insecure, and in the case of a non-programmer it is probably more secure)
--   Only allow address updates manually through a browser and 2FA/captcha. Some currencies may not update addresses often, if ever. (Nano for example)
--   Use 2 way encryption like AES-256 to cipher address and user data before storing it in a database so it can't easily be swapped out
+- Only allow address updates from verified IP addresses
+- Run a OpenCAP server yourself instead of using a third party (Using a third party isn't inherently insecure, and in the case of a non-programmer it is probably more secure)
+- Only allow address updates manually through a browser and 2FA/captcha. Some currencies may not update addresses often, if ever. (Nano for example)
+- Use 2 way encryption like AES-256 to cipher address and user data before storing it in a database so it can't easily be swapped out
 
 ### Payment Tracking
 
 It is fairly simple for a third party to constatly poll a given alias's endpoint and record all that alias's addresses over time. While the alias protocol isn't necessarily meant to have stringent privacy measures (the whole point of an alias is to relate a public account to an address) there are a couple things that can be done to increase privacy:
 
--   Coins that are able to implement features similar to BIP 47 should do so and use payment codes instead of regular addresses.
--   Servers can have sign-ups that don't require any personal information, so users can use an anonymous alias.
+- Coins that are able to implement features similar to BIP 47 should do so and use payment codes instead of regular addresses.
+- Servers can have sign-ups that don't require any personal information, so users can use an anonymous alias.
 
 ### Cross-Site Scripting XSS
 
@@ -122,33 +125,33 @@ mitigate attacks.
 
 #### Servers
 
--   DNSSEC: Servers (both the actual host and the domain record host) can use DNSSEC to protect themselves
+- DNSSEC: Servers (both the actual host and the domain record host) can use DNSSEC to protect themselves
 
 [Wikipedia DNSSEC](https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions)
 
 #### Wallets (clients)
 
--   DNSSEC: verify that DNS responses use DNSSEC, and issue a warning to the user if they don't
+- DNSSEC: verify that DNS responses use DNSSEC, and issue a warning to the user if they don't
 
--   DNS over HTTPS can be used to bypass local issues
+- DNS over HTTPS can be used to bypass local issues
 
-    -   [Google DNS HTTPS API](https://dns.google.com/)
+    - [Google DNS HTTPS API](https://dns.google.com/)
 
-    -   [Cloudflare DNS HTTPS API](https://developers.cloudflare.com/1.1.1.1/dns-over-https/json-format/)
+    - [Cloudflare DNS HTTPS API](https://developers.cloudflare.com/1.1.1.1/dns-over-https/json-format/)
 
--   Hostname caching. For instance, whenever a wallet makes a SRV lookup to "example.tld" it should recieve the same domain name, let's say "opencap.example.tld". The wallet can cache this domain name and if it ever recieves a new name, it can alert the sender and warn them that something may be wrong.
+- Hostname caching. For instance, whenever a wallet makes a SRV lookup to "example.tld" it should recieve the same domain name, let's say "opencap.example.tld". The wallet can cache this domain name and if it ever recieves a new name, it can alert the sender and warn them that something may be wrong.
 
 #### Individuals
 
--   DNSCrypt can secure your device from MITM attacks: https://dnscrypt.info/
+- DNSCrypt can secure your device from MITM attacks: https://dnscrypt.info/
 
 <hr>
 
 ## Justifications
 
--   **Squatting:** OpenCAP is a REST protocol built on top of DNS to stop "squatters". Squatting is when users that are the first-adopters of the protocol come in and lock-down all the "valuable" aliases ("nike", "coke", "trump", "btc", etc). By requiring that the a domain name is part of an alias, users have to first own the domain, or have permission to use it from the owner. Because domain names are already fairly distributed this is a good compromise.
+- **Squatting:** OpenCAP is a REST protocol built on top of DNS to stop "squatters". Squatting is when users that are the first-adopters of the protocol come in and lock-down all the "valuable" aliases ("nike", "coke", "trump", "btc", etc). By requiring that the a domain name is part of an alias, users have to first own the domain, or have permission to use it from the owner. Because domain names are already fairly distributed this is a good compromise.
 
--   **TXT Records**: There is another protocol, OpenAlias, that proposes the usage of domain TXT Records for transmitting and storing alias/address combinations. We didn't go this route for several reasons:
+- **TXT Records**: There is another protocol, OpenAlias, that proposes the usage of domain TXT Records for transmitting and storing alias/address combinations. We didn't go this route for several reasons:
 
 1. OpenCAP is a communication protocol only. Using TXT records couples the communication layer to the data store. We want developers to have the freedom to use whatever data store they choose.
 
@@ -156,7 +159,7 @@ mitigate attacks.
 
 3. For most web developers (especially newer web developers) it is simpler to work with a REST API than to create, update, delete, and query DNS records. This simplicity should help with adoption.
 
--   **Why no blockchain?**
+- **Why no blockchain?**
 
 1. We didn't want to bloat an existing blockchain with superflous data that isn't directly related to transactions and balances.
 
@@ -178,7 +181,9 @@ Build software that supports the protocol! The more wallets and servers using Op
 
 ## OpenCAP Compliant Software
 
-| Link                                  | Type                                      |
-| ------------------------------------- | ----------------------------------------- |
-| [Ogdolo.com](https://www.ogdolo.com/) | Address Query and Alias Management server |
-| [Nanollet](https://nanollet.org/)     | Address Query Nano wallet                 |
+| Link                                                      | Type                                      |
+| --------------------------------------------------------- | ----------------------------------------- |
+| [Ogdolo.com](https://www.ogdolo.com/)                     | Address Query and Alias Management server |
+| [Nanollet](https://nanollet.org/)                         | Address Query Nano wallet                 |
+| [Mynano.ninja](https://mynano.ninja/)                     | Address Query server                      |
+| [OpenCAP Go Server](https://github.com/opencap/go-server) | Personal Open Source Server               |

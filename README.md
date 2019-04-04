@@ -105,7 +105,7 @@ Possible remedies:
 
 ### Payment Tracking
 
-It is fairly simple for a third party to constatly poll a given alias's endpoint and record all that alias's addresses over time. While the alias protocol isn't necessarily meant to have stringent privacy measures (the whole point of an alias is to relate a public account to an address) there are a couple things that can be done to increase privacy:
+It is fairly simple for a third party to constantly poll a given alias's endpoint and record all that alias's addresses over time. While the alias protocol isn't necessarily meant to have stringent privacy measures (the whole point of an alias is to relate a public account to an address) there are a couple things that can be done to increase privacy:
 
 - Coins that are able to implement features similar to BIP 47 should do so and use payment codes instead of regular addresses.
 - Servers can have sign-ups that don't require any personal information, so users can use an anonymous alias.

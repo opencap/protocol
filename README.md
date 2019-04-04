@@ -118,7 +118,7 @@ Reference:
 
 [Wikipedia Cross-Site Scripting](https://en.wikipedia.org/wiki/Cross-site_scripting#Preventive_measures)
 
-### DNS Poisening and MITM attacks
+### DNS Poisoning and MITM attacks
 
 Because we are using the DNS system for SRV record lookups and to make API calls, there is potential for some form of DNS attack. If not handled properly this kind of attack could result in stolen funds because a malicious user could redirect API calls to their own server with their own addresses. None of the following solutions are required by OpenCAP but are suggestions that individual software implementations can use to help
 mitigate attacks.

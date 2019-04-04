@@ -139,7 +139,7 @@ mitigate attacks.
 
     - [Cloudflare DNS HTTPS API](https://developers.cloudflare.com/1.1.1.1/dns-over-https/json-format/)
 
-- Hostname caching. For instance, whenever a wallet makes a SRV lookup to "example.tld" it should recieve the same domain name, let's say "opencap.example.tld". The wallet can cache this domain name and if it ever recieves a new name, it can alert the sender and warn them that something may be wrong.
+- Hostname caching. For instance, whenever a wallet makes a SRV lookup to "example.tld" it should receive the same domain name, let's say "opencap.example.tld". The wallet can cache this domain name and if it ever receives a new name, it can alert the sender and warn them that something may be wrong.
 
 #### Individuals
 

@@ -190,7 +190,7 @@ Build software that supports the protocol! The more wallets and servers using Op
 | [Mynano.ninja](https://mynano.ninja/)                     | Address Query server                      |
 | [OpenCAP Go Server](https://github.com/opencap/go-server) | Personal Open Source Server               |
 
-## OpenCAP Development tools
+## OpenCAP Development Tools
 
 | Link                                                      | Type                                      |
 | --------------------------------------------------------- | ----------------------------------------- |

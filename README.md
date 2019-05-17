@@ -24,7 +24,9 @@ Discord: https://discord.gg/FTMCBE8
 
 [Contribute](#contribute)
 
-[OpenCAP Compliant Software](#opencap-compliant-software)
+[OpenCAP Compliant Applications](#opencap-compliant-applications)
+
+[OpenCAP Development Tools](#opencap-development-tools)
 
 <hr>
 
@@ -179,7 +181,7 @@ Build software that supports the protocol! The more wallets and servers using Op
 
 <hr>
 
-## OpenCAP Compliant Software
+## OpenCAP Compliant Applications
 
 | Link                                                      | Type                                      |
 | --------------------------------------------------------- | ----------------------------------------- |
@@ -187,3 +189,10 @@ Build software that supports the protocol! The more wallets and servers using Op
 | [Nanollet](https://nanollet.org/)                         | Address Query Nano wallet                 |
 | [Mynano.ninja](https://mynano.ninja/)                     | Address Query server                      |
 | [OpenCAP Go Server](https://github.com/opencap/go-server) | Personal Open Source Server               |
+
+## OpenCAP Development tools
+
+| Link                                                      | Type                                      |
+| --------------------------------------------------------- | ----------------------------------------- |
+| [go-opencap](https://github.com/opencap/go-opencap)       | Useful helper functions for Go developers |
+| [opencap-js](https://www.npmjs.com/package/opencap)       | Library for JS developers.|

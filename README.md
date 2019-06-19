@@ -14,7 +14,7 @@ Discord: https://discord.gg/FTMCBE8
 
 [Anatomy of an Alias](#anatomy-of-an-alias)
 
-[API](#API)
+[API](#api)
 
 [Text Standard](#text-standard)
 
@@ -185,10 +185,10 @@ Build software that supports the protocol! The more wallets and servers using Op
 
 | Link                                                      | Type                                      |
 | --------------------------------------------------------- | ----------------------------------------- |
-| [Ogdolo.com](https://www.ogdolo.com/)                     | Address Query and Alias Management server |
-| [Nanollet](https://nanollet.org/)                         | Address Query Nano wallet                 |
-| [Mynano.ninja](https://mynano.ninja/)                     | Address Query server                      |
-| [OpenCAP Go Server](https://github.com/opencap/go-server) | Personal Open Source Server               |
+| [Ogdolo.com](https://www.ogdolo.com/)                     | Alias provider (Adress Query, Adress Management)
+| [Nanollet](https://nanollet.org/)                         | Nano wallet (Address Query)               |
+| [Mynano.ninja](https://mynano.ninja/)                     | Alias provider (Address Query)            |
+| [OpenCAP Go Server](https://github.com/opencap/go-server) | Self hostable open source server          |
 
 ## OpenCAP Development Tools
 

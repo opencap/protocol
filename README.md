@@ -189,7 +189,7 @@ Build software that supports the protocol! The more wallets and servers using Op
 | [Nanollet](https://nanollet.org/)                         | Nano wallet (Address Query)               |
 | [Mynano.ninja](https://mynano.ninja/)                     | Alias provider (Address Query)            |
 | [OpenCAP Server (Implemented in Go)](https://github.com/opencap/go-server) | Self hostable open source server          |
-| [OpenCAP JS (Implemented in JS)](https://github.com/BitDesert/opencap-server)| Self hostable open source server
+| [OpenCAP Server (Implemented in JS)](https://github.com/BitDesert/opencap-server)| Self hostable open source server
 ## OpenCAP Development Tools
 
 | Link                                                      | Type                                      |

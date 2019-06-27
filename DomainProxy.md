@@ -18,7 +18,7 @@ For more information on SRV records view: https://en.wikipedia.org/wiki/SRV_reco
 
 ### Create an account on the host server
 
-The server must have some endpoint that allows proxied users to sign up. This could be the same endpoint that is reserved by the [Alias Management](/SubProtocols/AliasManagement.md) protocol.
+The server must have some endpoint that allows proxied users to sign up. This could be the same endpoint that is reserved by the [Alias Management](/API/AliasManagement.md) protocol.
 
 It is possible for two users to have the same username on the host server as long as they have different domains. In other words aliases must be unique, usernames don't need to be.
 

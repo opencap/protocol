@@ -185,7 +185,6 @@ Build software that supports the protocol! The more wallets and servers using Op
 
 | Link                                                      | Type                                      |
 | --------------------------------------------------------- | ----------------------------------------- |
-| [Ogdolo.com](https://www.ogdolo.com/)                     | Alias provider (Address Query, Address Management)
 | [Nanollet](https://nanollet.org/)                         | Nano wallet (Address Query)               |
 | [Mynano.ninja](https://mynano.ninja/)                     | Alias provider (Address Query)            |
 | [OpenCAP Server (implemented in go)](https://github.com/opencap/go-server) | Self hostable open source server          |

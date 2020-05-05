@@ -96,6 +96,18 @@ Content-Type: application/json
 ]
 ```
 
+### Commonly used extensions
+
+The extensions field is commonly used for additional profile information other than just a cryptocurrency address.
+For the best user experience we must achieve cross implementation compatibility so it is recommended to use common field names.
+As of now OpenCAP specifically recommends the following field names for an optional image as well as a nickname.
+```javascript
+"extensions": {
+    "image": "john_smith_image_url.png",
+    "nickname": "John Smith"
+}
+```
+
 ### Error Handling
 
 Whenever an error occurs with the request, a non-200 error code is sent back along with a "message" that describes the error.

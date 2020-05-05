@@ -103,7 +103,7 @@ For the best user experience we must achieve cross implementation compatibility 
 As of now OpenCAP specifically recommends the following field names for an image as well as a nickname.
 ```javascript
 "extensions": {
-    "avatar": "www.example.com/john_smith_image_url.png",
+    "avatar": "https://www.example.com/avatar/john_smith_image_url.png",
     "nickname": "John Smith"
 }
 ```

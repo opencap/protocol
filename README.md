@@ -185,7 +185,7 @@ Build software that supports the protocol! The more wallets and servers using Op
 
 | Link                                                      | Type                                      |
 | --------------------------------------------------------- | ----------------------------------------- |
-| [Vola](https://getvola.com/)                              | Nano wallet (Address Query) 
+| [Vola](https://getvola.com/)                              | Nano wallet, Alias provider (Address Query)| 
 | [Nanollet](https://nanollet.org/)                         | Nano wallet (Address Query)               |
 | [Mynano.ninja](https://mynano.ninja/)                     | Alias provider (Address Query)            |
 | [OpenCAP Server (implemented in go)](https://github.com/opencap/go-server) | Self hostable open source server          |

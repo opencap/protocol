@@ -66,6 +66,12 @@ The {username} section of the alias is only allowed to use:
     - "\_"
 4. And must be between 1 and 25 characters in length, inclusive
 
+A valid RegEx would be:
+```regex
+^([a-z0-9.-_]{1,25})\$([a-z0-9][a-z0-9-]{1,61}[a-z0-9]\.[a-z]{2,})$
+```
+[Try it at RegExr.com](https://regexr.com/53uqu)
+
 The {domain name} section of an alias may only use valid ASCII characters, which eliminates the use of some international domain names. This is intended
 to protect against an [IDN Homograph Attack](https://en.wikipedia.org/wiki/IDN_homograph_attack#Homographs_in_internationalized_domain_names)
 
